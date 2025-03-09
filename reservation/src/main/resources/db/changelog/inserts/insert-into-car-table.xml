@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="1" author="Artiom">
+        <insert tableName="car">
+            <column name="id" value="8bb66169-b382-4923-92e2-b96b15acb67e"/>
+            <column name="manufacturer" value="BMW"/>
+            <column name="model" value="530d xDrive"/>
+            <column name="vin" value="WBAJE5C56JB123456"/>
+            <column name="fuel" value="Diesel"/>
+            <column name="manufacturer_date" value="2018-01-01"/>
+            <column name="engine_capacity" value="2993"/>
+            <column name="created_at" value="2021-01-01 00:00:00.000000"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+            <column name="body_type" value="Sedan"/>
+
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>
