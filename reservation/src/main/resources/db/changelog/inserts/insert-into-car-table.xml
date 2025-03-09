@@ -17,7 +17,36 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="Sedan"/>
+        </insert>
 
+
+        <insert tableName="car">
+            <column name="id" value="fe691876-0eaa-4403-84a2-300e8a6fc13a"/>
+            <column name="manufacturer" value="Volkswagen"/>
+            <column name="model" value="Transporter"/>
+            <column name="vin" value="WV1ZZZ7HZGP123456"/>
+            <column name="fuel" value="Diesel"/>
+            <column name="manufacturer_date" value="2019-01-01"/>
+            <column name="engine_capacity" value="1968"/>
+            <column name="created_at" value="2022-01-01 00:00:00.000000"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+            <column name="body_type" value="Minivan"/>
+        </insert>
+
+
+        <insert tableName="car">
+            <column name="id" value="5f6356d5-67d1-439a-9b20-0d3dd3cc8fa7"/>
+            <column name="manufacturer" value="Skoda"/>
+            <column name="model" value="Oktavia CGR 973"/>
+            <column name="vin" value="TMBZZZ1Z9J11234567"/>
+            <column name="fuel" value="Gasoline"/>
+            <column name="manufacturer_date" value="2017-01-01"/>
+            <column name="engine_capacity" value="1798"/>
+            <column name="created_at" value="2017-06-01 00:00:00.000000"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+            <column name="body_type" value="Sedan"/>
         </insert>
     </changeSet>
 
