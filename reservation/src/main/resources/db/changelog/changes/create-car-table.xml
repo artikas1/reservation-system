@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="Artiom">
         <createTable tableName="car">
-            <column name="id" type="UUID">
+            <column name="id" type="uuid">
                 <constraints primaryKey="true" nullable="false"/>
             </column>
             <column name="manufacturer" type="varchar(255)">

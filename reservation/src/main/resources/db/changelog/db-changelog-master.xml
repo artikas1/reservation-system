@@ -5,8 +5,12 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <include file ="changes/create-car-table.xml" relativeToChangelogFile="true"/>
-    <include file ="inserts/insert-into-car-table.xml" relativeToChangelogFile="true"/>
     <include file ="changes/create-user-table.xml" relativeToChangelogFile="true"/>
+
+    <include file ="changes/create-car-reservation-table.xml" relativeToChangelogFile="true"/>
+
+    <include file ="inserts/insert-into-car-table.xml" relativeToChangelogFile="true"/>
     <include file ="inserts/insert-into-user-table.xml" relativeToChangelogFile="true"/>
 
+    <include file="inserts/insert-into-car-reservations-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

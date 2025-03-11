@@ -6,7 +6,7 @@
 
     <changeSet id="2" author="Artiom">
         <insert tableName="user">
-            <column name="id" value="35bcd33b-7e29-4709-b2ce-e58073fb4cbb"/>
+            <column name="id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
             <column name="first_name" value="test123"/>
             <column name="last_name" value="test321"/>
             <column name="email" value="test123@gmail.com"/>
