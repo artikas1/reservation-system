@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="4" author="Artiom">
+
+        <insert tableName="equipment">
+            <column name="id" value="eee38ce8-aa22-45e0-94e1-d0804500da13"/>
+            <column name="name" value="Laptop"/>
+            <column name="manufacturer" value="Dell"/>
+            <column name="model" value="XPS 13"/>
+            <column name="code" value="LAP123456"/>
+            <column name="description" value="High-performance laptop"/>
+            <column name="created_at" value="2021-01-01 00:00:00.000000"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+        </insert>
+
+    </changeSet>
+
+</databaseChangeLog>
