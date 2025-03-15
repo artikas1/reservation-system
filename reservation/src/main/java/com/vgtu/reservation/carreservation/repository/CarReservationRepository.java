@@ -16,5 +16,7 @@ import java.util.List;
 public interface CarReservationRepository extends JpaRepository<CarReservation, UUID> {
 
 //    @Query("SELECT cr FROM CarReservation cr WHERE cr.user.id = :userId")
-    List<CarReservation> findAllByUserId(@Param("userId") UUID userId);
+//    List<CarReservation> findAllByUserId(@Param("userId") UUID userId);
+
+    List<CarReservation> findByUserId(UUID userId);
 }

@@ -24,6 +24,7 @@ public class CarReservationController {
     @GetMapping("/user")
     public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations(
             @RequestParam UUID userId) {
+        System.out.println("userId: " + userId);
         List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations(userId);
         return ResponseEntity.ok(reservations);
     }

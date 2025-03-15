@@ -15,9 +15,9 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CarReservationDao {
 
-    private final CarReservationRepository carReservationRepository;
-
-    public List<CarReservation> findAllUserReservations(UUID userId) {
-        return carReservationRepository.findAllByUserId(userId);
-    }
+//    private final CarReservationRepository carReservationRepository;
+//
+//    public List<CarReservation> findAllUserReservations(UUID userId) {
+//        return carReservationRepository.findAllByUserId(userId);
+//    }
 }
