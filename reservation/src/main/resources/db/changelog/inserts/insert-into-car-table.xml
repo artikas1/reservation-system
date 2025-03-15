@@ -34,7 +34,6 @@
             <column name="body_type" value="Minivan"/>
         </insert>
 
-
         <insert tableName="car">
             <column name="id" value="5f6356d5-67d1-439a-9b20-0d3dd3cc8fa7"/>
             <column name="manufacturer" value="Skoda"/>
