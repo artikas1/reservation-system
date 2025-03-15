@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="5" author="Artiom">
+        <insert tableName="room">
+            <column name="id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
+            <column name="name" value="Darbo vieta"/>
+            <column name="floor" value="1"/>
+            <column name="room_number" value="101"/>
+            <column name="seats" value="1"/>
+            <column name="description" value="Darbo kabinetas su stalu ir kompiuteriu vienam žmogui"/>
+            <column name="created_at" value="2025-01-01"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+        </insert>
+
+        <insert tableName="room">
+            <column name="id" value="16e303c2-b134-420c-b87a-1faf036e61b1"/>
+            <column name="name" value="Darbo vieta"/>
+            <column name="floor" value="1"/>
+            <column name="room_number" value="102"/>
+            <column name="seats" value="2"/>
+            <column name="description" value="Darbo kabinetas su stalais ir kompiuteriais dviem žmonėms"/>
+            <column name="created_at" value="2025-01-01"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+        </insert>
+
+        <insert tableName="room">
+            <column name="id" value="635fc197-90af-4f16-9ea6-da4adf3e51ca"/>
+            <column name="name" value="Susitikimų kambarys"/>
+            <column name="floor" value="2"/>
+            <column name="room_number" value="201"/>
+            <column name="seats" value="10"/>
+            <column name="description" value="Susitikimų kambarys su dideliu stalu dašimčiai žmonių"/>
+            <column name="created_at" value="2025-01-01"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>
