@@ -5,15 +5,25 @@
                    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
     <changeSet id="2" author="Artiom">
+
         <insert tableName="user">
             <column name="id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
+            <column name="first_name" value="test"/>
+            <column name="last_name" value="test"/>
+            <column name="email" value="test@gmail.com"/>
+            <column name="password" value="$2a$10$ba6OMkzTuMlK39nVfOUkIOFxM6xyk3.bKtdbgfo6WltbZ1/d27Yyi"/>
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="63d1f4a9-53b6-4351-9cce-9d6d8999aa9f"/>
             <column name="first_name" value="test123"/>
-            <column name="last_name" value="test321"/>
+            <column name="last_name" value="test123"/>
             <column name="email" value="test123@gmail.com"/>
-            <column name="password" value="test123"/>
+            <column name="password" value="$2a$10$A0Wo5qb6yttD7qgXqszUBO9Vld/0x7rD4YRSSUdfo0UcaevJXftlK"/>
         </insert>
 
     </changeSet>
+
 
 
 </databaseChangeLog>

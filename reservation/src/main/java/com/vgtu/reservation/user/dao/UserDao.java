@@ -23,6 +23,14 @@ public class UserDao {
         return userRepository.findByEmail(email);
     }
 
+    public void saveUser(User user) {
+        if(user == null) {
+            throw new EntityNotFoundException("User cannot be null");
+        }
+
+        userRepository.save(user);
+    }
+
     public Optional<User> findById(UUID id) {
         if(id == null) {
             throw  new EntityNotFoundException("Id cannot be null");

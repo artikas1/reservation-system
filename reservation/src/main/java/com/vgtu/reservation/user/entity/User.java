@@ -2,7 +2,11 @@ package com.vgtu.reservation.user.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -12,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "user", schema = "public")
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,6 +25,18 @@ public class User {
     private String lastName;
     private String email;
     private String password;
+
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of();
+    }
+
+    public String getUsername() {
+        return email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
 
     //roleId
     //createAt
