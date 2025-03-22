@@ -21,6 +21,10 @@ public class UserController {
 
     private final UserService userService;
 
+    @Operation(summary = "Get user by JWT token", description = "Retrieves user details by JTW token")
+    @GetMapping("/me")
+    public UserResponseDto getUserById() { return userService.getUser();}
+
     @Operation(summary = "Get user by ID", description = "Retrieves user details by their ID")
     @GetMapping("/{userId}")
     public UserResponseDto getUserById(

@@ -2,6 +2,7 @@ package com.vgtu.reservation.carreservation.dao;
 
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
+import com.vgtu.reservation.user.integrity.UserDataIntegrity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,13 @@ import java.util.UUID;
 @AllArgsConstructor
 public class CarReservationDao {
 
-//    private final CarReservationRepository carReservationRepository;
-//
-//    public List<CarReservation> findAllUserReservations(UUID userId) {
-//        return carReservationRepository.findAllByUserId(userId);
-//    }
+    private final UserDataIntegrity userDataIntegrity;
+    private final CarReservationRepository carReservationRepository;
+
+    public List<CarReservation> finAllUserReservations(UUID userId) {
+        userDataIntegrity.validateId(userId);
+
+        return carReservationRepository.findByUserId(userId);
+    }
+
 }
