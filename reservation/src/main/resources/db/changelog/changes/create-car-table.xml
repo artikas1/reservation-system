@@ -27,6 +27,9 @@
             <column name="engine_capacity" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="number_plate" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
             <column name="created_at" type="datetime(6)">
                 <constraints nullable="false"/>
             </column>

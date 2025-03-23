@@ -11,13 +11,14 @@
 
     <include file ="changes/create-car-reservation-table.xml" relativeToChangelogFile="true"/>
     <include file ="changes/create-equipment-reservation-table.xml" relativeToChangelogFile="true"/>
+    <include file="changes/create-room-reservation-table.xml" relativeToChangelogFile="true"/>
 
     <include file ="inserts/insert-into-user-table.xml" relativeToChangelogFile="true"/>
     <include file ="inserts/insert-into-car-table.xml" relativeToChangelogFile="true"/>
     <include file ="inserts/insert-into-equipment-table.xml" relativeToChangelogFile="true"/>
     <include file ="inserts/insert-into-room-table.xml" relativeToChangelogFile="true"/>
 
-    <include file="inserts/insert-into-car-reservations-table.xml" relativeToChangelogFile="true"/>
-    <include file="inserts/insert-into-equipment-reservations-table.xml" relativeToChangelogFile="true"/>
-
+    <include file="inserts/insert-into-car-reservation-table.xml" relativeToChangelogFile="true"/>
+    <include file="inserts/insert-into-equipment-reservation-table.xml" relativeToChangelogFile="true"/>
+    <include file="inserts/insert-into-room-reservation-table.xml" relativeToChangelogFile="true"/>
 </databaseChangeLog>

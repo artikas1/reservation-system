@@ -19,6 +19,7 @@ public class CarResponseDto {
     private String fuel;
     private String manufacturerDate;
     private String engineCapacity;
+    private String numberPlate;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 /**
  * Converts the CarReservation entity to a CarReservationResponseDto so it can be sent as a response
  */
-
 @Component
 @AllArgsConstructor
 public class CarReservationMapper {

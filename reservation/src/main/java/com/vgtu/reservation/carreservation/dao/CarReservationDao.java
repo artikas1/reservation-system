@@ -12,7 +12,6 @@ import java.util.UUID;
 /**
  * Interacts with the database to fetch data related to a car reservations
  */
-
 @Service
 @AllArgsConstructor
 public class CarReservationDao {
@@ -20,7 +19,7 @@ public class CarReservationDao {
     private final UserDataIntegrity userDataIntegrity;
     private final CarReservationRepository carReservationRepository;
 
-    public List<CarReservation> finAllUserReservations(UUID userId) {
+    public List<CarReservation> findAllUserReservations(UUID userId) {
         userDataIntegrity.validateId(userId);
 
         return carReservationRepository.findByUserId(userId);

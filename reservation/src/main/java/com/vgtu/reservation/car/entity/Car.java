@@ -25,6 +25,7 @@ public class Car {
     private String fuel;
     private String manufacturerDate;
     private String engineCapacity;
+    private String numberPlate;
     //private int areaId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;

@@ -14,4 +14,5 @@ import java.util.List;
 public interface CarReservationRepository extends JpaRepository<CarReservation, UUID> {
 
     List<CarReservation> findByUserId(UUID userId);
+
 }

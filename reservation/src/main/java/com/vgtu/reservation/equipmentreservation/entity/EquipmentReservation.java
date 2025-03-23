@@ -5,7 +5,7 @@ import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -29,14 +29,14 @@ public class EquipmentReservation {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    private LocalDate reservedFrom;
+    private LocalDateTime reservedFrom;
 
-    private LocalDate reservedTo;
+    private LocalDateTime reservedTo;
 
-    private LocalDate createdAt;
+    private LocalDateTime createdAt;
 
-    private LocalDate updatedAt;
+    private LocalDateTime updatedAt;
 
-    private LocalDate deletedAt;
+    private LocalDateTime deletedAt;
 
 }

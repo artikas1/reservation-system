@@ -24,7 +24,7 @@ public class CarReservationService {
     public List<CarReservationResponseDto> findAllUserReservations() {
         var user = authenticationService.getAuthenticatedUser();
 
-        return carReservationDao.finAllUserReservations(user.getId())
+        return carReservationDao.findAllUserReservations(user.getId())
                 .stream().map(carReservationMapper::toCarResponseDto)
                 .collect(Collectors.toList());
     }

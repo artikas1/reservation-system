@@ -1,6 +1,6 @@
-package com.vgtu.reservation.carreservation.entity;
+package com.vgtu.reservation.roomreservation.entity;
 
-import com.vgtu.reservation.car.entity.Car;
+import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -14,16 +14,16 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "car_reservation")
-public class CarReservation {
+@Table(name = "room_reservation")
+public class RoomReservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @ManyToOne
-    @JoinColumn(name = "car_id", nullable = false)
-    private Car car;
+    @JoinColumn(name = "room_id", nullable = false)
+    private Room room;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
