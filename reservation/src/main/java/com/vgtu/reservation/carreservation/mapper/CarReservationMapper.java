@@ -6,7 +6,7 @@ import com.vgtu.reservation.carreservation.entity.CarReservation;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Component;
 
-/*
+/**
  * Converts the CarReservation entity to a CarReservationResponseDto so it can be sent as a response
  */
 

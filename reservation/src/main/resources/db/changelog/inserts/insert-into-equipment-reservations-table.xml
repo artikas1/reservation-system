@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="6" author="Artiom">
+        <insert tableName="equipment_reservation">
+            <column name="id" value="b0e94187-6dfa-49a7-b69d-aaf97f5d92a1"/>
+            <column name="equipment_id" value="eee38ce8-aa22-45e0-94e1-d0804500da13"/>
+            <column name="user_id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
+            <column name="reserved_from" value="2025-02-01"/>
+            <column name="reserved_to" value="2026-1-01"/>
+            <column name="created_at" value="2025-01-01"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+        </insert>
+
+    </changeSet>
+
+
+</databaseChangeLog>

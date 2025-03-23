@@ -18,7 +18,7 @@ public class CarReservationController {
 
     private final CarReservationService carReservationService;
 
-    @Operation(summary = "Get all user reservations", description = "Retrieves all reservations made by a specific user")
+    @Operation(summary = "Get all user car reservations", description = "Retrieves all car reservations made by a specific user")
     @GetMapping("/user")
     public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations() {
 

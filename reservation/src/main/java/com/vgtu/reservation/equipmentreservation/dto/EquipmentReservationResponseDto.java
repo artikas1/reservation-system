@@ -1,24 +1,23 @@
-package com.vgtu.reservation.carreservation.dto;
+package com.vgtu.reservation.equipmentreservation.dto;
 
-import com.vgtu.reservation.car.dto.CarResponseDto;
+import com.vgtu.reservation.equipment.dto.EquipmentResponseDto;
 import lombok.*;
 
 import java.time.LocalDate;
 import java.util.UUID;
 
 /**
- * This is a data transfer object that represents the car reservation details to be sent in the response
+ * This is a data transfer object that represents the equipment reservation details to be sent in the response
  */
-
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarReservationResponseDto {
+public class EquipmentReservationResponseDto {
 
     private UUID id;
-    private CarResponseDto car;
+    private EquipmentResponseDto equipment;
     private UUID userId;
     private LocalDate reservedFrom;
     private LocalDate reservedTo;

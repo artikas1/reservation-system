@@ -16,7 +16,7 @@ public class CarMapper {
                 .fuel(car.getFuel())
                 .manufacturerDate(car.getManufacturerDate())
                 .engineCapacity(car.getEngineCapacity())
-                .createAt(car.getCreatedAt())
+                .createdAt(car.getCreatedAt())
                 .updatedAt(car.getUpdatedAt())
                 .deletedAt(car.getDeletedAt())
                 .bodyType(car.getBodyType())

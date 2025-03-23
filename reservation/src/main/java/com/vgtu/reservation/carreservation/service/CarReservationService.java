@@ -10,10 +10,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/*
+/**
  * Contains the business logic for the car reservation functionality
  */
-
 @Service
 @AllArgsConstructor
 public class CarReservationService {

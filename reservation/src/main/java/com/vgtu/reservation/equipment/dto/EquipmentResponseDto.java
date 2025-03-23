@@ -1,4 +1,4 @@
-package com.vgtu.reservation.car.dto;
+package com.vgtu.reservation.equipment.dto;
 
 import lombok.*;
 
@@ -10,18 +10,16 @@ import java.util.UUID;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CarResponseDto {
+public class EquipmentResponseDto {
 
     private UUID id;
+    private String name;
     private String manufacturer;
     private String model;
-    private String vin;
-    private String fuel;
-    private String manufacturerDate;
-    private String engineCapacity;
+    private String code;
+    private String description;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private String bodyType;
 
 }

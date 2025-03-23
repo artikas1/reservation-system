@@ -10,7 +10,6 @@ import org.springframework.context.annotation.Configuration;
 /**
  * Swagger configuration class
  */
-
 @Configuration
 public class SwaggerConfig {
 
