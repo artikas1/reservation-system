@@ -34,7 +34,7 @@ public class CarReservationService {
                 .collect(Collectors.toList());
     }
 
-    public void deleteReservatoinByCarId(UUID carId) {
+    public void deleteReservationByCarId(UUID carId) {
         carDataIntegrity.validateId(carId);
 
         var user = authenticationService.getAuthenticatedUser();

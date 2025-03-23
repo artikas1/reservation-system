@@ -30,7 +30,7 @@ public class CarReservationController {
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteReservationByCarId(
             @Parameter(description = "ID of the reserved car to delete") @RequestParam UUID carId) {
-        carReservationService.deleteReservatoinByCarId(carId);
+        carReservationService.deleteReservationByCarId(carId);
         return ResponseEntity.ok().build();
     }
 }
