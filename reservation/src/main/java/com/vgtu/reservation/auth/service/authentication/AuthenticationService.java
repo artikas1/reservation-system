@@ -5,9 +5,10 @@ import com.vgtu.reservation.auth.dto.LoginResponseDto;
 import com.vgtu.reservation.auth.dto.RegisterRequestDto;
 import com.vgtu.reservation.auth.mapper.AuthenticationMapper;
 import com.vgtu.reservation.auth.service.jwt.JwtService;
-import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.common.exception.exceptions.UserNotAuthorizedException;
+import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
+import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.user.dao.UserDao;
 import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,14 +22,6 @@ import org.springframework.stereotype.Service;
 @Service
 @AllArgsConstructor
 public class AuthenticationService {
-
-//    private final UserDao userDao;
-//
-//    public boolean authenticate(String email, String password) {
-//        var user = userDao.findByEmail(email)
-//                .orElseThrow(() -> new RuntimeException("User not found"));
-//        return user.getPassword().equals(password); // In real application, you should use password hashing
-//    }
 
     private static final String YOU_ARE_NOT_AUTHORIZED_TO_PERFORM_THIS_ACTION = "You are not authorized to perform this action";
 
@@ -76,13 +69,19 @@ public class AuthenticationService {
         return user;
     }
 
-//    public void checkAuthorizationBetweenUserAndCar(User user, Car car) {
-//        if (!car.getUser().getId().equals(user.getId())) {
-//            throw new UserNotAuthorizedException(YOU_ARE_NOT_AUTHORIZED_TO_PERFORM_THIS_ACTION);
-//        }
-//    }
+    public void checkAuthorizationBetweenUserAndRoomReservation(User user, RoomReservation reservation) {
+        if (!reservation.getUser().getId().equals(user.getId())) {
+            throw new UserNotAuthorizedException(YOU_ARE_NOT_AUTHORIZED_TO_PERFORM_THIS_ACTION);
+        }
+    }
 
-    public void checkAuthorizationBetweenUserAndReservation(User user, CarReservation reservation) {
+    public void checkAuthorizationBetweenUserAndEquipmentReservation(User user, EquipmentReservation reservation) {
+        if (!reservation.getUser().getId().equals(user.getId())) {
+            throw new UserNotAuthorizedException(YOU_ARE_NOT_AUTHORIZED_TO_PERFORM_THIS_ACTION);
+        }
+    }
+
+    public void checkAuthorizationBetweenUserAndCarReservation(User user, CarReservation reservation) {
         if (!reservation.getUser().getId().equals(user.getId())) {
             throw new UserNotAuthorizedException(YOU_ARE_NOT_AUTHORIZED_TO_PERFORM_THIS_ACTION);
         }

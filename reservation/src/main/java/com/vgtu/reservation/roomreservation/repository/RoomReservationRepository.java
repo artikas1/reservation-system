@@ -1,6 +1,7 @@
 package com.vgtu.reservation.roomreservation.repository;
 
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,9 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
 
     List<RoomReservation> findByUserId(UUID userId);
 
+    @Transactional
+    void deleteRoomReservationByRoom_Id(UUID roomId);
+
+    @Transactional
+    RoomReservation findRoomReservationByRoom_Id(UUID roomId);
 }

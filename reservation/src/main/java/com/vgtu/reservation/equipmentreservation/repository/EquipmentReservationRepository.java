@@ -1,6 +1,7 @@
 package com.vgtu.reservation.equipmentreservation.repository;
 
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,9 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     List<EquipmentReservation> findByUserId(UUID userId);
 
+    @Transactional
+    EquipmentReservation findEquipmentReservationByEquipment_Id(UUID equipmentId);
+
+    @Transactional
+    void deleteEquipmentReservationByEquipment_Id(UUID equipmentId);
 }

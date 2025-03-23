@@ -1,6 +1,7 @@
 package com.vgtu.reservation.carreservation.repository;
 
 import com.vgtu.reservation.carreservation.entity.CarReservation;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -15,4 +16,9 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
 
     List<CarReservation> findByUserId(UUID userId);
 
+    @Transactional
+    void deleteCarReservationByCar_Id(UUID carId);
+
+    @Transactional
+    CarReservation findCarReservationByCar_Id(UUID carId);
 }

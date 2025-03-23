@@ -3,13 +3,13 @@ package com.vgtu.reservation.carreservation.controller;
 import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
 import com.vgtu.reservation.carreservation.service.CarReservationService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/car-reservation")
 @RestController
@@ -26,4 +26,11 @@ public class CarReservationController {
         return ResponseEntity.ok(reservations);
     }
 
+    @Operation(summary ="Delete car reservation", description = "Delete car reservation by car id")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteReservationByCarId(
+            @Parameter(description = "ID of the reserved car to delete") @RequestParam UUID carId) {
+        carReservationService.deleteReservatoinByCarId(carId);
+        return ResponseEntity.ok().build();
+    }
 }

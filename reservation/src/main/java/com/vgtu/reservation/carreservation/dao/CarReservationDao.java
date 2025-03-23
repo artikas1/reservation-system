@@ -1,6 +1,7 @@
 package com.vgtu.reservation.carreservation.dao;
 
 import com.vgtu.reservation.carreservation.entity.CarReservation;
+import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
 import com.vgtu.reservation.user.integrity.UserDataIntegrity;
 import lombok.AllArgsConstructor;
@@ -18,6 +19,7 @@ public class CarReservationDao {
 
     private final UserDataIntegrity userDataIntegrity;
     private final CarReservationRepository carReservationRepository;
+    private final CarReservationDataIntegrity carReservationDataIntegrity;
 
     public List<CarReservation> findAllUserReservations(UUID userId) {
         userDataIntegrity.validateId(userId);
@@ -25,4 +27,15 @@ public class CarReservationDao {
         return carReservationRepository.findByUserId(userId);
     }
 
+    public CarReservation findReservationByCarId(UUID carId) {
+        carReservationDataIntegrity.validateId(carId);
+
+        return carReservationRepository.findCarReservationByCar_Id(carId);
+    }
+
+    public void deleteCarReservationByCarId(UUID carId) {
+        carReservationDataIntegrity.validateId(carId);
+
+        carReservationRepository.deleteCarReservationByCar_Id(carId);
+    }
 }
