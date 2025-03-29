@@ -11,7 +11,7 @@ public class CarDataIntegrity {
     public static final String CAR_ID_CANNOT_BE_NULL = "Car id cannot be null";
 
     public void validateId(UUID id) {
-        if(id == null) {
+        if (id == null) {
             throw new CarBadRequestException(CAR_ID_CANNOT_BE_NULL);
         }
     }

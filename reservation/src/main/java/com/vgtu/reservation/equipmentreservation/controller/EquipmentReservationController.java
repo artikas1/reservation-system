@@ -5,12 +5,17 @@ import com.vgtu.reservation.equipmentreservation.service.EquipmentReservationSer
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Used to define endpoints for equipment reservation
+ */
 @RequestMapping("/equipment-reservation")
 @RestController
 @AllArgsConstructor
@@ -18,19 +23,31 @@ public class EquipmentReservationController {
 
     private final EquipmentReservationService equipmentReservationService;
 
+    @Operation(summary = "Reserve equipment", description = "Reserves equipment by its ID")
+    @PostMapping("/{equipmentId}")
+    public ResponseEntity<EquipmentReservationResponseDto> reserveEquipment(
+            @Parameter(description = "ID of the equipment to reserve") @PathVariable UUID equipmentId,
+            @Parameter(description = "Reservation start time") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @Parameter(description = "Reservation end time") @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+
+        EquipmentReservationResponseDto reservation = equipmentReservationService.reserveEquipment(equipmentId, startTime, endTime);
+        return ResponseEntity.ok(reservation);
+
+    }
+
+    @Operation(summary= "Delete equipment reservation", description = "Delete equipment reservation by equipment reservation id")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteReservationByEquipmentReservationId(
+            @Parameter(description = "ID of the equipment reservation to delete") @RequestParam UUID equipmentReservationId) {
+        equipmentReservationService.deleteReservationByEquipmentReservationId(equipmentReservationId);
+        return ResponseEntity.ok().build();
+    }
+
     @Operation(summary = "Get all user equipment reservations", description = "Retrieves all equipment reservations made by a specific user")
     @GetMapping("/user")
     public ResponseEntity<List<EquipmentReservationResponseDto>> findAllUserReservations() {
 
         List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations();
         return ResponseEntity.ok(reservations);
-    }
-
-    @Operation(summary= "Delete equipment reservation", description = "Delete equipment reservation by equipment id")
-    @DeleteMapping("/delete")
-    public ResponseEntity<Void> deleteReservationByEquipmentId(
-            @Parameter(description = "ID of the reserved equipment item to delete") @RequestParam UUID equipmentId) {
-        equipmentReservationService.deleteReservationByEquipmentId(equipmentId);
-        return ResponseEntity.ok().build();
     }
 }

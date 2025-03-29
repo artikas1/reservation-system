@@ -21,22 +21,29 @@ public class EquipmentReservationDao {
     private final EquipmentReservationRepository equipmentReservationRepository;
     private final EquipmentReservationDataIntegrity equipmentReservationDataIntegrity;
 
+    public EquipmentReservation save(EquipmentReservation equipmentReservation) {
+        equipmentReservationDataIntegrity.validateEquipmentReservation(equipmentReservation);
+
+        return equipmentReservationRepository.save(equipmentReservation);
+    }
+
     public List<EquipmentReservation> findAllUserReservations(UUID userId) {
         userDataIntegrity.validateId(userId);
 
         return equipmentReservationRepository.findByUserId(userId);
     }
 
-    public EquipmentReservation findReservationByEquipmentId(UUID equipmentId) {
-        equipmentReservationDataIntegrity.validateId(equipmentId);
+    public EquipmentReservation findReservationByEquipmentReservationId(UUID equipmentReservationId) {
+        equipmentReservationDataIntegrity.validateId(equipmentReservationId);
 
-        return equipmentReservationRepository.findEquipmentReservationByEquipment_Id(equipmentId);
+        return equipmentReservationRepository.findById(equipmentReservationId)
+                .orElseThrow(() -> new IllegalArgumentException("Reservation not found"));
     }
 
-    public void deleteReservationByEquipmentId(UUID equipmentId) {
-        equipmentReservationDataIntegrity.validateId(equipmentId);
+    public void deleteReservationByEquipmentReservationId(UUID equipmentReservationId) {
+        equipmentReservationDataIntegrity.validateId(equipmentReservationId);
 
-        equipmentReservationRepository.deleteEquipmentReservationByEquipment_Id(equipmentId);
+        equipmentReservationRepository.deleteById(equipmentReservationId);
     }
 
 }

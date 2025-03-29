@@ -1,5 +1,6 @@
 package com.vgtu.reservation.roomreservation.dao;
 
+import com.vgtu.reservation.common.exception.exceptions.RoomReservationBadRequestException;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
@@ -21,21 +22,28 @@ public class RoomReservationDao {
     private final RoomReservationRepository roomReservationRepository;
     private final RoomReservationDataIntegrity roomReservationDataIntegrity;
 
+    public RoomReservation save(RoomReservation roomReservation) {
+        roomReservationDataIntegrity.validateRoomReservation(roomReservation);
+
+        return roomReservationRepository.save(roomReservation);
+    }
+
     public List<RoomReservation> findAllUserReservations(UUID userId) {
         userDataIntegrity.validateId(userId);
 
         return roomReservationRepository.findByUserId(userId);
     }
 
-    public RoomReservation findReservationByRoomId(UUID roomId) {
-        roomReservationDataIntegrity.validateId(roomId);
+    public RoomReservation findReservationByRoomReservationId(UUID roomReservationId) {
+        roomReservationDataIntegrity.validateId(roomReservationId);
 
-        return roomReservationRepository.findRoomReservationByRoom_Id(roomId);
+        return roomReservationRepository.findById(roomReservationId)
+                .orElseThrow(() -> new RoomReservationBadRequestException("Reservation not found"));
     }
 
-    public void deleteReservationByRoomId(UUID roomId) {
-        roomReservationDataIntegrity.validateId(roomId);
+    public void deleteReservationByRoomId(UUID roomReservationId) {
+        roomReservationDataIntegrity.validateId(roomReservationId);
 
-        roomReservationRepository.deleteRoomReservationByRoom_Id(roomId);
+        roomReservationRepository.deleteById(roomReservationId);
     }
 }
