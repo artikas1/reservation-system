@@ -44,4 +44,15 @@ public class CarController {
 
         return ResponseEntity.ok(result);
     }
+
+    @Operation(summary = "Get all available cars with eco flag", description = "Retrieves available cars and marks the most eco-friendly ones")
+    @GetMapping("/available/eco")
+    public ResponseEntity<List<CarResponseDto>> getAvailableEcoCars(
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+
+        var result = carService.getAvailableCarDtosWithEcoFlag(startTime, endTime);
+        return ResponseEntity.ok(result);
+    }
+
 }

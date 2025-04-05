@@ -24,5 +24,6 @@ public class CarResponseDto {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private String bodyType;
-
+    private Double averageFuelConsumption; // in L/100km
+    private Boolean isEcoFriendly;
 }

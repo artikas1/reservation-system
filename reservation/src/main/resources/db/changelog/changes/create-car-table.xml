@@ -42,6 +42,9 @@
             <column name="body_type" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="average_fuel_consumption" type="double">
+                <constraints nullable="true"/>
+            </column>
         </createTable>
     </changeSet>
 

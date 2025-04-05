@@ -31,4 +31,5 @@ public class Car {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private String bodyType;
+    private Double averageFuelConsumption; // in L/100km
 }

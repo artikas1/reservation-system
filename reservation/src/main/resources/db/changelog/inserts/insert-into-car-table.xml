@@ -18,6 +18,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="Sedan"/>
+            <column name="average_fuel_consumption" value="6"/>
         </insert>
 
 
@@ -34,6 +35,23 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="Minivan"/>
+            <column name="average_fuel_consumption" value="7"/>
+        </insert>
+
+        <insert tableName="car">
+            <column name="id" value="adf7d5c5-b93e-4393-9403-fd07f297ccf9"/>
+            <column name="manufacturer" value="Volkswagen"/>
+            <column name="model" value="Transporter"/>
+            <column name="vin" value="WV1ZZZ7HZGP123457"/>
+            <column name="fuel" value="Diesel"/>
+            <column name="manufacturer_date" value="2019-01-01"/>
+            <column name="engine_capacity" value="1968"/>
+            <column name="number_plate" value="BBB112"/>
+            <column name="created_at" value="2022-01-01 00:00:00.000000"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+            <column name="body_type" value="Minivan"/>
+            <column name="average_fuel_consumption" value="7"/>
         </insert>
 
         <insert tableName="car">
@@ -49,6 +67,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="Sedan"/>
+            <column name="average_fuel_consumption" value="6"/>
         </insert>
 
         <insert tableName="car">
@@ -64,6 +83,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="Sedan"/>
+            <column name="average_fuel_consumption" value="6"/>
         </insert>
 
 
