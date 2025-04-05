@@ -17,7 +17,7 @@ public class SwaggerConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-                .info(new Info().title("Food Flow API").version("1.0").description("API documentation for the Food Flow application"))
+                .info(new Info().title("Rezervis API").version("1.0").description("API documentation for the Rezervis application"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
                         .addSecuritySchemes("bearerAuth",

@@ -8,7 +8,7 @@
         <insert tableName="review">
             <column name="id" value="a1b2c3d4-5678-90ef-1234-567890abcdef"/>
             <column name="content" value="This room is not that well ventilated"/>
-            <column name="reviewed_entity_id" value="16e303c2-b134-420c-b87a-1faf036e61b1"/>
+            <column name="reviewed_entity_id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
             <column name="entity_type" value="ROOM"/>
             <column name="created_at" value="2025-02-15T10:30:00"/>
             <column name="user_id" value="NULL"/>
