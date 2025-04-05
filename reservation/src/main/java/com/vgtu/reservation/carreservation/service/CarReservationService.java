@@ -29,10 +29,10 @@ public class CarReservationService {
     private final CarService carService;
     private final CarReservationDataIntegrity carReservationDataIntegrity;
 
-    public List<CarReservationResponseDto> findAllUserReservations() {
+    public List<CarReservationResponseDto> findAllActiveUserReservations() {
         var user = authenticationService.getAuthenticatedUser();
 
-        return carReservationDao.findAllUserReservations(user.getId())
+        return carReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(carReservationMapper::toCarResponseDto)
                 .collect(Collectors.toList());
     }
@@ -45,7 +45,8 @@ public class CarReservationService {
 
         authenticationService.checkAuthorizationBetweenUserAndCarReservation(user, reservation);
 
-        carReservationDao.deleteCarReservationByCarReservationId(carReservationId);
+        reservation.setDeletedAt(LocalDateTime.now());
+        carReservationDao.save(reservation);
     }
 
     public CarReservationResponseDto reserveCar(UUID carId, LocalDateTime startTime, LocalDateTime endTime) {

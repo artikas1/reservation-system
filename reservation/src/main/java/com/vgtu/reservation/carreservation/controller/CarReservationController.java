@@ -34,7 +34,6 @@ public class CarReservationController {
         return ResponseEntity.ok(reservation);
     }
 
-
     @Operation(summary ="Delete car reservation", description = "Delete car reservation by car reservation id")
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteReservationByCarReservationId(
@@ -43,11 +42,12 @@ public class CarReservationController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Get all user car reservations", description = "Retrieves all car reservations made by a specific user")
+    @Operation(summary = "Get all active user car reservations", description = "Retrieves all active car reservations made by a specific user")
     @GetMapping("/user")
-    public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations() {
+    public ResponseEntity<List<CarReservationResponseDto>> findAllActiveUserReservations() {
 
-        List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations();
+        List<CarReservationResponseDto> reservations = carReservationService.findAllActiveUserReservations();
         return ResponseEntity.ok(reservations);
     }
+
 }

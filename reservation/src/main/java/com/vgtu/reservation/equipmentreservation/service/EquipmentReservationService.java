@@ -30,10 +30,10 @@ public class EquipmentReservationService {
     private final EquipmentService equipmentService;
 
 
-    public List<EquipmentReservationResponseDto> findAllUserReservations() {
+    public List<EquipmentReservationResponseDto> findAllActiveUserReservations() {
         var user = authenticationService.getAuthenticatedUser();
 
-        return equipmentReservationDao.findAllUserReservations(user.getId())
+        return equipmentReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(equipmentReservationMapper::toEquipmentResponseDto)
                 .collect(Collectors.toList());
     }
@@ -46,7 +46,8 @@ public class EquipmentReservationService {
 
         authenticationService.checkAuthorizationBetweenUserAndEquipmentReservation(user, reservation);
 
-        equipmentReservationDao.deleteReservationByEquipmentReservationId(equipmentReservationId);
+        reservation.setDeletedAt(LocalDateTime.now());
+        equipmentReservationDao.save(reservation);
     }
 
     public EquipmentReservationResponseDto reserveEquipment(UUID equipmentId, LocalDateTime startTime, LocalDateTime endTime) {

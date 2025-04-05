@@ -34,6 +34,12 @@ public class RoomReservationDao {
         return roomReservationRepository.findByUserId(userId);
     }
 
+    public List <RoomReservation> findAllActiveUserReservations(UUID userId) {
+        userDataIntegrity.validateId(userId);
+
+        return roomReservationRepository.findActiveByUserId(userId);
+    }
+
     public RoomReservation findReservationByRoomReservationId(UUID roomReservationId) {
         roomReservationDataIntegrity.validateId(roomReservationId);
 

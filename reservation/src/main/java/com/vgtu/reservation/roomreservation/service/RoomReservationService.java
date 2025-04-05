@@ -29,10 +29,10 @@ public class RoomReservationService {
     private final RoomService roomService;
     private final RoomReservationDataIntegrity roomReservationDataIntegrity;
 
-    public List<RoomReservationResponseDto> findAllUserReservations() {
+    public List<RoomReservationResponseDto> findAllActiveUserReservations() {
         var user = authenticationService.getAuthenticatedUser();
 
-        return roomReservationDao.findAllUserReservations(user.getId())
+        return roomReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(roomReservationMapper::toRoomResponseDto)
                 .collect(Collectors.toList());
     }
@@ -45,8 +45,8 @@ public class RoomReservationService {
 
         authenticationService.checkAuthorizationBetweenUserAndRoomReservation(user, reservation);
 
-        roomReservationDao.deleteReservationByRoomId(roomReservationId);
-
+        reservation.setDeletedAt(LocalDateTime.now());
+        roomReservationDao.save(reservation);
     }
 
     public RoomReservationResponseDto reserveRoom(UUID roomId, LocalDateTime startTime, LocalDateTime endTime) {

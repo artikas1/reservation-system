@@ -19,6 +19,14 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
 
     List<CarReservation> findByUserId(UUID userId);
 
+    @Query("""
+    SELECT r FROM CarReservation r
+    WHERE r.user.id = :userId
+    AND r.deletedAt IS NULL
+    AND r.reservedTo > CURRENT_TIMESTAMP
+""")
+    List<CarReservation> findActiveByUserId(@Param("userId") UUID userId);
+
     @Transactional
     void deleteById(UUID id);
 

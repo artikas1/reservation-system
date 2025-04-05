@@ -42,11 +42,11 @@ public class RoomReservationController {
         return ResponseEntity.ok().build();
     }
 
-    @Operation(summary = "Get all user room reservations", description = "Retrieves all room reservations made by a specific user")
+    @Operation(summary = "Get all active user room reservations", description = "Retrieves all active room reservations made by a specific user")
     @GetMapping("/user")
-    public ResponseEntity<List<RoomReservationResponseDto>> findAllUserReservations() {
+    public ResponseEntity<List<RoomReservationResponseDto>> findAllActiveUserReservations() {
 
-        List<RoomReservationResponseDto> reservations = roomReservationService.findAllUserReservations();
+        List<RoomReservationResponseDto> reservations = roomReservationService.findAllActiveUserReservations();
         return ResponseEntity.ok(reservations);
     }
 

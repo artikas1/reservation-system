@@ -19,6 +19,14 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     List<EquipmentReservation> findByUserId(UUID userId);
 
+   @Query("""
+    SELECT r FROM EquipmentReservation r
+    WHERE r.user.id = :userId
+    AND r.deletedAt IS NULL
+    AND r.reservedTo > CURRENT_TIMESTAMP
+""")
+    List<EquipmentReservation> findActiveByUserId(@Param("userId") UUID userId);
+
     @Transactional
     void deleteById(UUID id);
 

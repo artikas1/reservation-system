@@ -34,6 +34,12 @@ public class CarReservationDao {
         return carReservationRepository.findByUserId(userId);
     }
 
+    public List<CarReservation> findAllActiveUserReservations(UUID userId) {
+        userDataIntegrity.validateId(userId);
+
+        return carReservationRepository.findActiveByUserId(userId);
+    }
+
     public CarReservation findReservationByCarReservationId(UUID carReservationId) {
         carReservationDataIntegrity.validateId(carReservationId);
 

@@ -19,6 +19,14 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
 
     List<RoomReservation> findByUserId(UUID userId);
 
+    @Query("""
+    SELECT r FROM RoomReservation r
+    WHERE r.user.id = :userId
+    AND r.deletedAt IS NULL
+    AND r.reservedTo > CURRENT_TIMESTAMP
+""")
+    List<RoomReservation> findActiveByUserId(@Param("userId") UUID userId);
+
     @Transactional
     void deleteById(UUID id);
 

@@ -33,6 +33,12 @@ public class EquipmentReservationDao {
         return equipmentReservationRepository.findByUserId(userId);
     }
 
+    public List <EquipmentReservation> findAllActiveUserReservations(UUID userId) {
+        userDataIntegrity.validateId(userId);
+
+        return equipmentReservationRepository.findActiveByUserId(userId);
+    }
+
     public EquipmentReservation findReservationByEquipmentReservationId(UUID equipmentReservationId) {
         equipmentReservationDataIntegrity.validateId(equipmentReservationId);
 
