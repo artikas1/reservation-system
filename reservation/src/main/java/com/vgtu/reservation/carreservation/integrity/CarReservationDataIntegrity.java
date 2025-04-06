@@ -3,8 +3,8 @@ package com.vgtu.reservation.carreservation.integrity;
 import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
-import com.vgtu.reservation.common.exception.exceptions.CarConflictException;
-import com.vgtu.reservation.common.exception.exceptions.CarReservationBadRequestException;
+import com.vgtu.reservation.common.exception.CarConflictException;
+import com.vgtu.reservation.common.exception.CarReservationBadRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

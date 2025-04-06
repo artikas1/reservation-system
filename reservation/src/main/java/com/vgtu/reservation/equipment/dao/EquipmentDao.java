@@ -1,6 +1,6 @@
 package com.vgtu.reservation.equipment.dao;
 
-import com.vgtu.reservation.common.exception.exceptions.EquipmentNotFoundException;
+import com.vgtu.reservation.common.exception.EquipmentNotFoundException;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
 import com.vgtu.reservation.equipment.repository.EquipmentRepository;

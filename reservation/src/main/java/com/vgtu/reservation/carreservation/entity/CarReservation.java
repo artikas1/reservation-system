@@ -1,7 +1,7 @@
 package com.vgtu.reservation.carreservation.entity;
 
 import com.vgtu.reservation.car.entity.Car;
-import com.vgtu.reservation.carreservation.type.ReservationStatus;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;

@@ -3,6 +3,7 @@ package com.vgtu.reservation.equipmentreservation.dao;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.equipmentreservation.integrity.EquipmentReservationDataIntegrity;
 import com.vgtu.reservation.equipmentreservation.repository.EquipmentReservationRepository;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.user.integrity.UserDataIntegrity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interacts with the database to fetch data related to a car reservations
+ * Interacts with the database to fetch data related to a equipment reservations
  */
 @Service
 @AllArgsConstructor
@@ -52,4 +53,8 @@ public class EquipmentReservationDao {
         equipmentReservationRepository.deleteById(equipmentReservationId);
     }
 
+    public List<EquipmentReservation> findByUserIdAndStatus(UUID userId, ReservationStatus reservationStatus) {
+        userDataIntegrity.validateId(userId);
+        return equipmentReservationRepository.findByUserIdAndReservationStatus(userId, reservationStatus);
+    }
 }

@@ -1,4 +1,4 @@
-package com.vgtu.reservation.common.exception.exceptions;
+package com.vgtu.reservation.common.exception;
 
 public class EquipmentReservationBadRequestException extends RuntimeException {
     public EquipmentReservationBadRequestException(String message) {

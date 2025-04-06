@@ -1,6 +1,6 @@
 package com.vgtu.reservation.room.dao;
 
-import com.vgtu.reservation.common.exception.exceptions.RoomNotFoundException;
+import com.vgtu.reservation.common.exception.RoomNotFoundException;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.room.repository.RoomRepository;

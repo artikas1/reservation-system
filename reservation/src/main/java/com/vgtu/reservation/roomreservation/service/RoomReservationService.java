@@ -1,7 +1,7 @@
 package com.vgtu.reservation.roomreservation.service;
 
 import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
-import com.vgtu.reservation.roomreservation.type.ReservationStatus;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.room.service.RoomService;
 import com.vgtu.reservation.roomreservation.dao.RoomReservationDao;
@@ -39,15 +39,20 @@ public class RoomReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<RoomReservationResponseDto> findAllUserReservations() {
+    public List<RoomReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
         var user = authenticationService.getAuthenticatedUser();
 
-        var reservations = roomReservationDao.findAllUserReservations(user.getId());
+        List<RoomReservation> reservations;
+        if (reservationStatus != null) {
+            reservations = roomReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
+        } else {
+            reservations = roomReservationDao.findAllUserReservations(user.getId());
+        }
 
         reservations.forEach(this::updateStatusIfExpired);
 
-        return roomReservationDao.findAllUserReservations(user.getId())
-                .stream().map(roomReservationMapper::toRoomResponseDto)
+        return reservations.stream()
+                .map(roomReservationMapper::toRoomResponseDto)
                 .collect(Collectors.toList());
     }
 

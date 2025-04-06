@@ -1,4 +1,4 @@
-package com.vgtu.reservation.carreservation.type;
+package com.vgtu.reservation.common.type;
 
 public enum ReservationStatus {
     AKTYVI,

@@ -1,7 +1,7 @@
 package com.vgtu.reservation.equipmentreservation.dto;
 
 import com.vgtu.reservation.equipment.dto.EquipmentResponseDto;
-import com.vgtu.reservation.equipmentreservation.type.ReservationStatus;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;

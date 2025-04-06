@@ -1,7 +1,7 @@
 package com.vgtu.reservation.equipmentreservation.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.EquipmentConflictException;
-import com.vgtu.reservation.common.exception.exceptions.EquipmentReservationBadRequestException;
+import com.vgtu.reservation.common.exception.EquipmentConflictException;
+import com.vgtu.reservation.common.exception.EquipmentReservationBadRequestException;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.equipmentreservation.repository.EquipmentReservationRepository;

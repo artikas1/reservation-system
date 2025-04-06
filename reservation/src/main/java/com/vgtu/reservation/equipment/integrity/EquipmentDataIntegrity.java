@@ -1,6 +1,6 @@
 package com.vgtu.reservation.equipment.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.EquipmentBadRequestException;
+import com.vgtu.reservation.common.exception.EquipmentBadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

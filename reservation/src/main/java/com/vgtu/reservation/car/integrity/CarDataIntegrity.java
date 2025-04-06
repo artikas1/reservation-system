@@ -1,6 +1,6 @@
 package com.vgtu.reservation.car.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.CarBadRequestException;
+import com.vgtu.reservation.common.exception.CarBadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

@@ -6,7 +6,7 @@ import com.vgtu.reservation.auth.dto.RegisterRequestDto;
 import com.vgtu.reservation.auth.mapper.AuthenticationMapper;
 import com.vgtu.reservation.auth.service.jwt.JwtService;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
-import com.vgtu.reservation.common.exception.exceptions.UserNotAuthorizedException;
+import com.vgtu.reservation.common.exception.UserNotAuthorizedException;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.user.dao.UserDao;

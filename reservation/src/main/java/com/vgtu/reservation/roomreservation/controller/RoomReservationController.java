@@ -1,5 +1,6 @@
 package com.vgtu.reservation.roomreservation.controller;
 
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.roomreservation.dto.RoomReservationResponseDto;
 import com.vgtu.reservation.roomreservation.service.RoomReservationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -51,8 +52,9 @@ public class RoomReservationController {
 
     @Operation(summary = "Get all user room reservations", description = "Retrieves all history of room reservatrions made by a specific user")
     @GetMapping("/user/history")
-    public ResponseEntity<List<RoomReservationResponseDto>> findAllUserReservations() {
-        List<RoomReservationResponseDto> reservations = roomReservationService.findAllUserReservations();
+    public ResponseEntity<List<RoomReservationResponseDto>> findAllUserReservations(
+            @RequestParam(required = false) ReservationStatus reservationStatus) {
+        List<RoomReservationResponseDto> reservations = roomReservationService.findAllUserReservations(reservationStatus);
         return ResponseEntity.ok(reservations);
     }
 

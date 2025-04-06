@@ -3,7 +3,8 @@ package com.vgtu.reservation.carreservation.dao;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
-import com.vgtu.reservation.common.exception.exceptions.CarReservationBadRequestException;
+import com.vgtu.reservation.common.type.ReservationStatus;
+import com.vgtu.reservation.common.exception.CarReservationBadRequestException;
 import com.vgtu.reservation.user.integrity.UserDataIntegrity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -51,5 +52,10 @@ public class CarReservationDao {
         carReservationDataIntegrity.validateId(carReservationId);
 
         carReservationRepository.deleteById(carReservationId);
+    }
+
+    public List<CarReservation> findByUserIdAndStatus(UUID userId, ReservationStatus reservationStatus) {
+        userDataIntegrity.validateId(userId);
+        return carReservationRepository.findByUserIdAndReservationStatus(userId, reservationStatus);
     }
 }

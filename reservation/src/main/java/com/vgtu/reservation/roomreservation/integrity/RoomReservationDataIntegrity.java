@@ -1,7 +1,7 @@
 package com.vgtu.reservation.roomreservation.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.RoomConflictException;
-import com.vgtu.reservation.common.exception.exceptions.RoomReservationBadRequestException;
+import com.vgtu.reservation.common.exception.RoomConflictException;
+import com.vgtu.reservation.common.exception.RoomReservationBadRequestException;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;

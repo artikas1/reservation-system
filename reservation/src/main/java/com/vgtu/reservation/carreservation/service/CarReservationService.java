@@ -8,7 +8,7 @@ import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.mapper.CarReservationMapper;
 import com.vgtu.reservation.carreservation.dao.CarReservationDao;
-import com.vgtu.reservation.carreservation.type.ReservationStatus;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -39,10 +39,15 @@ public class CarReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<CarReservationResponseDto> findAllUserReservations() {
+    public List<CarReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
         var user = authenticationService.getAuthenticatedUser();
 
-        var reservations = carReservationDao.findAllUserReservations(user.getId());
+        List<CarReservation> reservations;
+        if (reservationStatus != null) {
+            reservations = carReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
+        } else {
+            reservations = carReservationDao.findAllUserReservations(user.getId());
+        }
 
         reservations.forEach(this::updateStatusIfExpired);
 

@@ -1,6 +1,6 @@
 package com.vgtu.reservation.room.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.RoomBadRequestException;
+import com.vgtu.reservation.common.exception.RoomBadRequestException;
 import org.springframework.stereotype.Service;
 
 import java.util.UUID;

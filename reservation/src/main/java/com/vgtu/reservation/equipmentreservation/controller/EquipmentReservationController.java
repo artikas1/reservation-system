@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipmentreservation.controller;
 
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationResponseDto;
 import com.vgtu.reservation.equipmentreservation.service.EquipmentReservationService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -35,7 +36,7 @@ public class EquipmentReservationController {
 
     }
 
-    @Operation(summary= "Delete equipment reservation", description = "Delete equipment reservation by equipment reservation id")
+    @Operation(summary = "Delete equipment reservation", description = "Delete equipment reservation by equipment reservation id")
     @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteReservationByEquipmentReservationId(
             @Parameter(description = "ID of the equipment reservation to delete") @RequestParam UUID equipmentReservationId) {
@@ -52,8 +53,9 @@ public class EquipmentReservationController {
 
     @Operation(summary = "Get all user equipment reservations", description = "Retrieves all history of equipment reservations made by a specific user")
     @GetMapping("/user/history")
-    public ResponseEntity<List<EquipmentReservationResponseDto>> findAllUserReservations() {
-        List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations();
+    public ResponseEntity<List<EquipmentReservationResponseDto>> findAllUserReservations(
+            @RequestParam(required = false) ReservationStatus reservationStatus) {
+        List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations(reservationStatus);
         return ResponseEntity.ok(reservations);
     }
 }

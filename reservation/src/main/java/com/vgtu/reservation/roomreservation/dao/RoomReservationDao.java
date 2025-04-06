@@ -1,6 +1,7 @@
 package com.vgtu.reservation.roomreservation.dao;
 
-import com.vgtu.reservation.common.exception.exceptions.RoomReservationBadRequestException;
+import com.vgtu.reservation.common.exception.RoomReservationBadRequestException;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
@@ -51,5 +52,10 @@ public class RoomReservationDao {
         roomReservationDataIntegrity.validateId(roomReservationId);
 
         roomReservationRepository.deleteById(roomReservationId);
+    }
+
+    public List<RoomReservation> findByUserIdAndStatus(UUID userId, ReservationStatus reservationStatus) {
+        userDataIntegrity.validateId(userId);
+        return roomReservationRepository.findByUserIdAndReservationStatus(userId, reservationStatus);
     }
 }

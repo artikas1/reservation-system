@@ -1,7 +1,7 @@
 package com.vgtu.reservation.equipmentreservation.service;
 
 import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
-import com.vgtu.reservation.equipmentreservation.type.ReservationStatus;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
 import com.vgtu.reservation.equipment.service.EquipmentService;
 import com.vgtu.reservation.equipmentreservation.dao.EquipmentReservationDao;
@@ -40,10 +40,15 @@ public class EquipmentReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<EquipmentReservationResponseDto> findAllUserReservations() {
+    public List<EquipmentReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
         var user = authenticationService.getAuthenticatedUser();
 
-        var reservations = equipmentReservationDao.findAllUserReservations(user.getId());
+        List<EquipmentReservation> reservations;
+        if (reservationStatus != null) {
+            reservations = equipmentReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
+        } else {
+            reservations = equipmentReservationDao.findAllUserReservations(user.getId());
+        }
 
         reservations.forEach(this::updateStatusIfExpired);
 

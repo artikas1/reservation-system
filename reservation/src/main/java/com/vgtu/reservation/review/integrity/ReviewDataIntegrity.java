@@ -1,6 +1,6 @@
 package com.vgtu.reservation.review.integrity;
 
-import com.vgtu.reservation.common.exception.exceptions.DtoValidationException;
+import com.vgtu.reservation.common.exception.DtoValidationException;
 import com.vgtu.reservation.review.dto.SubmitReviewRequestDto;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

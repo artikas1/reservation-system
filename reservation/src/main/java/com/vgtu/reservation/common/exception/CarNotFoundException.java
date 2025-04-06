@@ -1,4 +1,4 @@
-package com.vgtu.reservation.common.exception.exceptions;
+package com.vgtu.reservation.common.exception;
 
 public class CarNotFoundException extends RuntimeException {
     public CarNotFoundException(String message) {

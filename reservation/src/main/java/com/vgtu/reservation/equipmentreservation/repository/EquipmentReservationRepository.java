@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipmentreservation.repository;
 
+import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,12 +20,12 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     List<EquipmentReservation> findByUserId(UUID userId);
 
-   @Query("""
-    SELECT r FROM EquipmentReservation r
-    WHERE r.user.id = :userId
-    AND r.deletedAt IS NULL
-    AND r.reservedTo > CURRENT_TIMESTAMP
-""")
+    @Query("""
+                SELECT r FROM EquipmentReservation r
+                WHERE r.user.id = :userId
+                AND r.deletedAt IS NULL
+                AND r.reservedTo > CURRENT_TIMESTAMP
+            """)
     List<EquipmentReservation> findActiveByUserId(@Param("userId") UUID userId);
 
     @Transactional
@@ -46,5 +47,12 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
     );
+
+    @Query("""
+                SELECT r FROM EquipmentReservation r
+                WHERE r.user.id = :userId
+                AND r.reservationStatus = :reservationStatus
+            """)
+    List<EquipmentReservation> findByUserIdAndReservationStatus(@Param("userId") UUID userId, @Param("reservationStatus") ReservationStatus reservationStatus);
 
 }

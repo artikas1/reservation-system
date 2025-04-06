@@ -2,6 +2,7 @@ package com.vgtu.reservation.carreservation.controller;
 
 import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
 import com.vgtu.reservation.carreservation.service.CarReservationService;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
@@ -51,8 +52,10 @@ public class CarReservationController {
 
     @Operation(summary = "Get all user car reservations", description = "Retrieves all history of car reservations made by a specific user")
     @GetMapping("/user/history")
-    public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations() {
-        List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations();
+    public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations(
+            @RequestParam(required = false)ReservationStatus reservationStatus) {
+
+        List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations(reservationStatus);
         return ResponseEntity.ok(reservations);
     }
 

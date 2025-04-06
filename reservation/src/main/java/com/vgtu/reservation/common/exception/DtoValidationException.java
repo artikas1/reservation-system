@@ -1,4 +1,4 @@
-package com.vgtu.reservation.common.exception.exceptions;
+package com.vgtu.reservation.common.exception;
 
 public class DtoValidationException extends RuntimeException {
     public DtoValidationException(String message) {

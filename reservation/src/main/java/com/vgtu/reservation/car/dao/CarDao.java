@@ -4,7 +4,7 @@ import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.integrity.CarDataIntegrity;
 import com.vgtu.reservation.car.repository.CarRepository;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
-import com.vgtu.reservation.common.exception.exceptions.CarNotFoundException;
+import com.vgtu.reservation.common.exception.CarNotFoundException;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

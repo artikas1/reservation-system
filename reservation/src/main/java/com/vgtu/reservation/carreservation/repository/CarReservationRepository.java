@@ -1,6 +1,7 @@
 package com.vgtu.reservation.carreservation.repository;
 
 import com.vgtu.reservation.carreservation.entity.CarReservation;
+import com.vgtu.reservation.common.type.ReservationStatus;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -20,11 +21,11 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
     List<CarReservation> findByUserId(UUID userId);
 
     @Query("""
-    SELECT r FROM CarReservation r
-    WHERE r.user.id = :userId
-    AND r.deletedAt IS NULL
-    AND r.reservedTo > CURRENT_TIMESTAMP
-""")
+                SELECT r FROM CarReservation r
+                WHERE r.user.id = :userId
+                AND r.deletedAt IS NULL
+                AND r.reservedTo > CURRENT_TIMESTAMP
+            """)
     List<CarReservation> findActiveByUserId(@Param("userId") UUID userId);
 
     @Transactional
@@ -46,5 +47,13 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
     );
+
+    @Query("""
+                SELECT r FROM CarReservation r
+                WHERE r.user.id = :userId 
+                AND r.reservationStatus = :reservationStatus
+            """)
+    List<CarReservation> findByUserIdAndReservationStatus(@Param("userId") UUID userId, @Param("reservationStatus") ReservationStatus reservationStatus);
+
 
 }
