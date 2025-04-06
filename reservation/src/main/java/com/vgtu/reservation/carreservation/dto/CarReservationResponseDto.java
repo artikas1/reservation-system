@@ -1,6 +1,7 @@
 package com.vgtu.reservation.carreservation.dto;
 
 import com.vgtu.reservation.car.dto.CarResponseDto;
+import com.vgtu.reservation.carreservation.type.ReservationStatus;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -24,5 +25,5 @@ public class CarReservationResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
+    private ReservationStatus reservationStatus;
 }

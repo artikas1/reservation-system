@@ -1,6 +1,7 @@
 package com.vgtu.reservation.equipmentreservation.entity;
 
 import com.vgtu.reservation.equipment.entity.Equipment;
+import com.vgtu.reservation.equipmentreservation.type.ReservationStatus;
 import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -39,4 +40,6 @@ public class EquipmentReservation {
 
     private LocalDateTime deletedAt;
 
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus reservationStatus;
 }

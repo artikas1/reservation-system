@@ -39,6 +39,7 @@ public class RoomReservationMapper {
                 .createdAt(roomReservation.getCreatedAt())
                 .updatedAt(roomReservation.getUpdatedAt())
                 .deletedAt(roomReservation.getDeletedAt())
+                .reservationStatus(roomReservation.getReservationStatus())
                 .build();
     }
 

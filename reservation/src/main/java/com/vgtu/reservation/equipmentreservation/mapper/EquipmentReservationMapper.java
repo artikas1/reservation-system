@@ -39,6 +39,7 @@ public class EquipmentReservationMapper {
                 .createdAt(equipmentReservation.getCreatedAt())
                 .updatedAt(equipmentReservation.getUpdatedAt())
                 .deletedAt(equipmentReservation.getDeletedAt())
+                .reservationStatus(equipmentReservation.getReservationStatus())
                 .build();
     }
 

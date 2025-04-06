@@ -39,6 +39,7 @@ public class CarReservationMapper {
                 .createdAt(carReservation.getCreatedAt())
                 .updatedAt(carReservation.getUpdatedAt())
                 .deletedAt(carReservation.getDeletedAt())
+                .reservationStatus(carReservation.getReservationStatus())
                 .build();
     }
 

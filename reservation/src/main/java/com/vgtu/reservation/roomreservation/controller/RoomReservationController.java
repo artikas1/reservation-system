@@ -45,8 +45,14 @@ public class RoomReservationController {
     @Operation(summary = "Get all active user room reservations", description = "Retrieves all active room reservations made by a specific user")
     @GetMapping("/user")
     public ResponseEntity<List<RoomReservationResponseDto>> findAllActiveUserReservations() {
-
         List<RoomReservationResponseDto> reservations = roomReservationService.findAllActiveUserReservations();
+        return ResponseEntity.ok(reservations);
+    }
+
+    @Operation(summary = "Get all user room reservations", description = "Retrieves all history of room reservatrions made by a specific user")
+    @GetMapping("/user/history")
+    public ResponseEntity<List<RoomReservationResponseDto>> findAllUserReservations() {
+        List<RoomReservationResponseDto> reservations = roomReservationService.findAllUserReservations();
         return ResponseEntity.ok(reservations);
     }
 

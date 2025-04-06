@@ -1,10 +1,12 @@
 package com.vgtu.reservation.roomreservation.service;
 
 import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
+import com.vgtu.reservation.roomreservation.type.ReservationStatus;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.room.service.RoomService;
 import com.vgtu.reservation.roomreservation.dao.RoomReservationDao;
 import com.vgtu.reservation.roomreservation.dto.RoomReservationResponseDto;
+import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.mapper.RoomReservationMapper;
 import lombok.AllArgsConstructor;
@@ -37,6 +39,26 @@ public class RoomReservationService {
                 .collect(Collectors.toList());
     }
 
+    public List<RoomReservationResponseDto> findAllUserReservations() {
+        var user = authenticationService.getAuthenticatedUser();
+
+        var reservations = roomReservationDao.findAllUserReservations(user.getId());
+
+        reservations.forEach(this::updateStatusIfExpired);
+
+        return roomReservationDao.findAllUserReservations(user.getId())
+                .stream().map(roomReservationMapper::toRoomResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    private void updateStatusIfExpired(RoomReservation reservation) {
+        if (reservation.getReservationStatus() == ReservationStatus.AKTYVI &&
+                reservation.getReservedTo().isBefore(LocalDateTime.now()) &&
+                reservation.getDeletedAt() == null) {
+            reservation.setReservationStatus(ReservationStatus.PASIBAIGUSI);
+        }
+    }
+
     public void deleteReservationByRoomReservationId(UUID roomReservationId) {
         roomDataIntegrity.validateId(roomReservationId);
 
@@ -46,6 +68,7 @@ public class RoomReservationService {
         authenticationService.checkAuthorizationBetweenUserAndRoomReservation(user, reservation);
 
         reservation.setDeletedAt(LocalDateTime.now());
+        reservation.setReservationStatus(ReservationStatus.ATŠAUKTA);
         roomReservationDao.save(reservation);
     }
 
@@ -59,6 +82,7 @@ public class RoomReservationService {
         roomReservationDataIntegrity.checkForConflictingReservations(room, startTime, endTime);
 
         var reservation = roomReservationMapper.toEntity(room, user, startTime, endTime);
+        reservation.setReservationStatus(ReservationStatus.AKTYVI);
         return roomReservationMapper.toRoomResponseDto(roomReservationDao.save(reservation));
     }
 

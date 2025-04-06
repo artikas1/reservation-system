@@ -34,6 +34,9 @@
             <column name="deleted_at" type="date">
                 <constraints nullable="true"/>
             </column>
+            <column name="reservation_status" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
 
     </changeSet>

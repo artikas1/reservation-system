@@ -1,6 +1,7 @@
 package com.vgtu.reservation.carreservation.entity;
 
 import com.vgtu.reservation.car.entity.Car;
+import com.vgtu.reservation.carreservation.type.ReservationStatus;
 import com.vgtu.reservation.user.entity.User;
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,4 +36,6 @@ public class CarReservation {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
+    @Enumerated(EnumType.STRING)
+    private ReservationStatus reservationStatus;
 }

@@ -46,8 +46,14 @@ public class EquipmentReservationController {
     @Operation(summary = "Get all active user equipment reservations", description = "Retrieves all active equipment reservations made by a specific user")
     @GetMapping("/user")
     public ResponseEntity<List<EquipmentReservationResponseDto>> findAllActiveUserReservations() {
-
         List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllActiveUserReservations();
+        return ResponseEntity.ok(reservations);
+    }
+
+    @Operation(summary = "Get all user equipment reservations", description = "Retrieves all history of equipment reservations made by a specific user")
+    @GetMapping("/user/history")
+    public ResponseEntity<List<EquipmentReservationResponseDto>> findAllUserReservations() {
+        List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations();
         return ResponseEntity.ok(reservations);
     }
 }

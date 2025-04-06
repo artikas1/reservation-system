@@ -1,10 +1,12 @@
 package com.vgtu.reservation.equipmentreservation.service;
 
 import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
+import com.vgtu.reservation.equipmentreservation.type.ReservationStatus;
 import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
 import com.vgtu.reservation.equipment.service.EquipmentService;
 import com.vgtu.reservation.equipmentreservation.dao.EquipmentReservationDao;
 import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationResponseDto;
+import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.equipmentreservation.integrity.EquipmentReservationDataIntegrity;
 import com.vgtu.reservation.equipmentreservation.mapper.EquipmentReservationMapper;
 import lombok.AllArgsConstructor;
@@ -38,6 +40,26 @@ public class EquipmentReservationService {
                 .collect(Collectors.toList());
     }
 
+    public List<EquipmentReservationResponseDto> findAllUserReservations() {
+        var user = authenticationService.getAuthenticatedUser();
+
+        var reservations = equipmentReservationDao.findAllUserReservations(user.getId());
+
+        reservations.forEach(this::updateStatusIfExpired);
+
+        return reservations.stream()
+                .map(equipmentReservationMapper::toEquipmentResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    private void updateStatusIfExpired(EquipmentReservation reservation) {
+        if (reservation.getReservationStatus() == ReservationStatus.AKTYVI &&
+                reservation.getReservedTo().isBefore(LocalDateTime.now()) &&
+                reservation.getDeletedAt() == null) {
+            reservation.setReservationStatus(ReservationStatus.PASIBAIGUSI);
+        }
+    }
+
     public void deleteReservationByEquipmentReservationId(UUID equipmentReservationId) {
         equipmentDataIntegrity.validateId(equipmentReservationId);
 
@@ -47,6 +69,7 @@ public class EquipmentReservationService {
         authenticationService.checkAuthorizationBetweenUserAndEquipmentReservation(user, reservation);
 
         reservation.setDeletedAt(LocalDateTime.now());
+        reservation.setReservationStatus(ReservationStatus.ATŠAUKTA);
         equipmentReservationDao.save(reservation);
     }
 
@@ -60,6 +83,7 @@ public class EquipmentReservationService {
         equipmentReservationDataIntegrity.checkForConflictingReservations(equipment, startTime, endTime);
 
         var reservation = equipmentReservationMapper.toEntity(equipment, user, startTime, endTime);
+        reservation.setReservationStatus(ReservationStatus.AKTYVI);
         return equipmentReservationMapper.toEquipmentResponseDto(equipmentReservationDao.save(reservation));
     }
 }

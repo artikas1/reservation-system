@@ -4,9 +4,11 @@ import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
 import com.vgtu.reservation.car.integrity.CarDataIntegrity;
 import com.vgtu.reservation.car.service.CarService;
 import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
+import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.mapper.CarReservationMapper;
 import com.vgtu.reservation.carreservation.dao.CarReservationDao;
+import com.vgtu.reservation.carreservation.type.ReservationStatus;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -37,6 +39,26 @@ public class CarReservationService {
                 .collect(Collectors.toList());
     }
 
+    public List<CarReservationResponseDto> findAllUserReservations() {
+        var user = authenticationService.getAuthenticatedUser();
+
+        var reservations = carReservationDao.findAllUserReservations(user.getId());
+
+        reservations.forEach(this::updateStatusIfExpired);
+
+        return reservations.stream()
+                .map(carReservationMapper::toCarResponseDto)
+                .collect(Collectors.toList());
+    }
+
+    private void updateStatusIfExpired(CarReservation reservation) {
+        if (reservation.getReservationStatus() == ReservationStatus.AKTYVI &&
+                reservation.getReservedTo().isBefore(LocalDateTime.now()) &&
+                reservation.getDeletedAt() == null) {
+            reservation.setReservationStatus(ReservationStatus.PASIBAIGUSI);
+        }
+    }
+
     public void deleteReservationByCarReservationId(UUID carReservationId) {
         carDataIntegrity.validateId(carReservationId);
 
@@ -46,6 +68,7 @@ public class CarReservationService {
         authenticationService.checkAuthorizationBetweenUserAndCarReservation(user, reservation);
 
         reservation.setDeletedAt(LocalDateTime.now());
+        reservation.setReservationStatus(ReservationStatus.ATŠAUKTA);
         carReservationDao.save(reservation);
     }
 
@@ -59,6 +82,7 @@ public class CarReservationService {
         carReservationDataIntegrity.checkForConflictingReservations(car, startTime, endTime);
 
         var reservation = carReservationMapper.toEntity(car, user, startTime, endTime);
+        reservation.setReservationStatus(ReservationStatus.AKTYVI);
         return carReservationMapper.toCarResponseDto(carReservationDao.save(reservation));
     }
 }

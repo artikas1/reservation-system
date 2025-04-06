@@ -14,6 +14,7 @@
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="reservation_status" value="AKTYVI"/>
         </insert>
 
         <insert tableName="car_reservation">
@@ -25,6 +26,7 @@
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="reservation_status" value="AKTYVI"/>
         </insert>
     </changeSet>
 
