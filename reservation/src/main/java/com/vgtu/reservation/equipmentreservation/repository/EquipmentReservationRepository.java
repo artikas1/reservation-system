@@ -6,6 +6,7 @@ import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
@@ -51,8 +52,14 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
     @Query("""
                 SELECT r FROM EquipmentReservation r
                 WHERE r.user.id = :userId
-                AND r.reservationStatus = :reservationStatus
+                  AND (:#{#reservationStatus == null} = true OR r.reservationStatus = :reservationStatus)
+                  AND (:#{#startTime == null} = true OR r.reservedFrom >= :startTime)
+                  AND (:#{#endTime == null} = true OR r.reservedTo <= :endTime)
             """)
-    List<EquipmentReservation> findByUserIdAndReservationStatus(@Param("userId") UUID userId, @Param("reservationStatus") ReservationStatus reservationStatus);
-
+    List<EquipmentReservation> findUserReservationsByFilters(
+            @Param("userId") UUID userId,
+            @Param("reservationStatus") @Nullable ReservationStatus reservationStatus,
+            @Param("startTime") @Nullable LocalDateTime startTime,
+            @Param("endTime") @Nullable LocalDateTime endTime
+    );
 }

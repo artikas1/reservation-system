@@ -2,6 +2,7 @@ package com.vgtu.reservation.roomreservation.repository;
 
 import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
+import org.springframework.lang.Nullable;
 import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -50,8 +51,15 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
 
     @Query("""
                 SELECT r FROM RoomReservation r
-                WHERE r.user.id = :userId 
-                AND r.reservationStatus = :reservationStatus
+                WHERE r.user.id = :userId
+                  AND (:#{#reservationStatus == null} = true OR r.reservationStatus = :reservationStatus)
+                  AND (:#{#startTime == null} = true OR r.reservedFrom >= :startTime)
+                  AND (:#{#endTime == null} = true OR r.reservedTo <= :endTime)
             """)
-    List<RoomReservation> findByUserIdAndReservationStatus(@Param("userId") UUID userId, @Param("reservationStatus") ReservationStatus reservationStatus);
+    List<RoomReservation> findUserReservationsByFilters(
+            @Param("userId") UUID userId,
+            @Param("reservationStatus") @Nullable ReservationStatus reservationStatus,
+            @Param("startTime") @Nullable LocalDateTime startTime,
+            @Param("endTime") @Nullable LocalDateTime endTime
+    );
 }

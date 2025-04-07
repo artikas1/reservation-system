@@ -39,15 +39,12 @@ public class RoomReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<RoomReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
+    public List<RoomReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
         var user = authenticationService.getAuthenticatedUser();
 
-        List<RoomReservation> reservations;
-        if (reservationStatus != null) {
-            reservations = roomReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
-        } else {
-            reservations = roomReservationDao.findAllUserReservations(user.getId());
-        }
+        List<RoomReservation> reservations = roomReservationDao.findUserReservationsByFilters(
+                user.getId(), reservationStatus, startTime, endTime
+        );
 
         reservations.forEach(this::updateStatusIfExpired);
 

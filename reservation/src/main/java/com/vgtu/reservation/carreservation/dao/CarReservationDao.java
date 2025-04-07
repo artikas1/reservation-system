@@ -9,6 +9,7 @@ import com.vgtu.reservation.user.integrity.UserDataIntegrity;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,8 +55,10 @@ public class CarReservationDao {
         carReservationRepository.deleteById(carReservationId);
     }
 
-    public List<CarReservation> findByUserIdAndStatus(UUID userId, ReservationStatus reservationStatus) {
+    public List<CarReservation> findUserReservationsByFilters(UUID userId, ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
         userDataIntegrity.validateId(userId);
-        return carReservationRepository.findByUserIdAndReservationStatus(userId, reservationStatus);
+        return carReservationRepository.findUserReservationsByFilters(userId, reservationStatus, startTime, endTime);
     }
+
+
 }

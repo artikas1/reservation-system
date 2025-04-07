@@ -53,9 +53,11 @@ public class CarReservationController {
     @Operation(summary = "Get all user car reservations", description = "Retrieves all history of car reservations made by a specific user")
     @GetMapping("/user/history")
     public ResponseEntity<List<CarReservationResponseDto>> findAllUserReservations(
-            @RequestParam(required = false)ReservationStatus reservationStatus) {
+            @RequestParam(required = false)ReservationStatus reservationStatus,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
 
-        List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations(reservationStatus);
+        List<CarReservationResponseDto> reservations = carReservationService.findAllUserReservations(reservationStatus, startTime, endTime);
         return ResponseEntity.ok(reservations);
     }
 

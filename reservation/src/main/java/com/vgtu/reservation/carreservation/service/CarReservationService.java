@@ -39,15 +39,12 @@ public class CarReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<CarReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
+    public List<CarReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
         var user = authenticationService.getAuthenticatedUser();
 
-        List<CarReservation> reservations;
-        if (reservationStatus != null) {
-            reservations = carReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
-        } else {
-            reservations = carReservationDao.findAllUserReservations(user.getId());
-        }
+        List<CarReservation> reservations = carReservationDao.findUserReservationsByFilters(
+                user.getId(), reservationStatus, startTime, endTime
+        );
 
         reservations.forEach(this::updateStatusIfExpired);
 

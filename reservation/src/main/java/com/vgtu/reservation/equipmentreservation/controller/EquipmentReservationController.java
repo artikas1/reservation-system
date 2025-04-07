@@ -54,8 +54,11 @@ public class EquipmentReservationController {
     @Operation(summary = "Get all user equipment reservations", description = "Retrieves all history of equipment reservations made by a specific user")
     @GetMapping("/user/history")
     public ResponseEntity<List<EquipmentReservationResponseDto>> findAllUserReservations(
-            @RequestParam(required = false) ReservationStatus reservationStatus) {
-        List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations(reservationStatus);
+            @RequestParam(required = false) ReservationStatus reservationStatus,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+
+        List<EquipmentReservationResponseDto> reservations = equipmentReservationService.findAllUserReservations(reservationStatus, startTime, endTime);
         return ResponseEntity.ok(reservations);
     }
 }

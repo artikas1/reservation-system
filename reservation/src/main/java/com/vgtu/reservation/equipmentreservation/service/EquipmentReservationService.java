@@ -40,15 +40,12 @@ public class EquipmentReservationService {
                 .collect(Collectors.toList());
     }
 
-    public List<EquipmentReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus) {
+    public List<EquipmentReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
         var user = authenticationService.getAuthenticatedUser();
 
-        List<EquipmentReservation> reservations;
-        if (reservationStatus != null) {
-            reservations = equipmentReservationDao.findByUserIdAndStatus(user.getId(), reservationStatus);
-        } else {
-            reservations = equipmentReservationDao.findAllUserReservations(user.getId());
-        }
+        List<EquipmentReservation> reservations = equipmentReservationDao.findUserReservationsByFilters(
+                user.getId(), reservationStatus, startTime, endTime
+        );
 
         reservations.forEach(this::updateStatusIfExpired);
 
