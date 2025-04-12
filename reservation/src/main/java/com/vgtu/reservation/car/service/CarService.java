@@ -6,6 +6,7 @@ import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.integrity.CarDataIntegrity;
 import com.vgtu.reservation.car.mapper.CarMapper;
 import com.vgtu.reservation.car.repository.CarRepository;
+import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -37,18 +38,27 @@ public class CarService {
         return carDao.getCarById(id);
     }
 
-    public List<Car> getAvailableCars(LocalDateTime startTime, LocalDateTime endTime) {
+    public List<Car> getAvailableCars(LocalDateTime startTime, LocalDateTime endTime, BodyType bodyType) {
         List<UUID> reservedCarIds = carReservationRepository.findReservedCarIdsBetween(startTime, endTime);
+        List<Car> cars;
 
         if (reservedCarIds.isEmpty()) {
-            return carRepository.findAll(); // all cars are free
+            cars = carRepository.findAll(); // all cars are free
+        } else {
+            cars = carRepository.findByIdNotIn(reservedCarIds);
         }
 
-        return carRepository.findByIdNotIn(reservedCarIds);
+        if (bodyType != null) {
+            cars = cars.stream()
+                    .filter(car -> car.getBodyType() == bodyType)
+                    .toList();
+        }
+
+        return cars;
     }
 
-    public List<CarResponseDto> getAvailableCarDtosWithEcoFlag(LocalDateTime startTime, LocalDateTime endTime) {
-        List<Car> availableCars = getAvailableCars(startTime, endTime);
+    public List<CarResponseDto> getAvailableCarDtosWithEcoFlag(LocalDateTime startTime, LocalDateTime endTime, BodyType bodyType) {
+        List<Car> availableCars = getAvailableCars(startTime, endTime, bodyType);
         double minConsumption = getMinConsumption(availableCars);
         return carMapper.toDto(availableCars, minConsumption);
     }

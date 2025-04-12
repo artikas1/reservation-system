@@ -17,7 +17,7 @@
             <column name="created_at" value="2021-01-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
-            <column name="body_type" value="Sedan"/>
+            <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
         </insert>
 
@@ -34,7 +34,7 @@
             <column name="created_at" value="2022-01-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
-            <column name="body_type" value="Minivan"/>
+            <column name="body_type" value="MINIVENAS"/>
             <column name="average_fuel_consumption" value="7"/>
         </insert>
 
@@ -50,7 +50,7 @@
             <column name="created_at" value="2022-01-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
-            <column name="body_type" value="Minivan"/>
+            <column name="body_type" value="MINIVENAS"/>
             <column name="average_fuel_consumption" value="7"/>
         </insert>
 
@@ -66,7 +66,7 @@
             <column name="created_at" value="2017-06-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
-            <column name="body_type" value="Sedan"/>
+            <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
         </insert>
 
@@ -82,7 +82,7 @@
             <column name="created_at" value="2017-06-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
-            <column name="body_type" value="Sedan"/>
+            <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
         </insert>
 

@@ -22,9 +22,9 @@ public class CarMapper {
                 .createdAt(car.getCreatedAt())
                 .updatedAt(car.getUpdatedAt())
                 .deletedAt(car.getDeletedAt())
-                .bodyType(car.getBodyType())
                 .averageFuelConsumption(car.getAverageFuelConsumption())
                 .isEcoFriendly(false) //always false in this one
+                .bodyType(car.getBodyType())
                 .build();
     }
 
@@ -41,9 +41,9 @@ public class CarMapper {
                 .createdAt(car.getCreatedAt())
                 .updatedAt(car.getUpdatedAt())
                 .deletedAt(car.getDeletedAt())
-                .bodyType(car.getBodyType())
                 .averageFuelConsumption(car.getAverageFuelConsumption())
                 .isEcoFriendly(isEcoFriendly)
+                .bodyType(car.getBodyType())
                 .build();
     }
 

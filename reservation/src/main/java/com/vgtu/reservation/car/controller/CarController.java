@@ -4,6 +4,7 @@ import com.vgtu.reservation.car.dto.CarResponseDto;
 import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.mapper.CarMapper;
 import com.vgtu.reservation.car.service.CarService;
+import com.vgtu.reservation.car.type.BodyType;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,9 +38,10 @@ public class CarController {
     @GetMapping("/available")
     public ResponseEntity<List<CarResponseDto>> getAvailableCars(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+            @RequestParam(required = false) BodyType bodyType) {
 
-        var availableCars = carService.getAvailableCars(startTime, endTime);
+        var availableCars = carService.getAvailableCars(startTime, endTime, bodyType);
         var result = availableCars.stream().map(carMapper::toResponseDto).toList();
 
         return ResponseEntity.ok(result);
@@ -49,9 +51,10 @@ public class CarController {
     @GetMapping("/available/eco")
     public ResponseEntity<List<CarResponseDto>> getAvailableEcoCars(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+            @RequestParam(required = false) BodyType bodyType) {
 
-        var result = carService.getAvailableCarDtosWithEcoFlag(startTime, endTime);
+        var result = carService.getAvailableCarDtosWithEcoFlag(startTime, endTime, bodyType);
         return ResponseEntity.ok(result);
     }
 

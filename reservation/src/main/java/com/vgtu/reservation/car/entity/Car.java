@@ -1,5 +1,6 @@
 package com.vgtu.reservation.car.entity;
 
+import com.vgtu.reservation.car.type.BodyType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -30,6 +31,8 @@ public class Car {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private String bodyType;
     private Double averageFuelConsumption; // in L/100km
+
+    @Enumerated(EnumType.STRING)
+    private BodyType bodyType;
 }

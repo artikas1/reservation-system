@@ -1,5 +1,6 @@
 package com.vgtu.reservation.car.dto;
 
+import com.vgtu.reservation.car.type.BodyType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -23,7 +24,7 @@ public class CarResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-    private String bodyType;
     private Double averageFuelConsumption; // in L/100km
     private Boolean isEcoFriendly;
+    private BodyType bodyType;
 }

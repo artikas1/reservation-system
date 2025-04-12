@@ -76,7 +76,7 @@ public class RoomReservationController {
     @Operation(summary = "Get room reservation time for a specific room", description = "Used for disabling already reserved tiomes in UI")
     @GetMapping("/room/{roomId}/time-ranges")
     public ResponseEntity<List<RoomReservationTimeRangeDto>> getRoomReservationTimeRanges(
-            @Parameter(description = "ID of the room with all its reservatoins") @PathVariable UUID roomId,
+            @Parameter(description = "ID of the room with all its reservations") @PathVariable UUID roomId,
             @Parameter(description = "ID of the reservation to exclude") @RequestParam(required = false) UUID excludeReservationId) {
 
         List<RoomReservationTimeRangeDto> timeRanges = roomReservationService.getReservedTimeRangesForRoom(roomId, excludeReservationId);
