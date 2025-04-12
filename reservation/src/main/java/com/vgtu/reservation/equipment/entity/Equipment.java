@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.entity;
 
+import com.vgtu.reservation.equipment.type.EquipmentType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -28,5 +29,8 @@ public class Equipment {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
+
+    @Enumerated(EnumType.STRING)
+    private EquipmentType equipmentType;
 
 }

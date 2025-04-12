@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.dto;
 
+import com.vgtu.reservation.equipment.type.EquipmentType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,5 @@ public class EquipmentResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
+    private EquipmentType equipmentType;
 }

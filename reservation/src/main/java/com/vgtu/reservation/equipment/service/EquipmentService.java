@@ -4,6 +4,7 @@ import com.vgtu.reservation.equipment.dao.EquipmentDao;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
 import com.vgtu.reservation.equipment.repository.EquipmentRepository;
+import com.vgtu.reservation.equipment.type.EquipmentType;
 import com.vgtu.reservation.equipmentreservation.repository.EquipmentReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,14 +35,23 @@ public class EquipmentService {
         return equipmentDao.getEquipmentById(id);
     }
 
-    public List<Equipment> getAvailableEquipment(LocalDateTime startTime, LocalDateTime endTime) {
+    public List<Equipment> getAvailableEquipment(LocalDateTime startTime, LocalDateTime endTime, EquipmentType equipmentType) {
         List<UUID> reservedEquipmentIds = equipmentReservationRepository.findReservedEquipmentIdsBetween(startTime, endTime);
+        List<Equipment> equipments;
 
         if (reservedEquipmentIds.isEmpty()) {
-            return equipmentRepository.findAll();
+            equipments = equipmentRepository.findAll();
+        } else {
+            equipments = equipmentRepository.findByIdNotIn(reservedEquipmentIds);
         }
 
-        return equipmentRepository.findByIdNotIn(reservedEquipmentIds);
+        if(equipmentType != null) {
+            equipments = equipments.stream()
+                    .filter( equipment -> equipment.getEquipmentType() == equipmentType)
+                    .toList();
+        }
+
+        return equipments;
     }
 
 

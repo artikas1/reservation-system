@@ -18,6 +18,7 @@ public class EquipmentMapper {
                 .createdAt(equipment.getCreatedAt())
                 .updatedAt(equipment.getUpdatedAt())
                 .deletedAt(equipment.getDeletedAt())
+                .equipmentType(equipment.getEquipmentType())
                 .build();
     }
 

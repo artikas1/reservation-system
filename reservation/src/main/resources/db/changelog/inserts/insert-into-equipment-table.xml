@@ -16,6 +16,7 @@
             <column name="created_at" value="2021-01-01 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="equipment_type" value="NESIOJAMAS_KOMPIUTERIS"/>
         </insert>
 
         <insert tableName="equipment">
@@ -28,6 +29,7 @@
             <column name="created_at" value="2021-01-02 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="equipment_type" value="WEB_KAMERA"/>
         </insert>
 
         <insert tableName="equipment">
@@ -40,6 +42,7 @@
             <column name="created_at" value="2021-01-03 00:00:00.000000"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="equipment_type" value="RADIO"/>
         </insert>
 
     </changeSet>

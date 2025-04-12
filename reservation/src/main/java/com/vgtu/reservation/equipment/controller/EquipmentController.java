@@ -4,6 +4,7 @@ import com.vgtu.reservation.equipment.dto.EquipmentResponseDto;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.mapper.EquipmentMapper;
 import com.vgtu.reservation.equipment.service.EquipmentService;
+import com.vgtu.reservation.equipment.type.EquipmentType;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,9 +38,10 @@ public class EquipmentController {
     @GetMapping("/available")
     public ResponseEntity<List<EquipmentResponseDto>> getAvailableEquipment(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+            @RequestParam(required = false) EquipmentType equipmentType) {
 
-        var availableEquipment = equipmentService.getAvailableEquipment(startTime, endTime);
+        var availableEquipment = equipmentService.getAvailableEquipment(startTime, endTime, equipmentType);
         var result = availableEquipment.stream().map(equipmentMapper::toResponseDto).toList();
 
         return ResponseEntity.ok(result);
