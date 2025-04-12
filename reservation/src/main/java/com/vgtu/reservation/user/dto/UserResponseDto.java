@@ -7,6 +7,9 @@ import lombok.*;
 
 import java.util.UUID;
 
+/**
+ * This is a data transfer object that represents the user details to be sent in the response
+ */
 @Getter
 @Setter
 @AllArgsConstructor

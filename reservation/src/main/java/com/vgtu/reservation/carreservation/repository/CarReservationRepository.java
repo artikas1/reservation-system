@@ -21,6 +21,8 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
 
     List<CarReservation> findByUserId(UUID userId);
 
+    List<CarReservation> findByCarIdAndDeletedAtIsNull(UUID carId);
+
     @Query("""
                 SELECT r FROM CarReservation r
                 WHERE r.user.id = :userId
@@ -40,6 +42,21 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
     );
+
+    @Query("""
+                SELECT r FROM CarReservation r
+                WHERE r.car.id = :carId
+                  AND r.deletedAt IS NULL
+                  AND r.id <> :reservationId
+                  AND ((r.reservedFrom < :endTime AND r.reservedTo > :startTime))
+            """)
+    List<CarReservation> findConflictingReservationsExceptSelf(
+            @Param("carId") UUID carId,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime,
+            @Param("reservationId") UUID reservationId
+    );
+
 
     @Query("SELECT DISTINCT r.car.id FROM CarReservation r " +
             "WHERE r.deletedAt IS NULL " +
@@ -62,4 +79,29 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
             @Param("startTime") @Nullable LocalDateTime startTime,
             @Param("endTime") @Nullable LocalDateTime endTime
     );
+
+    @Query("""
+                SELECT r FROM CarReservation r
+                JOIN FETCH r.user
+                WHERE r.reservationStatus = 'AKTYVI'
+                  AND r.reservedTo BETWEEN :start AND :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<CarReservation> findReservationsEndingBetween(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
+
+    @Query("""
+                SELECT r FROM CarReservation r
+                JOIN FETCH r.user
+                WHERE r.reservationStatus = 'AKTYVI'
+                  AND r.reservedFrom BETWEEN :start AND :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<CarReservation> findReservationsStartingBetween(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
+
 }

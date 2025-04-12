@@ -3,6 +3,7 @@ package com.vgtu.reservation.equipmentreservation.mapper;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.mapper.EquipmentMapper;
 import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationResponseDto;
+import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationTimeRangeDto;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -41,6 +42,13 @@ public class EquipmentReservationMapper {
                 .deletedAt(equipmentReservation.getDeletedAt())
                 .reservationStatus(equipmentReservation.getReservationStatus())
                 .build();
+    }
+
+    public EquipmentReservationTimeRangeDto toTimeRangeDto(EquipmentReservation reservation) {
+        return new EquipmentReservationTimeRangeDto(
+                reservation.getReservedFrom(),
+                reservation.getReservedTo()
+        );
     }
 
 }

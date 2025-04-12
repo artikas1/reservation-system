@@ -2,6 +2,7 @@ package com.vgtu.reservation.roomreservation.dao;
 
 import com.vgtu.reservation.common.exception.RoomReservationBadRequestException;
 import com.vgtu.reservation.common.type.ReservationStatus;
+import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
@@ -23,6 +24,7 @@ public class RoomReservationDao {
     private final UserDataIntegrity userDataIntegrity;
     private final RoomReservationRepository roomReservationRepository;
     private final RoomReservationDataIntegrity roomReservationDataIntegrity;
+    private final RoomDataIntegrity roomDataIntegrity;
 
     public RoomReservation save(RoomReservation roomReservation) {
         roomReservationDataIntegrity.validateRoomReservation(roomReservation);
@@ -58,5 +60,15 @@ public class RoomReservationDao {
     public List<RoomReservation> findUserReservationsByFilters(UUID userId, ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
         userDataIntegrity.validateId(userId);
         return roomReservationRepository.findUserReservationsByFilters(userId, reservationStatus, startTime, endTime);
+    }
+
+    public List<RoomReservation> findReservationsStartingBetween(LocalDateTime start, LocalDateTime end) {
+        return roomReservationRepository.findReservationsStartingBetween(start, end);
+    }
+
+    public List<RoomReservation> findByRoomId(UUID roomId) {
+        roomDataIntegrity.validateId(roomId);
+
+        return roomReservationRepository.findByRoomIdAndDeletedAtIsNull(roomId);
     }
 }

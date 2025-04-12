@@ -50,6 +50,16 @@ public class RoomReservationDataIntegrity {
         }
     }
 
+    public void checkForConflictingReservationsExceptSelf(Room room, LocalDateTime startTime, LocalDateTime endTime, UUID reservationId) {
+        List<RoomReservation> conflictingReservations = roomReservationRepository.findConflictingReservationsExceptSelf(
+                room.getId(), startTime, endTime, reservationId
+        );
+
+        if(!conflictingReservations.isEmpty()) {
+            throw new RoomConflictException("Room is already reserved for the requested time period");
+        }
+    }
+
     public void validateRoomReservation(RoomReservation roomReservation) {
         if(roomReservation == null) {
             throw new RoomReservationBadRequestException("Car reservation cannot be null");

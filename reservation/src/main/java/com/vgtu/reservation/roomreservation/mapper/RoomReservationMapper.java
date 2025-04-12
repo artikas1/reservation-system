@@ -3,9 +3,11 @@ package com.vgtu.reservation.roomreservation.mapper;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.mapper.RoomMapper;
 import com.vgtu.reservation.roomreservation.dto.RoomReservationResponseDto;
+import com.vgtu.reservation.roomreservation.dto.RoomReservationTimeRangeDto;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.user.entity.User;
 import lombok.AllArgsConstructor;
+import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
@@ -43,4 +45,10 @@ public class RoomReservationMapper {
                 .build();
     }
 
+    public RoomReservationTimeRangeDto toTimeRangeDto(RoomReservation reservation) {
+        return new RoomReservationTimeRangeDto(
+                reservation.getReservedFrom(),
+                reservation.getReservedTo()
+        );
+    }
 }

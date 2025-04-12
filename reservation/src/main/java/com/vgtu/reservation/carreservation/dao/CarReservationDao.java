@@ -1,5 +1,6 @@
 package com.vgtu.reservation.carreservation.dao;
 
+import com.vgtu.reservation.car.integrity.CarDataIntegrity;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
@@ -23,6 +24,7 @@ public class CarReservationDao {
     private final UserDataIntegrity userDataIntegrity;
     private final CarReservationRepository carReservationRepository;
     private final CarReservationDataIntegrity carReservationDataIntegrity;
+    private final CarDataIntegrity carDataIntegrity;
 
     public CarReservation save(CarReservation carReservation) {
         carReservationDataIntegrity.validateCarReservation(carReservation);
@@ -60,5 +62,17 @@ public class CarReservationDao {
         return carReservationRepository.findUserReservationsByFilters(userId, reservationStatus, startTime, endTime);
     }
 
+    public List<CarReservation> findReservationsEndingBetween(LocalDateTime start, LocalDateTime end) {
+        return carReservationRepository.findReservationsEndingBetween(start, end);
+    }
 
+    public List<CarReservation> findReservationsStartingBetween(LocalDateTime start, LocalDateTime end) {
+        return carReservationRepository.findReservationsStartingBetween(start, end);
+    }
+
+    public List<CarReservation> findByCarId(UUID carId) {
+        carDataIntegrity.validateId(carId);
+
+        return carReservationRepository.findByCarIdAndDeletedAtIsNull(carId);
+    }
 }

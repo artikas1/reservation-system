@@ -21,7 +21,7 @@ public class CarReservationDataIntegrity {
     public static final String ID_CANNOT_BE_NULL = "Car reservation id cannot be null";
 
     public void validateId(UUID id) {
-        if(id == null) {
+        if (id == null) {
             throw new CarReservationBadRequestException(ID_CANNOT_BE_NULL);
         }
     }
@@ -33,7 +33,7 @@ public class CarReservationDataIntegrity {
         if (startTime.isAfter(endTime)) {
             throw new CarReservationBadRequestException("Start time must be before end time");
         }
-        if(startTime.isBefore(LocalDateTime.now())) {
+        if (startTime.isBefore(LocalDateTime.now())) {
             throw new CarReservationBadRequestException("Cannot reserve for past time");
         }
     }
@@ -50,9 +50,22 @@ public class CarReservationDataIntegrity {
         }
     }
 
+    public void checkForConflictingReservationsExceptSelf(Car car, LocalDateTime startTime, LocalDateTime endTime, UUID reservationId) {
+        List<CarReservation> conflictingReservations = carReservationRepository.findConflictingReservationsExceptSelf(
+                car.getId(), startTime, endTime, reservationId
+        );
+
+        if (!conflictingReservations.isEmpty()) {
+            throw new CarConflictException("Car is already reserved for the requested time period");
+        }
+    }
+
+
     public void validateCarReservation(CarReservation carReservation) {
-        if(carReservation == null) {
+        if (carReservation == null) {
             throw new CarReservationBadRequestException("Car reservation cannot be null");
         }
     }
+
+
 }

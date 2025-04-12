@@ -21,6 +21,8 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
 
     List<RoomReservation> findByUserId(UUID userId);
 
+    List<RoomReservation> findByRoomIdAndDeletedAtIsNull(UUID roomId);
+
     @Query("""
                 SELECT r FROM RoomReservation r
                 WHERE r.user.id = :userId
@@ -39,6 +41,20 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
             @Param("roomId") UUID roomId,
             @Param("startTime") LocalDateTime startTime,
             @Param("endTime") LocalDateTime endTime
+    );
+
+    @Query("""
+            SELECT r FROM RoomReservation r
+            WHERE r.room.id = :roomId
+              AND r.deletedAt IS NULL
+              AND r.id <> :reservationId
+              AND ((r.reservedFrom < :endTime AND r.reservedTo > :startTime))
+            """)
+    List<RoomReservation> findConflictingReservationsExceptSelf(
+            @Param("roomId") UUID roomId,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime,
+            @Param("reservationId") UUID reservationId
     );
 
     @Query("SELECT DISTINCT r.room.id FROM RoomReservation r " +
@@ -61,5 +77,17 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
             @Param("reservationStatus") @Nullable ReservationStatus reservationStatus,
             @Param("startTime") @Nullable LocalDateTime startTime,
             @Param("endTime") @Nullable LocalDateTime endTime
+    );
+
+    @Query("""
+                SELECT r FROM RoomReservation r
+                JOIN FETCH r.user
+                WHERE r.reservationStatus = 'AKTYVI'
+                  AND r.reservedFrom BETWEEN :start and :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<RoomReservation> findReservationsStartingBetween(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
     );
 }

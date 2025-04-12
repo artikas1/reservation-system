@@ -6,6 +6,7 @@ import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.room.service.RoomService;
 import com.vgtu.reservation.roomreservation.dao.RoomReservationDao;
 import com.vgtu.reservation.roomreservation.dto.RoomReservationResponseDto;
+import com.vgtu.reservation.roomreservation.dto.RoomReservationTimeRangeDto;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.mapper.RoomReservationMapper;
@@ -37,6 +38,26 @@ public class RoomReservationService {
         return roomReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(roomReservationMapper::toRoomResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public RoomReservationResponseDto updateRoomReservation(UUID reservationId, LocalDateTime newStart, LocalDateTime newEnd) {
+        var reservation = roomReservationDao.findReservationByRoomReservationId(reservationId);
+        var user = authenticationService.getAuthenticatedUser();
+        authenticationService.checkAuthorizationBetweenUserAndRoomReservation(user, reservation);
+
+        // Use existing times if any of the new ones are null
+        LocalDateTime start = newStart != null ? newStart : reservation.getReservedFrom();
+        LocalDateTime end = newEnd != null ? newEnd : reservation.getReservedTo();
+
+        roomReservationDataIntegrity.validateTimeRange(start, end);
+        roomReservationDataIntegrity.checkForConflictingReservationsExceptSelf(reservation.getRoom(), start, end, reservationId);
+
+        reservation.setReservedFrom(start);
+        reservation.setReservedTo(end);
+        reservation.setUpdatedAt(LocalDateTime.now());
+
+        var updated = roomReservationDao.save(reservation);
+        return roomReservationMapper.toRoomResponseDto(updated);
     }
 
     public List<RoomReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
@@ -88,4 +109,16 @@ public class RoomReservationService {
         return roomReservationMapper.toRoomResponseDto(roomReservationDao.save(reservation));
     }
 
+    public List<RoomReservation> findReservationsStartingBetween(LocalDateTime start, LocalDateTime end) {
+        return roomReservationDao.findReservationsStartingBetween(start, end );
+    }
+
+    public List<RoomReservationTimeRangeDto> getReservedTimeRangesForRoom(UUID roomId, UUID excludeReservationId) {
+        roomDataIntegrity.validateId(roomId);
+
+        return roomReservationDao.findByRoomId(roomId).stream()
+                .filter( r -> excludeReservationId == null || !r.getId().equals(excludeReservationId))
+                .map(roomReservationMapper::toTimeRangeDto)
+                .collect(Collectors.toList());
+    }
 }

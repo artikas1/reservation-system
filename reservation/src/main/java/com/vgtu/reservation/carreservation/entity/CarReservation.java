@@ -26,7 +26,7 @@ public class CarReservation {
     @JoinColumn(name = "car_id", nullable = false)
     private Car car;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 

@@ -4,6 +4,7 @@ import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
 import com.vgtu.reservation.car.integrity.CarDataIntegrity;
 import com.vgtu.reservation.car.service.CarService;
 import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
+import com.vgtu.reservation.carreservation.dto.CarReservationTimeRangeDto;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.mapper.CarReservationMapper;
@@ -37,6 +38,26 @@ public class CarReservationService {
         return carReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(carReservationMapper::toCarResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public CarReservationResponseDto updateCarReservation(UUID reservationId, LocalDateTime newStart, LocalDateTime newEnd) {
+        var reservation = carReservationDao.findReservationByCarReservationId(reservationId);
+        var user = authenticationService.getAuthenticatedUser();
+        authenticationService.checkAuthorizationBetweenUserAndCarReservation(user, reservation);
+
+        // Use existing times if any of the new ones are null
+        LocalDateTime start = newStart != null ? newStart : reservation.getReservedFrom();
+        LocalDateTime end = newEnd != null ? newEnd : reservation.getReservedTo();
+
+        carReservationDataIntegrity.validateTimeRange(start, end);
+        carReservationDataIntegrity.checkForConflictingReservationsExceptSelf(reservation.getCar(), start, end, reservationId);
+
+        reservation.setReservedFrom(start);
+        reservation.setReservedTo(end);
+        reservation.setUpdatedAt(LocalDateTime.now());
+
+        var updated = carReservationDao.save(reservation);
+        return carReservationMapper.toCarResponseDto(updated);
     }
 
     public List<CarReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
@@ -87,4 +108,22 @@ public class CarReservationService {
         reservation.setReservationStatus(ReservationStatus.AKTYVI);
         return carReservationMapper.toCarResponseDto(carReservationDao.save(reservation));
     }
+
+    public List<CarReservation> findReservationsEndingBetween(LocalDateTime start, LocalDateTime end) {
+        return carReservationDao.findReservationsEndingBetween(start, end);
+    }
+
+    public List<CarReservation> findReservationsStartingBetween(LocalDateTime start, LocalDateTime end) {
+        return carReservationDao.findReservationsStartingBetween(start, end);
+    }
+
+    public List<CarReservationTimeRangeDto> getReservedTimeRangesForCar(UUID carId, UUID excludeReservationId) {
+        carDataIntegrity.validateId(carId);
+
+        return carReservationDao.findByCarId(carId).stream()
+                .filter(r -> excludeReservationId == null || !r.getId().equals(excludeReservationId))
+                .map(carReservationMapper::toTimeRangeDto)
+                .collect(Collectors.toList());
+    }
+
 }

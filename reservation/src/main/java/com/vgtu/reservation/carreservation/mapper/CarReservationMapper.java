@@ -3,6 +3,7 @@ package com.vgtu.reservation.carreservation.mapper;
 import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.mapper.CarMapper;
 import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
+import com.vgtu.reservation.carreservation.dto.CarReservationTimeRangeDto;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.user.entity.User;
 import lombok.AllArgsConstructor;
@@ -43,4 +44,10 @@ public class CarReservationMapper {
                 .build();
     }
 
+    public CarReservationTimeRangeDto toTimeRangeDto(CarReservation reservation) {
+        return new CarReservationTimeRangeDto(
+                reservation.getReservedFrom(),
+                reservation.getReservedTo()
+        );
+    }
 }

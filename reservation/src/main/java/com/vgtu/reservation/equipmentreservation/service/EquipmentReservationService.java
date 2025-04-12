@@ -6,6 +6,7 @@ import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
 import com.vgtu.reservation.equipment.service.EquipmentService;
 import com.vgtu.reservation.equipmentreservation.dao.EquipmentReservationDao;
 import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationResponseDto;
+import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationTimeRangeDto;
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.equipmentreservation.integrity.EquipmentReservationDataIntegrity;
 import com.vgtu.reservation.equipmentreservation.mapper.EquipmentReservationMapper;
@@ -31,13 +32,31 @@ public class EquipmentReservationService {
     private final EquipmentReservationDataIntegrity equipmentReservationDataIntegrity;
     private final EquipmentService equipmentService;
 
-
     public List<EquipmentReservationResponseDto> findAllActiveUserReservations() {
         var user = authenticationService.getAuthenticatedUser();
 
         return equipmentReservationDao.findAllActiveUserReservations(user.getId())
                 .stream().map(equipmentReservationMapper::toEquipmentResponseDto)
                 .collect(Collectors.toList());
+    }
+
+    public EquipmentReservationResponseDto updateEquipmentReservation(UUID reservationId, LocalDateTime newStart, LocalDateTime newEnd) {
+        var reservation = equipmentReservationDao.findReservationByEquipmentReservationId(reservationId);
+        var user = authenticationService.getAuthenticatedUser();
+        authenticationService.checkAuthorizationBetweenUserAndEquipmentReservation(user, reservation);
+
+        LocalDateTime start = newStart != null ? newStart : reservation.getReservedFrom();
+        LocalDateTime end = newEnd != null ? newEnd : reservation.getReservedTo();
+
+        equipmentReservationDataIntegrity.validateTimeRange(start, end);
+        equipmentReservationDataIntegrity.checkForConflictingReservationsExceptSelf(reservation.getEquipment(), start, end, reservationId);
+
+        reservation.setReservedFrom(start);
+        reservation.setReservedTo(end);
+        reservation.setUpdatedAt(LocalDateTime.now());
+
+        var updated = equipmentReservationDao.save(reservation);
+        return equipmentReservationMapper.toEquipmentResponseDto(updated);
     }
 
     public List<EquipmentReservationResponseDto> findAllUserReservations(ReservationStatus reservationStatus, LocalDateTime startTime, LocalDateTime endTime) {
@@ -87,5 +106,18 @@ public class EquipmentReservationService {
         var reservation = equipmentReservationMapper.toEntity(equipment, user, startTime, endTime);
         reservation.setReservationStatus(ReservationStatus.AKTYVI);
         return equipmentReservationMapper.toEquipmentResponseDto(equipmentReservationDao.save(reservation));
+    }
+
+    public List<EquipmentReservation> findReservationsStartingBetween(LocalDateTime start, LocalDateTime end) {
+        return equipmentReservationDao.findReservationsStartingBetween(start, end);
+    }
+
+    public List<EquipmentReservationTimeRangeDto> getReservedTimeRangesForEquipment(UUID equipmentId, UUID excludeReservationId) {
+        equipmentDataIntegrity.validateId(equipmentId);
+
+        return equipmentReservationDao.findByEquipmentId(equipmentId).stream()
+                .filter(r -> excludeReservationId == null || !r.getId().equals(excludeReservationId))
+                .map(equipmentReservationMapper::toTimeRangeDto)
+                .collect(Collectors.toList());
     }
 }

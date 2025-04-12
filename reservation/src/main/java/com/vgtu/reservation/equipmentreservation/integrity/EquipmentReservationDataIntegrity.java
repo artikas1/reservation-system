@@ -33,7 +33,7 @@ public class EquipmentReservationDataIntegrity {
         if (startTime.isAfter(endTime)) {
             throw new EquipmentReservationBadRequestException("Start time must be before end time");
         }
-        if(startTime.isBefore(LocalDateTime.now())) {
+        if (startTime.isBefore(LocalDateTime.now())) {
             throw new EquipmentReservationBadRequestException("Cannot reserve for past time");
         }
     }
@@ -45,13 +45,23 @@ public class EquipmentReservationDataIntegrity {
                 endTime
         );
 
-        if(!conflictingReservations.isEmpty()) {
+        if (!conflictingReservations.isEmpty()) {
+            throw new EquipmentConflictException("Equipment is already reserved during this time");
+        }
+    }
+
+    public void checkForConflictingReservationsExceptSelf(Equipment equipment, LocalDateTime startTime, LocalDateTime endTime, UUID reservationId) {
+        List<EquipmentReservation> conflictingReservations = equipmentReservationRepository.findConflictingReservationsExceptSelf(
+                equipment.getId(), startTime, endTime, reservationId
+        );
+
+        if (!conflictingReservations.isEmpty()) {
             throw new EquipmentConflictException("Equipment is already reserved during this time");
         }
     }
 
     public void validateEquipmentReservation(EquipmentReservation equipmentReservation) {
-        if(equipmentReservation == null) {
+        if (equipmentReservation == null) {
             throw new EquipmentReservationBadRequestException("Car reservation cannot be null");
         }
     }

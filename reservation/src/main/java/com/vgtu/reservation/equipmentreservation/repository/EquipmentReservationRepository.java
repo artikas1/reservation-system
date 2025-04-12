@@ -21,6 +21,8 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
 
     List<EquipmentReservation> findByUserId(UUID userId);
 
+    List<EquipmentReservation> findByEquipmentIdAndDeletedAtIsNull(UUID equipmentId);
+
     @Query("""
                 SELECT r FROM EquipmentReservation r
                 WHERE r.user.id = :userId
@@ -62,4 +64,32 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
             @Param("startTime") @Nullable LocalDateTime startTime,
             @Param("endTime") @Nullable LocalDateTime endTime
     );
+
+    @Query("""
+                SELECT r FROM EquipmentReservation r
+                JOIN FETCH r.user
+                WHERE r.reservationStatus = 'AKTYVI'
+                  AND r.reservedFrom BETWEEN :start and :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<EquipmentReservation> findReservationsStartingBetween(
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
+
+    @Query("""
+            
+            SELECT r FROM EquipmentReservation r
+                WHERE r.equipment.id = :equipmentId
+                  AND r.deletedAt IS NULL
+                  AND r.id <> :reservationId
+                  AND ((r.reservedFrom < :endTime AND r.reservedTo > :startTime))
+            """)
+    List<EquipmentReservation> findConflictingReservationsExceptSelf(
+            @Param("equipmentId") UUID equipmentId,
+            @Param("startTime") LocalDateTime startTime,
+            @Param("endTime") LocalDateTime endTime,
+            @Param("reservationId") UUID reservationId
+    );
+
 }

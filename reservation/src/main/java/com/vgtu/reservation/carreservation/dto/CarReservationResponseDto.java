@@ -26,4 +26,5 @@ public class CarReservationResponseDto {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private ReservationStatus reservationStatus;
+
 }

@@ -12,6 +12,7 @@
             <column name="last_name" value="test"/>
             <column name="email" value="test@gmail.com"/>
             <column name="password" value="$2a$10$ba6OMkzTuMlK39nVfOUkIOFxM6xyk3.bKtdbgfo6WltbZ1/d27Yyi"/>
+            <!--test-->
         </insert>
 
         <insert tableName="user">
@@ -20,7 +21,18 @@
             <column name="last_name" value="test123"/>
             <column name="email" value="test123@gmail.com"/>
             <column name="password" value="$2a$10$A0Wo5qb6yttD7qgXqszUBO9Vld/0x7rD4YRSSUdfo0UcaevJXftlK"/>
+            <!--test123-->
         </insert>
+
+        <insert tableName="user">
+            <column name="id" value="4e3a7595-a3c1-43f9-b77f-c42ddb7785c3"/>
+            <column name="first_name" value="Bakis"/>
+            <column name="last_name" value="Rezerviskauskas"/>
+            <column name="email" value="rezervis.bakalauras@gmail.com"/>
+            <column name="password" value="$2a$10$CjEYaHi0AW7SQCf8so7KruTSsx8cAWgY6EvEnR5E2BK8Fm9PdibJq"/>
+            <!--bakis-->
+        </insert>
+
 
     </changeSet>
 
