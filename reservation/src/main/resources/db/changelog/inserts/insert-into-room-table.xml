@@ -15,6 +15,7 @@
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="room_type" value="DARBO"/>
         </insert>
 
         <insert tableName="room">
@@ -27,6 +28,7 @@
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="room_type" value="DARBO"/>
         </insert>
 
         <insert tableName="room">
@@ -39,6 +41,7 @@
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
+            <column name="room_type" value="SUSITIKIMU"/>
         </insert>
 
     </changeSet>

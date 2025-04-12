@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.dto;
 
+import com.vgtu.reservation.room.type.RoomType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -21,5 +22,5 @@ public class RoomResponseDto {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
-
+    private RoomType roomType;
 }

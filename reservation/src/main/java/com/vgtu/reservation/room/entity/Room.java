@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.entity;
 
+import com.vgtu.reservation.room.type.RoomType;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -29,4 +30,6 @@ public class Room {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
 
+    @Enumerated(EnumType.STRING)
+    private RoomType roomType;
 }

@@ -4,6 +4,7 @@ import com.vgtu.reservation.room.dao.RoomDao;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
 import com.vgtu.reservation.room.repository.RoomRepository;
+import com.vgtu.reservation.room.type.RoomType;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,13 +35,22 @@ public class RoomService {
         return roomDao.getRoomById(id);
     }
 
-    public List<Room> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime) {
+    public List<Room> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime, RoomType roomType) {
         List<UUID> reservedRoomIds = roomReservationRepository.findReservedRoomIdsBetween(startTime, endTime);
+        List<Room> rooms;
 
         if (reservedRoomIds.isEmpty()) {
-            return roomRepository.findAll();
+            rooms = roomRepository.findAll(); // all rooms are free
+        } else {
+            rooms = roomRepository.findByIdNotIn(reservedRoomIds);
         }
 
-        return roomRepository.findByIdNotIn(reservedRoomIds);
+        if(roomType != null) {
+            rooms = rooms.stream()
+                    .filter(room -> room.getRoomType() == roomType)
+                    .toList();
+        }
+
+        return rooms;
     }
 }

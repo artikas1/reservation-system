@@ -33,6 +33,9 @@
             <column name="deleted_at" type="datetime(6)">
                 <constraints nullable="true"/>
             </column>
+            <column name="room_type" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

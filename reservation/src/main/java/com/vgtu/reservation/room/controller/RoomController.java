@@ -4,6 +4,7 @@ import com.vgtu.reservation.room.dto.RoomResponseDto;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.mapper.RoomMapper;
 import com.vgtu.reservation.room.service.RoomService;
+import com.vgtu.reservation.room.type.RoomType;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -37,9 +38,10 @@ public class RoomController {
     @GetMapping("/available")
     public ResponseEntity<List<RoomResponseDto>> getAvailableRooms(
         @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime) {
+        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+        @RequestParam(required = false) RoomType roomType) {
 
-        var availableRooms = roomService.getAvailableRooms(startTime, endTime);
+        var availableRooms = roomService.getAvailableRooms(startTime, endTime, roomType);
         var result = availableRooms.stream().map(roomMapper::toResponseDto).toList();
 
         return ResponseEntity.ok(result);

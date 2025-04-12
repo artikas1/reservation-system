@@ -18,6 +18,7 @@ public class RoomMapper {
                 .createdAt(room.getCreatedAt())
                 .updatedAt(room.getUpdatedAt())
                 .deletedAt(room.getDeletedAt())
+                .roomType(room.getRoomType())
                 .build();
     }
 
