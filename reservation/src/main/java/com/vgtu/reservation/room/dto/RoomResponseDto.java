@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.dto;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.room.type.RoomType;
 import lombok.*;
 
@@ -23,4 +24,5 @@ public class RoomResponseDto {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private RoomType roomType;
+    private Address address;
 }

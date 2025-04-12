@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.dto;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.equipment.type.EquipmentType;
 import lombok.*;
 
@@ -23,4 +24,5 @@ public class EquipmentResponseDto {
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;
     private EquipmentType equipmentType;
+    private Address address;
 }

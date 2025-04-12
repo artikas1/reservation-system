@@ -1,6 +1,7 @@
 package com.vgtu.reservation.car.entity;
 
 import com.vgtu.reservation.car.type.BodyType;
+import com.vgtu.reservation.common.type.Address;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -35,4 +36,7 @@ public class Car {
 
     @Enumerated(EnumType.STRING)
     private BodyType bodyType;
+
+    @Enumerated(EnumType.STRING)
+    private Address address;
 }

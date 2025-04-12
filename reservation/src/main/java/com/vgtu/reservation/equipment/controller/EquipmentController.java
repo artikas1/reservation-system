@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.controller;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.equipment.dto.EquipmentResponseDto;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.mapper.EquipmentMapper;
@@ -39,9 +40,10 @@ public class EquipmentController {
     public ResponseEntity<List<EquipmentResponseDto>> getAvailableEquipment(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
-            @RequestParam(required = false) EquipmentType equipmentType) {
+            @RequestParam(required = false) EquipmentType equipmentType,
+            @RequestParam(required = false) Address address) {
 
-        var availableEquipment = equipmentService.getAvailableEquipment(startTime, endTime, equipmentType);
+        var availableEquipment = equipmentService.getAvailableEquipment(startTime, endTime, equipmentType, address);
         var result = availableEquipment.stream().map(equipmentMapper::toResponseDto).toList();
 
         return ResponseEntity.ok(result);

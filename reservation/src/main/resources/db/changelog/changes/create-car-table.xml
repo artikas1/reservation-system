@@ -45,6 +45,9 @@
             <column name="average_fuel_consumption" type="double">
                 <constraints nullable="true"/>
             </column>
+            <column name="address" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

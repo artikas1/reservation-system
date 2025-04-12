@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.service;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.equipment.dao.EquipmentDao;
 import com.vgtu.reservation.equipment.entity.Equipment;
 import com.vgtu.reservation.equipment.integrity.EquipmentDataIntegrity;
@@ -35,7 +36,7 @@ public class EquipmentService {
         return equipmentDao.getEquipmentById(id);
     }
 
-    public List<Equipment> getAvailableEquipment(LocalDateTime startTime, LocalDateTime endTime, EquipmentType equipmentType) {
+    public List<Equipment> getAvailableEquipment(LocalDateTime startTime, LocalDateTime endTime, EquipmentType equipmentType, Address address) {
         List<UUID> reservedEquipmentIds = equipmentReservationRepository.findReservedEquipmentIdsBetween(startTime, endTime);
         List<Equipment> equipments;
 
@@ -48,6 +49,12 @@ public class EquipmentService {
         if(equipmentType != null) {
             equipments = equipments.stream()
                     .filter( equipment -> equipment.getEquipmentType() == equipmentType)
+                    .toList();
+        }
+
+        if(address != null) {
+            equipments = equipments.stream()
+                    .filter( equipment -> equipment.getAddress() == address)
                     .toList();
         }
 

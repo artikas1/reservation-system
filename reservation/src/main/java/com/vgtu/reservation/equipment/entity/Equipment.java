@@ -1,5 +1,6 @@
 package com.vgtu.reservation.equipment.entity;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.equipment.type.EquipmentType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,5 +33,8 @@ public class Equipment {
 
     @Enumerated(EnumType.STRING)
     private EquipmentType equipmentType;
+
+    @Enumerated(EnumType.STRING)
+    private Address address;
 
 }

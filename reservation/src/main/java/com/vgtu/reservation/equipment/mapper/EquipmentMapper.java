@@ -19,6 +19,7 @@ public class EquipmentMapper {
                 .updatedAt(equipment.getUpdatedAt())
                 .deletedAt(equipment.getDeletedAt())
                 .equipmentType(equipment.getEquipmentType())
+                .address(equipment.getAddress())
                 .build();
     }
 

@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.entity;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.room.type.RoomType;
 import jakarta.persistence.*;
 import lombok.*;
@@ -32,4 +33,7 @@ public class Room {
 
     @Enumerated(EnumType.STRING)
     private RoomType roomType;
+
+    @Enumerated(EnumType.STRING)
+    private Address address;
 }

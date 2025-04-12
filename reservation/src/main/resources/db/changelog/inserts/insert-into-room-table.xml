@@ -16,6 +16,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="DARBO"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="room">
@@ -29,6 +30,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="DARBO"/>
+            <column name="address" value="NERIES_G_3"/>
         </insert>
 
         <insert tableName="room">
@@ -42,6 +44,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="SUSITIKIMU"/>
+            <column name="address" value="NERIES_G_3"/>
         </insert>
 
     </changeSet>

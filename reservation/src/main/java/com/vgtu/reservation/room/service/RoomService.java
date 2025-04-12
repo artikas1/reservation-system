@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.service;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.room.dao.RoomDao;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
@@ -35,7 +36,7 @@ public class RoomService {
         return roomDao.getRoomById(id);
     }
 
-    public List<Room> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime, RoomType roomType) {
+    public List<Room> getAvailableRooms(LocalDateTime startTime, LocalDateTime endTime, RoomType roomType, Address address) {
         List<UUID> reservedRoomIds = roomReservationRepository.findReservedRoomIdsBetween(startTime, endTime);
         List<Room> rooms;
 
@@ -48,6 +49,12 @@ public class RoomService {
         if(roomType != null) {
             rooms = rooms.stream()
                     .filter(room -> room.getRoomType() == roomType)
+                    .toList();
+        }
+
+        if (address != null) {
+            rooms = rooms.stream()
+                    .filter(room -> room.getAddress() == address)
                     .toList();
         }
 

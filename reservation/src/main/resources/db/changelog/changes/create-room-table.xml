@@ -36,6 +36,9 @@
             <column name="room_type" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="address" type="VARCHAR(50)">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

@@ -19,6 +19,7 @@
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
 
@@ -36,6 +37,7 @@
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="MINIVENAS"/>
             <column name="average_fuel_consumption" value="7"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="car">
@@ -52,6 +54,7 @@
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="MINIVENAS"/>
             <column name="average_fuel_consumption" value="7"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="car">
@@ -68,6 +71,7 @@
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="car">
@@ -84,6 +88,7 @@
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
             <column name="average_fuel_consumption" value="6"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
 

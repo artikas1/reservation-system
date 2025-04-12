@@ -1,5 +1,6 @@
 package com.vgtu.reservation.room.controller;
 
+import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.room.dto.RoomResponseDto;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.mapper.RoomMapper;
@@ -37,11 +38,12 @@ public class RoomController {
     @Operation(summary = "Get all available rooms", description = "Retrieves all rooms from database that are available for reservation")
     @GetMapping("/available")
     public ResponseEntity<List<RoomResponseDto>> getAvailableRooms(
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
-        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
-        @RequestParam(required = false) RoomType roomType) {
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime startTime,
+            @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime endTime,
+            @RequestParam(required = false) RoomType roomType,
+            @RequestParam(required = false) Address address) {
 
-        var availableRooms = roomService.getAvailableRooms(startTime, endTime, roomType);
+        var availableRooms = roomService.getAvailableRooms(startTime, endTime, roomType, address);
         var result = availableRooms.stream().map(roomMapper::toResponseDto).toList();
 
         return ResponseEntity.ok(result);

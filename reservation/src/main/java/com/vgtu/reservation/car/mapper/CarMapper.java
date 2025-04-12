@@ -25,6 +25,7 @@ public class CarMapper {
                 .averageFuelConsumption(car.getAverageFuelConsumption())
                 .isEcoFriendly(false) //always false in this one
                 .bodyType(car.getBodyType())
+                .address(car.getAddress())
                 .build();
     }
 
@@ -44,6 +45,7 @@ public class CarMapper {
                 .averageFuelConsumption(car.getAverageFuelConsumption())
                 .isEcoFriendly(isEcoFriendly)
                 .bodyType(car.getBodyType())
+                .address(car.getAddress())
                 .build();
     }
 

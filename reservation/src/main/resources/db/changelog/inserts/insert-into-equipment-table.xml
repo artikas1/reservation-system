@@ -17,6 +17,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="NESIOJAMAS_KOMPIUTERIS"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="equipment">
@@ -30,6 +31,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="WEB_KAMERA"/>
+            <column name="address" value="SAULETEKIO_AL_15"/>
         </insert>
 
         <insert tableName="equipment">
@@ -43,6 +45,7 @@
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="RADIO"/>
+            <column name="address" value="GEDIMINO_PR_9"/>
         </insert>
 
     </changeSet>
