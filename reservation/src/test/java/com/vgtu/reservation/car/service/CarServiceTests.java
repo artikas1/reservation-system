@@ -25,6 +25,7 @@ class CarServiceTest {
 
     @Mock
     private CarRepository carRepository;
+
     @Mock private CarReservationRepository carReservationRepository;
 
     @InjectMocks
