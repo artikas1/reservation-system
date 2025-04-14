@@ -21,6 +21,9 @@
             <column name="password" type="varchar(255)">
                 <constraints nullable="false"/>
             </column>
+            <column name="is_admin" type="boolean" defaultValueBoolean="false">
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 

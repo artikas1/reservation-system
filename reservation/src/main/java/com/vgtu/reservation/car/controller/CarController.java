@@ -9,12 +9,11 @@ import com.vgtu.reservation.common.type.Address;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,6 +27,27 @@ public class CarController {
 
     private final CarService carService;
     private final CarMapper carMapper;
+
+    @Operation(summary = "Create a new car", description = "Creates a new car in the database")
+    @PostMapping(value = "/create")
+    public ResponseEntity<CarResponseDto> createCar(
+            @RequestParam("manufacturer") String manufacturer,
+            @RequestParam("model") String model,
+            @RequestParam("vin") String vin,
+            @RequestParam("fuel") String fuel,
+            @RequestParam("manufacturerDate") String manufacturerDate,
+            @RequestParam("engineCapacity") String engineCapacity,
+            @RequestParam("numberPlate") String numberPlate,
+            @RequestParam("bodyType") BodyType bodyType,
+            @RequestParam("address") Address address,
+            @RequestParam(value = "averageFuelConsumption", required = false) Double averageFuelConsumption) {
+        try {
+            var request = carMapper.toRequestDto(manufacturer, model, vin, fuel, manufacturerDate, engineCapacity, numberPlate, bodyType, address, averageFuelConsumption);
+            return ResponseEntity.status(HttpStatus.CREATED).body(carService.createCar(request));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @Operation(summary = "Get all cars", description = "Retrieves all cars from database")
     @GetMapping("/all")

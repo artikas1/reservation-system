@@ -25,6 +25,7 @@ public class User implements UserDetails {
     private String lastName;
     private String email;
     private String password;
+    private boolean isAdmin;
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();

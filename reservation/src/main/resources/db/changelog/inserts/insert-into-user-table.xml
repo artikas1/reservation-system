@@ -12,6 +12,7 @@
             <column name="last_name" value="test"/>
             <column name="email" value="test@gmail.com"/>
             <column name="password" value="$2a$10$ba6OMkzTuMlK39nVfOUkIOFxM6xyk3.bKtdbgfo6WltbZ1/d27Yyi"/>
+            <column name="is_admin" valueBoolean="false"/>
             <!--test-->
         </insert>
 
@@ -21,6 +22,7 @@
             <column name="last_name" value="test123"/>
             <column name="email" value="test123@gmail.com"/>
             <column name="password" value="$2a$10$A0Wo5qb6yttD7qgXqszUBO9Vld/0x7rD4YRSSUdfo0UcaevJXftlK"/>
+            <column name="is_admin" valueBoolean="false"/>
             <!--test123-->
         </insert>
 
@@ -30,7 +32,18 @@
             <column name="last_name" value="Rezerviskauskas"/>
             <column name="email" value="rezervis.bakalauras@gmail.com"/>
             <column name="password" value="$2a$10$CjEYaHi0AW7SQCf8so7KruTSsx8cAWgY6EvEnR5E2BK8Fm9PdibJq"/>
+            <column name="is_admin" valueBoolean="false"/>
             <!--bakis-->
+        </insert>
+
+        <insert tableName="user">
+            <column name="id" value="cd77fe03-bbe8-4867-9b2b-5662d20f8797"/>
+            <column name="first_name" value="admin1"/>
+            <column name="last_name" value="admin2"/>
+            <column name="email" value="admin@gmail.com"/>
+            <column name="password" value="$2a$10$JSxbKWDs4tb6ly2MQs7ReuCl0sMjCaTCiKU/oNS.O6UwxKqz9t07K"/>
+            <column name="is_admin" valueBoolean="true"/>
+            <!--admin-->
         </insert>
 
 

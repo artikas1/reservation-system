@@ -1,13 +1,34 @@
 package com.vgtu.reservation.car.mapper;
 
+import com.vgtu.reservation.car.dto.CarRequestDto;
 import com.vgtu.reservation.car.dto.CarResponseDto;
 import com.vgtu.reservation.car.entity.Car;
+import com.vgtu.reservation.car.type.BodyType;
+import com.vgtu.reservation.common.type.Address;
 import org.springframework.stereotype.Component;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Component
 public class CarMapper {
+
+    public Car  toEntity(CarRequestDto carRequestDto) {
+        return Car.builder()
+                .manufacturer(carRequestDto.getManufacturer())
+                .model(carRequestDto.getModel())
+                .vin(carRequestDto.getVin())
+                .fuel(carRequestDto.getFuel())
+                .manufacturerDate(carRequestDto.getManufacturerDate())
+                .engineCapacity(carRequestDto.getEngineCapacity())
+                .numberPlate(carRequestDto.getNumberPlate())
+                .createdAt(LocalDateTime.now())
+                .averageFuelConsumption(carRequestDto.getAverageFuelConsumption())
+                .bodyType(carRequestDto.getBodyType())
+                .address(carRequestDto.getAddress())
+                .build();
+    }
 
     public CarResponseDto toResponseDto(Car car) {
         return CarResponseDto.builder()
@@ -57,6 +78,30 @@ public class CarMapper {
                                 car.getAverageFuelConsumption().equals(minEcoValue)
                 ))
                 .toList();
+    }
+
+    public CarRequestDto toRequestDto(String manufacturer,
+                                      String model,
+                                      String vin,
+                                      String fuel,
+                                      String manufacturerDate,
+                                      String engineCapacity,
+                                      String numberPlate,
+                                      BodyType bodyType,
+                                      Address address,
+                                      Double averageFuelConsumption) throws IOException {
+        return CarRequestDto.builder()
+                .manufacturer(manufacturer)
+                .model(model)
+                .vin(vin)
+                .fuel(fuel)
+                .manufacturerDate(manufacturerDate)
+                .engineCapacity(engineCapacity)
+                .numberPlate(numberPlate)
+                .bodyType(bodyType)
+                .address(address)
+                .averageFuelConsumption(averageFuelConsumption)
+                .build();
     }
 
 }

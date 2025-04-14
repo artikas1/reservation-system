@@ -1,6 +1,8 @@
 package com.vgtu.reservation.car.service;
 
+import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
 import com.vgtu.reservation.car.dao.CarDao;
+import com.vgtu.reservation.car.dto.CarRequestDto;
 import com.vgtu.reservation.car.dto.CarResponseDto;
 import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.integrity.CarDataIntegrity;
@@ -9,7 +11,9 @@ import com.vgtu.reservation.car.repository.CarRepository;
 import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
 import com.vgtu.reservation.common.type.Address;
+import com.vgtu.reservation.user.entity.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -28,6 +32,21 @@ public class CarService {
     private final CarDataIntegrity carDataIntegrity;
     private final CarReservationRepository carReservationRepository;
     private final CarMapper carMapper;
+    private final AuthenticationService authenticationService;
+
+    public CarResponseDto createCar(CarRequestDto carRequestDto) {
+        carDataIntegrity.validateCarRequest(carRequestDto);
+
+        User user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can create cars");
+        }
+
+        var car = carMapper.toEntity(carRequestDto);
+
+        return carMapper.toResponseDto(carDao.createCar(car));
+    }
+
 
     public List<Car> getCar() {
         return carRepository.findAll();
@@ -78,4 +97,5 @@ public class CarService {
                 .min()
                 .orElse(Double.MAX_VALUE);
     }
+
 }
