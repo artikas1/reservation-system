@@ -25,6 +25,7 @@ public class UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .isAdmin(user.isAdmin())
                 .build();
     }
 
@@ -43,6 +44,7 @@ public class UserService {
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .email(user.getEmail())
+                .isAdmin(user.isAdmin())
                 .build();
     }
 }
