@@ -2,6 +2,7 @@ package com.vgtu.reservation.car.dto;
 
 import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.common.type.Address;
+import jakarta.annotation.Nullable;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -37,8 +38,12 @@ public class CarRequestDto {
     @NotNull(message = "Body type is required")
     private BodyType bodyType;
 
+    @Nullable
     private Double averageFuelConsumption;
 
     @NotNull(message = "Address is required")
     private Address address;
+
+    @Nullable
+    private byte[] image;
 }

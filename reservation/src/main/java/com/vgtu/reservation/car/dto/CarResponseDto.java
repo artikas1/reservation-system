@@ -29,4 +29,6 @@ public class CarResponseDto {
     private Boolean isEcoFriendly;
     private BodyType bodyType;
     private Address address;
+    private byte[] image;
+
 }

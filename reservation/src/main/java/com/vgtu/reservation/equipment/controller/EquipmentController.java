@@ -9,17 +9,18 @@ import com.vgtu.reservation.equipment.type.EquipmentType;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
 
 /**
- *  Used to define endpoints for equipment
+ * Used to define endpoints for equipment
  */
 @RequestMapping("/equipment")
 @AllArgsConstructor
@@ -28,6 +29,25 @@ public class EquipmentController {
 
     private final EquipmentService equipmentService;
     private final EquipmentMapper equipmentMapper;
+
+    @Operation(summary = "Create a new equipment", description = "Creates a new equipment in the database")
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<EquipmentResponseDto> createEquipment(
+            @RequestParam("name") String name,
+            @RequestParam(value = "manufacturer", required = false) String manufacturer,
+            @RequestParam(value = "model", required = false) String model,
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam("equipmentType") EquipmentType equipmentType,
+            @RequestParam("address") Address address,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            var request = equipmentMapper.toRequestDto(name, manufacturer, model, code, description, equipmentType, address, image);
+            return ResponseEntity.status(HttpStatus.CREATED).body(equipmentService.createEquipment(request));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
 
     @Operation(summary = "Get all equipment", description = "Retrieves all equipment from database")
     @GetMapping("/all")

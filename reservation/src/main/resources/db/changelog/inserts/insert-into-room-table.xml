@@ -6,45 +6,48 @@
 
     <changeSet id="5" author="Artiom">
         <insert tableName="room">
-            <column name="id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
+            <column name="id" value="ebf5594f-c918-4e7a-a775-68fedfa42536" type="uuid"/>
             <column name="name" value="Darbo vieta"/>
             <column name="floor" value="1"/>
             <column name="room_number" value="101"/>
             <column name="seats" value="1"/>
             <column name="description" value="Darbo kabinetas su stalu ir kompiuteriu vienam žmogui"/>
-            <column name="created_at" value="2025-01-01"/>
+            <column name="created_at" valueDate="2025-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="DARBO"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/work_room_1.jpg"/>
         </insert>
 
         <insert tableName="room">
-            <column name="id" value="16e303c2-b134-420c-b87a-1faf036e61b1"/>
+            <column name="id" value="16e303c2-b134-420c-b87a-1faf036e61b1" type="uuid"/>
             <column name="name" value="Darbo vieta"/>
             <column name="floor" value="1"/>
             <column name="room_number" value="102"/>
             <column name="seats" value="2"/>
             <column name="description" value="Darbo kabinetas su stalais ir kompiuteriais dviem žmonėms"/>
-            <column name="created_at" value="2025-01-01"/>
+            <column name="created_at" valueDate="2025-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="DARBO"/>
             <column name="address" value="NERIES_G_3"/>
+            <column name="image" valueBlobFile="images/work_room_1.jpg"/>
         </insert>
 
         <insert tableName="room">
-            <column name="id" value="635fc197-90af-4f16-9ea6-da4adf3e51ca"/>
+            <column name="id" value="635fc197-90af-4f16-9ea6-da4adf3e51ca" type="uuid"/>
             <column name="name" value="Susitikimų kambarys"/>
             <column name="floor" value="2"/>
             <column name="room_number" value="201"/>
             <column name="seats" value="10"/>
             <column name="description" value="Susitikimų kambarys su dideliu stalu dašimčiai žmonių"/>
-            <column name="created_at" value="2025-01-01"/>
+            <column name="created_at" valueDate="2025-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="room_type" value="SUSITIKIMU"/>
             <column name="address" value="NERIES_G_3"/>
+            <column name="image" valueBlobFile="images/meeting_room.jpg"/>
         </insert>
 
     </changeSet>

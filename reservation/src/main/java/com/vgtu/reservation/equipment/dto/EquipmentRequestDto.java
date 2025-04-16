@@ -2,28 +2,39 @@ package com.vgtu.reservation.equipment.dto;
 
 import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.equipment.type.EquipmentType;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
+import org.springframework.lang.Nullable;
 
 @Getter
 @Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class EquipmentResponseDto {
+public class EquipmentRequestDto {
 
-    private UUID id;
+    @NotBlank(message = "Name is required")
     private String name;
+
+    @Nullable
     private String manufacturer;
+
+    @Nullable
     private String model;
+
+    @Nullable
     private String code;
+
+    @Nullable
     private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-    private LocalDateTime deletedAt;
+
+    @NotNull(message = "Equipment type is required")
     private EquipmentType equipmentType;
+
+    @NotNull(message = "Address is required")
     private Address address;
+
+    @Nullable
     private byte[] image;
 }

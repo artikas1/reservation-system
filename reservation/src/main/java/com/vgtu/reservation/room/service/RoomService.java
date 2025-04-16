@@ -1,13 +1,19 @@
 package com.vgtu.reservation.room.service;
 
+import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
 import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.room.dao.RoomDao;
+import com.vgtu.reservation.room.dto.RoomRequestDto;
+import com.vgtu.reservation.room.dto.RoomResponseDto;
 import com.vgtu.reservation.room.entity.Room;
 import com.vgtu.reservation.room.integrity.RoomDataIntegrity;
+import com.vgtu.reservation.room.mapper.RoomMapper;
 import com.vgtu.reservation.room.repository.RoomRepository;
 import com.vgtu.reservation.room.type.RoomType;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
+import com.vgtu.reservation.user.entity.User;
 import lombok.AllArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -25,6 +31,21 @@ public class RoomService {
     private final RoomRepository roomRepository;
     private final RoomDataIntegrity roomDataIntegrity;
     private final RoomReservationRepository roomReservationRepository;
+    private final RoomMapper roomMapper;
+    private final AuthenticationService authenticationService;
+
+    public RoomResponseDto createRoom(RoomRequestDto roomRequestDto) {
+        roomDataIntegrity.validateRoomRequest(roomRequestDto);
+
+        User user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can create rooms");
+        }
+
+        var room = roomMapper.toEntity(roomRequestDto);
+
+        return roomMapper.toResponseDto(roomDao.createRoom(room));
+    }
 
     public List<Room> getRoom() {
         return roomRepository.findAll();
@@ -60,4 +81,5 @@ public class RoomService {
 
         return rooms;
     }
+
 }

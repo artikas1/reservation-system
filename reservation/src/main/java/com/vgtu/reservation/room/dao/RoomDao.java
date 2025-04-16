@@ -16,6 +16,12 @@ public class RoomDao {
     private final RoomDataIntegrity roomDataIntegrity;
     private final RoomRepository roomRepository;
 
+    public Room createRoom(Room room) {
+        roomDataIntegrity.validateRoom(room);
+
+        return roomRepository.save(room);
+    }
+
     public Room getRoomById(UUID id) {
         roomDataIntegrity.validateId(id);
 

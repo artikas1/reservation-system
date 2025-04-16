@@ -10,6 +10,7 @@ import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity
 import com.vgtu.reservation.carreservation.mapper.CarReservationMapper;
 import com.vgtu.reservation.carreservation.dao.CarReservationDao;
 import com.vgtu.reservation.common.type.ReservationStatus;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class CarReservationService {
 
     private final CarDataIntegrity carDataIntegrity;

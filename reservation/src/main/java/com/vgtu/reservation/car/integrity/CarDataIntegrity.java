@@ -30,40 +30,40 @@ public class CarDataIntegrity {
     }
 
     public void validateCarRequest(CarRequestDto carRequestDto) {
-        if(carRequestDto == null){
+        if (carRequestDto == null) {
             throw new CarBadRequestException(CAR_REQUEST_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getManufacturer() == null){
+        if (carRequestDto.getManufacturer() == null) {
             throw new CarBadRequestException(CAR_MANUFACTURER_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getModel() == null){
+        if (carRequestDto.getModel() == null) {
             throw new CarBadRequestException(CAR_MODEL_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getVin() == null){
+        if (carRequestDto.getVin() == null) {
             throw new CarBadRequestException(CAR_VIN_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getFuel() == null){
+        if (carRequestDto.getFuel() == null) {
             throw new CarBadRequestException(CAR_FUEL_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getManufacturerDate() == null){
+        if (carRequestDto.getManufacturerDate() == null) {
             throw new CarBadRequestException(CAR_MANUFACTURER_DATE_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getEngineCapacity() == null){
+        if (carRequestDto.getEngineCapacity() == null) {
             throw new CarBadRequestException(CAR_ENGINE_CAPACITY_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getNumberPlate() == null) {
+        if (carRequestDto.getNumberPlate() == null) {
             throw new CarBadRequestException(CAR_NUMBER_PLATE_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getBodyType() == null) {
+        if (carRequestDto.getBodyType() == null) {
             throw new CarBadRequestException(CAR_BODY_TYPE_CANNOT_BE_NULL);
         }
-        if(carRequestDto.getAddress() == null) {
+        if (carRequestDto.getAddress() == null) {
             throw new CarBadRequestException(CAR_ADDRESS_CANNOT_BE_NULL);
         }
     }
 
     public void validateCar(Car car) {
-        if(car == null) {
+        if (car == null) {
             throw new CarBadRequestException(CAR_CANNOT_BE_NULL);
         }
     }

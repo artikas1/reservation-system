@@ -10,6 +10,7 @@ import com.vgtu.reservation.equipmentreservation.dto.EquipmentReservationTimeRan
 import com.vgtu.reservation.equipmentreservation.entity.EquipmentReservation;
 import com.vgtu.reservation.equipmentreservation.integrity.EquipmentReservationDataIntegrity;
 import com.vgtu.reservation.equipmentreservation.mapper.EquipmentReservationMapper;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class EquipmentReservationService {
 
     private final EquipmentDataIntegrity equipmentDataIntegrity;

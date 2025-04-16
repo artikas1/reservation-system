@@ -37,4 +37,7 @@ public class Equipment {
     @Enumerated(EnumType.STRING)
     private Address address;
 
+    @Lob
+    private byte[] image;
+
 }

@@ -6,7 +6,7 @@
 
     <changeSet id="1" author="Artiom">
         <insert tableName="car">
-            <column name="id" value="8bb66169-b382-4923-92e2-b96b15acb67e"/>
+            <column name="id" value="8bb66169-b382-4923-92e2-b96b15acb67e" type="uuid"/>
             <column name="manufacturer" value="BMW"/>
             <column name="model" value="530d xDrive"/>
             <column name="vin" value="WBAJE5C56JB123456"/>
@@ -14,17 +14,18 @@
             <column name="manufacturer_date" value="2018-01-01"/>
             <column name="engine_capacity" value="2993"/>
             <column name="number_plate" value="AAA111"/>
-            <column name="created_at" value="2021-01-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2021-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
-            <column name="average_fuel_consumption" value="6"/>
+            <column name="average_fuel_consumption" valueNumeric="6.0"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/bmw.jpg"/>
         </insert>
 
 
         <insert tableName="car">
-            <column name="id" value="fe691876-0eaa-4403-84a2-300e8a6fc13a"/>
+            <column name="id" value="fe691876-0eaa-4403-84a2-300e8a6fc13a" type="uuid"/>
             <column name="manufacturer" value="Volkswagen"/>
             <column name="model" value="Transporter"/>
             <column name="vin" value="WV1ZZZ7HZGP123456"/>
@@ -32,16 +33,17 @@
             <column name="manufacturer_date" value="2019-01-01"/>
             <column name="engine_capacity" value="1968"/>
             <column name="number_plate" value="BBB111"/>
-            <column name="created_at" value="2022-01-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2022-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="MINIVENAS"/>
-            <column name="average_fuel_consumption" value="7"/>
+            <column name="average_fuel_consumption" valueNumeric="7.0"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/volkswagen.jpg"/>
         </insert>
 
         <insert tableName="car">
-            <column name="id" value="adf7d5c5-b93e-4393-9403-fd07f297ccf9"/>
+            <column name="id" value="adf7d5c5-b93e-4393-9403-fd07f297ccf9" type="uuid"/>
             <column name="manufacturer" value="Volkswagen"/>
             <column name="model" value="Transporter"/>
             <column name="vin" value="WV1ZZZ7HZGP123457"/>
@@ -49,16 +51,17 @@
             <column name="manufacturer_date" value="2019-01-01"/>
             <column name="engine_capacity" value="1968"/>
             <column name="number_plate" value="BBB112"/>
-            <column name="created_at" value="2022-01-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2022-01-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="MINIVENAS"/>
-            <column name="average_fuel_consumption" value="7"/>
+            <column name="average_fuel_consumption" valueNumeric="7.0"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/volkswagen.jpg"/>
         </insert>
 
         <insert tableName="car">
-            <column name="id" value="5f6356d5-67d1-439a-9b20-0d3dd3cc8fa7"/>
+            <column name="id" value="5f6356d5-67d1-439a-9b20-0d3dd3cc8fa7" type="uuid"/>
             <column name="manufacturer" value="Skoda"/>
             <column name="model" value="Oktavia CGR 973"/>
             <column name="vin" value="TMBZZZ1Z9J11234567"/>
@@ -66,16 +69,17 @@
             <column name="manufacturer_date" value="2017-01-01"/>
             <column name="engine_capacity" value="1798"/>
             <column name="number_plate" value="CCC111"/>
-            <column name="created_at" value="2017-06-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2017-06-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
-            <column name="average_fuel_consumption" value="6"/>
+            <column name="average_fuel_consumption" valueNumeric="6.0"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/skoda.jpg"/>
         </insert>
 
         <insert tableName="car">
-            <column name="id" value="1b65634d-3b68-478f-8c04-5fa32df96dd0"/>
+            <column name="id" value="1b65634d-3b68-478f-8c04-5fa32df96dd0" type="uuid"/>
             <column name="manufacturer" value="Skoda"/>
             <column name="model" value="Oktavia CGR 973"/>
             <column name="vin" value="TMBZZZ1Z9J11234568"/>
@@ -83,16 +87,14 @@
             <column name="manufacturer_date" value="2017-01-01"/>
             <column name="engine_capacity" value="1798"/>
             <column name="number_plate" value="DDD111"/>
-            <column name="created_at" value="2017-06-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2017-06-01T00:00:00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="body_type" value="SEDANAS"/>
-            <column name="average_fuel_consumption" value="6"/>
+            <column name="average_fuel_consumption" valueNumeric="6.0"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/skoda.jpg"/>
         </insert>
-
-
-
 
     </changeSet>
 

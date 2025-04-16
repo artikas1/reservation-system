@@ -6,6 +6,7 @@ import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.common.type.Address;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -14,7 +15,7 @@ import java.util.List;
 @Component
 public class CarMapper {
 
-    public Car  toEntity(CarRequestDto carRequestDto) {
+    public Car toEntity(CarRequestDto carRequestDto) {
         return Car.builder()
                 .manufacturer(carRequestDto.getManufacturer())
                 .model(carRequestDto.getModel())
@@ -27,6 +28,7 @@ public class CarMapper {
                 .averageFuelConsumption(carRequestDto.getAverageFuelConsumption())
                 .bodyType(carRequestDto.getBodyType())
                 .address(carRequestDto.getAddress())
+                .image(carRequestDto.getImage())
                 .build();
     }
 
@@ -47,6 +49,7 @@ public class CarMapper {
                 .isEcoFriendly(false) //always false in this one
                 .bodyType(car.getBodyType())
                 .address(car.getAddress())
+                .image(car.getImage())
                 .build();
     }
 
@@ -67,6 +70,7 @@ public class CarMapper {
                 .isEcoFriendly(isEcoFriendly)
                 .bodyType(car.getBodyType())
                 .address(car.getAddress())
+                .image(car.getImage())
                 .build();
     }
 
@@ -89,7 +93,8 @@ public class CarMapper {
                                       String numberPlate,
                                       BodyType bodyType,
                                       Address address,
-                                      Double averageFuelConsumption) throws IOException {
+                                      Double averageFuelConsumption,
+                                      MultipartFile image) throws IOException {
         return CarRequestDto.builder()
                 .manufacturer(manufacturer)
                 .model(model)
@@ -101,6 +106,7 @@ public class CarMapper {
                 .bodyType(bodyType)
                 .address(address)
                 .averageFuelConsumption(averageFuelConsumption)
+                .image(image.getBytes())
                 .build();
     }
 

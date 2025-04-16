@@ -16,6 +16,12 @@ public class EquipmentDao {
     private final EquipmentDataIntegrity equipmentDataIntegrity;
     private final EquipmentRepository equipmentRepository;
 
+    public Equipment createEquipment(Equipment equipment) {
+        equipmentDataIntegrity.validateEquipment(equipment);
+
+        return equipmentRepository.save(equipment);
+    }
+
     public Equipment getEquipmentById(UUID id) {
         equipmentDataIntegrity.validateId(id);
 

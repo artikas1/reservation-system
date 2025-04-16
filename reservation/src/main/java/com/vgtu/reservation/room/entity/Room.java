@@ -36,4 +36,7 @@ public class Room {
 
     @Enumerated(EnumType.STRING)
     private Address address;
+
+    @Lob
+    private byte[] image;
 }

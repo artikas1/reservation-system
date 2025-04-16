@@ -39,4 +39,7 @@ public class Car {
 
     @Enumerated(EnumType.STRING)
     private Address address;
+
+    @Lob
+    private byte[] image;
 }

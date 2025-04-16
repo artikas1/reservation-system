@@ -7,45 +7,48 @@
     <changeSet id="4" author="Artiom">
 
         <insert tableName="equipment">
-            <column name="id" value="eee38ce8-aa22-45e0-94e1-d0804500da13"/>
+            <column name="id" value="eee38ce8-aa22-45e0-94e1-d0804500da13" type="uuid"/>
             <column name="name" value="Laptop"/>
             <column name="manufacturer" value="Dell"/>
             <column name="model" value="XPS 13"/>
             <column name="code" value="LAP123456"/>
             <column name="description" value="High-performance laptop"/>
-            <column name="created_at" value="2021-01-01 00:00:00.000000"/>
+            <column name="created_at" valueDate="2021-01-01T00:00:00.00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="NESIOJAMAS_KOMPIUTERIS"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/dell.jpg"/>
         </insert>
 
         <insert tableName="equipment">
-            <column name="id" value="84391c8d-4501-47ea-8c46-5fe16ce41779"/>
+            <column name="id" value="84391c8d-4501-47ea-8c46-5fe16ce41779" type="uuid"/>
             <column name="name" value="Web Cam"/>
             <column name="manufacturer" value="Logitech"/>
             <column name="model" value="C920"/>
             <column name="code" value="CAM654321"/>
             <column name="description" value="HD webcam for video calls"/>
-            <column name="created_at" value="2021-01-02 00:00:00.000000"/>
+            <column name="created_at" valueDate="2021-01-02T00:00:00.00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="WEB_KAMERA"/>
             <column name="address" value="SAULETEKIO_AL_15"/>
+            <column name="image" valueBlobFile="images/logitech.jpg"/>
         </insert>
 
         <insert tableName="equipment">
-            <column name="id" value="0833c467-784d-4beb-aa1c-e229ec4e28c7"/>
+            <column name="id" value="0833c467-784d-4beb-aa1c-e229ec4e28c7" type="uuid"/>
             <column name="name" value="Radio"/>
             <column name="manufacturer" value="Motorola"/>
             <column name="model" value="APX 8000"/>
             <column name="code" value="RAD987654321"/>
             <column name="description" value="Communication radio"/>
-            <column name="created_at" value="2021-01-03 00:00:00.000000"/>
+            <column name="created_at" valueDate="2021-01-03T00:00:00.00"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="equipment_type" value="RADIO"/>
             <column name="address" value="GEDIMINO_PR_9"/>
+            <column name="image" valueBlobFile="images/motorola.jpg"/>
         </insert>
 
     </changeSet>

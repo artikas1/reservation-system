@@ -10,6 +10,7 @@ import com.vgtu.reservation.roomreservation.dto.RoomReservationTimeRangeDto;
 import com.vgtu.reservation.roomreservation.entity.RoomReservation;
 import com.vgtu.reservation.roomreservation.integrity.RoomReservationDataIntegrity;
 import com.vgtu.reservation.roomreservation.mapper.RoomReservationMapper;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +24,7 @@ import java.util.stream.Collectors;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class RoomReservationService {
 
     private final RoomDataIntegrity roomDataIntegrity;

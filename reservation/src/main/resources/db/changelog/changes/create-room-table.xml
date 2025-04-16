@@ -39,6 +39,7 @@
             <column name="address" type="VARCHAR(50)">
                 <constraints nullable="false"/>
             </column>
+            <column name="image" type="blob"/>
         </createTable>
     </changeSet>
 

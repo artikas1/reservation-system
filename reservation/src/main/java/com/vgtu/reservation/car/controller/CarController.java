@@ -10,8 +10,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -29,7 +31,7 @@ public class CarController {
     private final CarMapper carMapper;
 
     @Operation(summary = "Create a new car", description = "Creates a new car in the database")
-    @PostMapping(value = "/create")
+    @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ResponseEntity<CarResponseDto> createCar(
             @RequestParam("manufacturer") String manufacturer,
             @RequestParam("model") String model,
@@ -40,9 +42,10 @@ public class CarController {
             @RequestParam("numberPlate") String numberPlate,
             @RequestParam("bodyType") BodyType bodyType,
             @RequestParam("address") Address address,
-            @RequestParam(value = "averageFuelConsumption", required = false) Double averageFuelConsumption) {
+            @RequestParam(value = "averageFuelConsumption", required = false) Double averageFuelConsumption,
+            @RequestParam("image") MultipartFile image) {
         try {
-            var request = carMapper.toRequestDto(manufacturer, model, vin, fuel, manufacturerDate, engineCapacity, numberPlate, bodyType, address, averageFuelConsumption);
+            var request = carMapper.toRequestDto(manufacturer, model, vin, fuel, manufacturerDate, engineCapacity, numberPlate, bodyType, address, averageFuelConsumption, image);
             return ResponseEntity.status(HttpStatus.CREATED).body(carService.createCar(request));
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
