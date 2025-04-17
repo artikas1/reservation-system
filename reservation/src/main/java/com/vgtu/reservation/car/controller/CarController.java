@@ -54,18 +54,41 @@ public class CarController {
         }
     }
 
+    @Operation(summary = "Get all cars", description = "Retrieves all cars from database")
+    @GetMapping("/all")
+    public List<Car> getCar() {
+        return carService.getCar();
+    }
+
+    @Operation(summary = "Update a car", description = "Updates an existing car with new details")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<CarResponseDto> updateCar(
+            @Parameter(description = "ID of the car to update") @PathVariable UUID id,
+            @RequestParam(value = "manufacturer", required = false) String manufacturer,
+            @RequestParam(value = "model", required = false) String model,
+            @RequestParam(value = "vin", required = false) String vin,
+            @RequestParam(value = "fuel", required = false) String fuel,
+            @RequestParam(value = "manufacturerDate", required = false) String manufacturerDate,
+            @RequestParam(value = "engineCapacity", required = false) String engineCapacity,
+            @RequestParam(value = "numberPlate", required = false) String numberPlate,
+            @RequestParam(value = "bodyType", required = false) BodyType bodyType,
+            @RequestParam(value = "address", required = false) Address address,
+            @RequestParam(value = "averageFuelConsumption", required = false) Double averageFuelConsumption,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            var request = carMapper.toRequestDto(manufacturer, model, vin, fuel, manufacturerDate, engineCapacity, numberPlate, bodyType, address, averageFuelConsumption, image);
+            return ResponseEntity.ok(carService.updateCarById(id, request));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @Operation(summary = "Delete a car by ID", description = "Deletes a car from the database by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCar(
             @Parameter(description = "ID of the car to delete") @PathVariable UUID id) {
         carService.deleteCarById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @Operation(summary = "Get all cars", description = "Retrieves all cars from database")
-    @GetMapping("/all")
-    public List<Car> getCar() {
-        return carService.getCar();
     }
 
     @Operation(summary = "Get all available cars", description = "Retrieves all cars from database that are available for reservation")

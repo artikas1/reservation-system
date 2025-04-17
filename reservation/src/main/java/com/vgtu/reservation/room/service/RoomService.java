@@ -84,6 +84,29 @@ public class RoomService {
         return rooms;
     }
 
+    public RoomResponseDto updateRoomById(UUID id, RoomRequestDto roomRequestDto) {
+        roomDataIntegrity.validateId(id);
+
+        User user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can update rooms");
+        }
+        var room = roomDao.getRoomById(id);
+
+        room.setName(roomRequestDto.getName());
+        room.setFloor(roomRequestDto.getFloor());
+        room.setRoomNumber(roomRequestDto.getRoomNumber());
+        room.setSeats(roomRequestDto.getSeats());
+        room.setDescription(roomRequestDto.getDescription());
+        room.setRoomType(roomRequestDto.getRoomType());
+        room.setAddress(roomRequestDto.getAddress());
+        room.setImage(roomRequestDto.getImage());
+
+        room.setUpdatedAt(LocalDateTime.now());
+
+        return roomMapper.toResponseDto(roomDao.createRoom(room));
+    }
+
     public void deleteRoomById(UUID id) {
         roomDataIntegrity.validateId(id);
 
@@ -98,4 +121,5 @@ public class RoomService {
 
         roomDao.save(room);
     }
+
 }

@@ -51,18 +51,38 @@ public class RoomController {
         }
     }
 
+    @Operation(summary = "Get all rooms", description = "Retrieves all rooms from database")
+    @GetMapping("/all")
+    public List<Room> getRoom() {
+        return roomService.getRoom();
+    }
+
+    @Operation(summary = "Update a room", description = "Updates an existing room in the database")
+    @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<RoomResponseDto> updateRoom(
+            @Parameter(description = "ID of the car to update") @PathVariable UUID id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "floor", required = false) String floor,
+            @RequestParam(value = "roomNumber", required = false) String roomNumber,
+            @RequestParam(value = "seats", required = false) String seats,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "roomType", required = false) RoomType roomType,
+            @RequestParam(value = "address", required = false) Address address,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            var request = roomMapper.toRequestDto(name, floor, roomNumber, seats, description, roomType, address, image);
+            return ResponseEntity.ok(roomService.updateRoomById(id, request));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @Operation(summary = "Delete a room by ID", description = "Deletes a room from the database by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteRoom(
             @Parameter(description = "ID of the room to delete") @PathVariable UUID id) {
         roomService.deleteRoomById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @Operation(summary = "Get all rooms", description = "Retrieves all rooms from database")
-    @GetMapping("/all")
-    public List<Room> getRoom() {
-        return roomService.getRoom();
     }
 
     @Operation(summary = "Get all available rooms", description = "Retrieves all rooms from database that are available for reservation")

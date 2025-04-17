@@ -100,6 +100,31 @@ public class CarService {
                 .orElse(Double.MAX_VALUE);
     }
 
+    public CarResponseDto updateCarById(UUID id, CarRequestDto carRequestDto) {
+        carDataIntegrity.validateId(id);
+
+        User user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can create cars");
+        }
+        var car = carDao.getCarById(id);
+
+        car.setManufacturer(carRequestDto.getManufacturer());
+        car.setModel(carRequestDto.getModel());
+        car.setVin(carRequestDto.getVin());
+        car.setFuel(carRequestDto.getFuel());
+        car.setManufacturerDate(carRequestDto.getManufacturerDate());
+        car.setEngineCapacity(carRequestDto.getEngineCapacity());
+        car.setNumberPlate(carRequestDto.getNumberPlate());
+        car.setBodyType(carRequestDto.getBodyType());
+        car.setAddress(carRequestDto.getAddress());
+        car.setImage(carRequestDto.getImage());
+
+        car.setUpdatedAt(LocalDateTime.now());
+
+        return carMapper.toResponseDto(carDao.createCar(car));
+    }
+
     public void deleteCarById(UUID id) {
         carDataIntegrity.validateId(id);
 
@@ -114,4 +139,5 @@ public class CarService {
 
         carDao.save(car);
     }
+
 }

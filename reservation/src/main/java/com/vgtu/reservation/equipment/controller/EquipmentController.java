@@ -51,18 +51,38 @@ public class EquipmentController {
         }
     }
 
+    @Operation(summary = "Get all equipment", description = "Retrieves all equipment from database")
+    @GetMapping("/all")
+    public List<Equipment> getEquipment() {
+        return equipmentService.getEquipment();
+    }
+
+    @Operation(summary = "Update an equipment", description = "Updates an existing equipment with new details")
+    @PutMapping(value ="/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<EquipmentResponseDto> updateEquipment(
+            @Parameter(description = "ID of the equipment") @PathVariable UUID id,
+            @RequestParam(value = "name", required = false) String name,
+            @RequestParam(value = "manufacturer", required = false) String manufacturer,
+            @RequestParam(value = "model", required = false) String model,
+            @RequestParam(value = "code", required = false) String code,
+            @RequestParam(value = "description", required = false) String description,
+            @RequestParam(value = "equipmentType", required = false) EquipmentType equipmentType,
+            @RequestParam(value = "address", required = false) Address address,
+            @RequestParam(value = "image", required = false) MultipartFile image) {
+        try {
+            var request = equipmentMapper.toRequestDto(name, manufacturer, model, code, description, equipmentType, address, image);
+            return ResponseEntity.ok(equipmentService.updateEquipmentById(id, request));
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
     @Operation(summary = "Delete an equipment", description = "Delete an enquipment from the database by its ID")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteEquipment(
             @Parameter(description = "ID of the equipment") @PathVariable UUID id) {
         equipmentService.deleteEquipmentById(id);
         return ResponseEntity.ok().build();
-    }
-
-    @Operation(summary = "Get all equipment", description = "Retrieves all equipment from database")
-    @GetMapping("/all")
-    public List<Equipment> getEquipment() {
-        return equipmentService.getEquipment();
     }
 
     @Operation(summary = "Get all available equipment", description = "Retrieves all equipment from database that are available for reservation")

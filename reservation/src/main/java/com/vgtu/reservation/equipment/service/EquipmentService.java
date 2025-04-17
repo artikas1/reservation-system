@@ -98,4 +98,27 @@ public class EquipmentService {
 
         equipmentDao.save(equipment);
     }
+
+    public EquipmentResponseDto updateEquipmentById(UUID id, EquipmentRequestDto equipmentRequestDto) {
+        equipmentDataIntegrity.validateId(id);
+
+        User user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can update equipment");
+        }
+        var equipment = equipmentDao.getEquipmentById(id);
+
+        equipment.setName(equipmentRequestDto.getName());
+        equipment.setManufacturer(equipmentRequestDto.getManufacturer());
+        equipment.setModel(equipmentRequestDto.getModel());
+        equipment.setCode(equipmentRequestDto.getCode());
+        equipment.setDescription(equipmentRequestDto.getDescription());
+        equipment.setEquipmentType(equipmentRequestDto.getEquipmentType());
+        equipment.setAddress(equipmentRequestDto.getAddress());
+        equipment.setImage(equipmentRequestDto.getImage());
+
+        equipment.setUpdatedAt(LocalDateTime.now());
+
+        return equipmentMapper.toResponseDto(equipmentDao.createEquipment(equipment));
+    }
 }
