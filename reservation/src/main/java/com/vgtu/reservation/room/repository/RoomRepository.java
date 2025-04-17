@@ -10,4 +10,8 @@ import java.util.UUID;
 @Repository
 public interface RoomRepository extends JpaRepository<Room, UUID> {
     List<Room> findByIdNotIn(List<UUID> reservedRoomIds);
+
+    List<Room> findByDeletedAtIsNull();
+
+    List<Room> findByIdNotInAndDeletedAtIsNull(List<UUID> ids);
 }

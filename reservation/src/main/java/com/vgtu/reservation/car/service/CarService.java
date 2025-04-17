@@ -12,6 +12,7 @@ import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.carreservation.repository.CarReservationRepository;
 import com.vgtu.reservation.common.type.Address;
 import com.vgtu.reservation.user.entity.User;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.UUID;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class CarService {
 
     private final CarDao carDao;
@@ -63,9 +65,9 @@ public class CarService {
         List<Car> cars;
 
         if (reservedCarIds.isEmpty()) {
-            cars = carRepository.findAll(); // all cars are free
+            cars = carRepository.findByDeletedAtIsNull();
         } else {
-            cars = carRepository.findByIdNotIn(reservedCarIds);
+            cars = carRepository.findByIdNotInAndDeletedAtIsNull(reservedCarIds);
         }
 
         if (bodyType != null) {
@@ -98,4 +100,18 @@ public class CarService {
                 .orElse(Double.MAX_VALUE);
     }
 
+    public void deleteCarById(UUID id) {
+        carDataIntegrity.validateId(id);
+
+        var user = authenticationService.getAuthenticatedUser();
+        if (!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can delete cars");
+        }
+
+        var car = carDao.getCarById(id);
+
+        car.setDeletedAt(LocalDateTime.now());
+
+        carDao.save(car);
+    }
 }

@@ -29,4 +29,7 @@ public class CarDao {
                 .orElseThrow(() -> new CarNotFoundException("Car not found"));
     }
 
+    public void save(Car car) {
+        carRepository.save(car);
+    }
 }

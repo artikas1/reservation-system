@@ -7,6 +7,7 @@ import com.vgtu.reservation.car.service.CarService;
 import com.vgtu.reservation.car.type.BodyType;
 import com.vgtu.reservation.common.type.Address;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Used to define endpoints for car
@@ -50,6 +52,14 @@ public class CarController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @Operation(summary = "Delete a car by ID", description = "Deletes a car from the database by its ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCar(
+            @Parameter(description = "ID of the car to delete") @PathVariable UUID id) {
+        carService.deleteCarById(id);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Get all cars", description = "Retrieves all cars from database")

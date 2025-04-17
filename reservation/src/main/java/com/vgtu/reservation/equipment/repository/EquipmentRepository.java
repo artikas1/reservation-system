@@ -10,4 +10,8 @@ import java.util.UUID;
 @Repository
 public interface EquipmentRepository extends JpaRepository<Equipment, UUID> {
     List<Equipment> findByIdNotIn(List<UUID> reservedEquipmentIds);
+
+    List<Equipment> findByDeletedAtIsNull();
+
+    List<Equipment> findByIdNotInAndDeletedAtIsNull(List<UUID> ids);
 }

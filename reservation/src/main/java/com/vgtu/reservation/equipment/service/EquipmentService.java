@@ -12,6 +12,7 @@ import com.vgtu.reservation.equipment.repository.EquipmentRepository;
 import com.vgtu.reservation.equipment.type.EquipmentType;
 import com.vgtu.reservation.equipmentreservation.repository.EquipmentReservationRepository;
 import com.vgtu.reservation.user.entity.User;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.UUID;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class EquipmentService {
 
     private final EquipmentDao equipmentDao;
@@ -62,9 +64,9 @@ public class EquipmentService {
         List<Equipment> equipments;
 
         if (reservedEquipmentIds.isEmpty()) {
-            equipments = equipmentRepository.findAll();
+            equipments = equipmentRepository.findByDeletedAtIsNull();
         } else {
-            equipments = equipmentRepository.findByIdNotIn(reservedEquipmentIds);
+            equipments = equipmentRepository.findByIdNotInAndDeletedAtIsNull(reservedEquipmentIds);
         }
 
         if(equipmentType != null) {
@@ -82,4 +84,18 @@ public class EquipmentService {
         return equipments;
     }
 
+    public void deleteEquipmentById(UUID id) {
+        equipmentDataIntegrity.validateId(id);
+
+        var user = authenticationService.getAuthenticatedUser();
+        if(!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can delete equipment");
+        }
+
+        var equipment = equipmentDao.getEquipmentById(id);
+
+        equipment.setDeletedAt(LocalDateTime.now());
+
+        equipmentDao.save(equipment);
+    }
 }

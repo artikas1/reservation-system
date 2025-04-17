@@ -12,6 +12,7 @@ import com.vgtu.reservation.room.repository.RoomRepository;
 import com.vgtu.reservation.room.type.RoomType;
 import com.vgtu.reservation.roomreservation.repository.RoomReservationRepository;
 import com.vgtu.reservation.user.entity.User;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ import java.util.UUID;
  */
 @Service
 @AllArgsConstructor
+@Transactional
 public class RoomService {
 
     private final RoomDao roomDao;
@@ -62,9 +64,9 @@ public class RoomService {
         List<Room> rooms;
 
         if (reservedRoomIds.isEmpty()) {
-            rooms = roomRepository.findAll(); // all rooms are free
+            rooms = roomRepository.findByDeletedAtIsNull(); // all rooms are free
         } else {
-            rooms = roomRepository.findByIdNotIn(reservedRoomIds);
+            rooms = roomRepository.findByIdNotInAndDeletedAtIsNull(reservedRoomIds);
         }
 
         if(roomType != null) {
@@ -82,4 +84,18 @@ public class RoomService {
         return rooms;
     }
 
+    public void deleteRoomById(UUID id) {
+        roomDataIntegrity.validateId(id);
+
+        var user = authenticationService.getAuthenticatedUser();
+        if(!user.isAdmin()) {
+            throw new AccessDeniedException("Only admins can delete rooms");
+        }
+
+        var room = roomDao.getRoomById(id);
+
+        room.setDeletedAt(LocalDateTime.now());
+
+        roomDao.save(room);
+    }
 }

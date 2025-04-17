@@ -7,6 +7,7 @@ import com.vgtu.reservation.room.mapper.RoomMapper;
 import com.vgtu.reservation.room.service.RoomService;
 import com.vgtu.reservation.room.type.RoomType;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Used to define endpoints for room
@@ -47,6 +49,14 @@ public class RoomController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @Operation(summary = "Delete a room by ID", description = "Deletes a room from the database by its ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteRoom(
+            @Parameter(description = "ID of the room to delete") @PathVariable UUID id) {
+        roomService.deleteRoomById(id);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Get all rooms", description = "Retrieves all rooms from database")

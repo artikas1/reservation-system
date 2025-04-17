@@ -28,4 +28,7 @@ public class EquipmentDao {
         return equipmentRepository.findById(id).orElseThrow(() -> new EquipmentNotFoundException("Equipment not found"));
     }
 
+    public void save(Equipment equipment) {
+        equipmentRepository.save(equipment);
+    }
 }

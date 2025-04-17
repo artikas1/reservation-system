@@ -7,6 +7,7 @@ import com.vgtu.reservation.equipment.mapper.EquipmentMapper;
 import com.vgtu.reservation.equipment.service.EquipmentService;
 import com.vgtu.reservation.equipment.type.EquipmentType;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import lombok.AllArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Used to define endpoints for equipment
@@ -47,6 +49,14 @@ public class EquipmentController {
         } catch (IOException e) {
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    @Operation(summary = "Delete an equipment", description = "Delete an enquipment from the database by its ID")
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteEquipment(
+            @Parameter(description = "ID of the equipment") @PathVariable UUID id) {
+        equipmentService.deleteEquipmentById(id);
+        return ResponseEntity.ok().build();
     }
 
     @Operation(summary = "Get all equipment", description = "Retrieves all equipment from database")

@@ -28,4 +28,7 @@ public class RoomDao {
         return roomRepository.findById(id).orElseThrow(() -> new RoomNotFoundException("Room not found"));
     }
 
+    public void save(Room room) {
+        roomRepository.save(room);
+    }
 }

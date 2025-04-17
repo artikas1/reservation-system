@@ -10,4 +10,9 @@ import java.util.UUID;
 @Repository
 public interface CarRepository extends JpaRepository<Car, UUID> {
     List<Car> findByIdNotIn(List<UUID> reservedCarIds);
+
+    List<Car> findByDeletedAtIsNull();
+
+    List<Car> findByIdNotInAndDeletedAtIsNull(List<UUID> ids);
+
 }
