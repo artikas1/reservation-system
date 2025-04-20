@@ -2,9 +2,7 @@ package com.vgtu.reservation.auth.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 /**
  * Data Transfer Object (DTO) for handling user login requests.
@@ -14,6 +12,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class LoginRequestDto {
 
     @NotBlank(message = "Email is required")

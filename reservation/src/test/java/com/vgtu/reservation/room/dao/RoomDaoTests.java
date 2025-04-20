@@ -50,7 +50,7 @@ public class RoomDaoTests {
     }
 
     @Test
-    void testGetRoomById_shouldReturnRoom() {
+    void getRoomById_shouldReturnRoom() {
         Room found = roomDao.getRoomById(room.getId());
 
         assertNotNull(found);
@@ -65,7 +65,7 @@ public class RoomDaoTests {
     }
 
     @Test
-    void testGetRoomById_shouldThrowIfNotFound() {
+    void getRoomById_shouldThrowIfNotFound() {
         UUID randomId = UUID.randomUUID();
 
         assertThrows(RoomNotFoundException.class, () -> roomDao.getRoomById(randomId));

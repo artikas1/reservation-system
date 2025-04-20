@@ -53,7 +53,7 @@ public class CarDaoTests {
     }
 
     @Test
-    void testGetCarById_shouldReturnCar() {
+    void getCarById_shouldReturnCar() {
         var foundCar = carDao.getCarById(car.getId());
 
         assertNotNull(foundCar);
@@ -69,7 +69,7 @@ public class CarDaoTests {
     }
 
     @Test
-    void testGetCarById_shouldThrowIfNotFound() {
+    void getCarById_shouldThrowIfNotFound() {
         UUID randomId = UUID.randomUUID();
 
         assertThrows(CarNotFoundException.class, () -> carDao.getCarById(randomId));

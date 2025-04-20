@@ -50,7 +50,7 @@ public class EquipmentDaoTests {
     }
 
     @Test
-    void testGetEquipmentById_shouldReturnEquipment() {
+    void getEquipmentById_shouldReturnEquipment() {
         var foundEquipment = equipmentDao.getEquipmentById(equipment.getId());
 
         assertNotNull(foundEquipment);
@@ -67,7 +67,7 @@ public class EquipmentDaoTests {
     }
 
     @Test
-    void testGetEquipmentById_shouldThrowIfNotNotFound() {
+    void getEquipmentById_shouldThrowIfNotFound() {
         UUID randomId = UUID.randomUUID();
 
         assertThrows(EquipmentNotFoundException.class, () -> equipmentDao.getEquipmentById(randomId));

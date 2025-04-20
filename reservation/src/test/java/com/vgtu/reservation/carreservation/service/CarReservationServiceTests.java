@@ -1,4 +1,4 @@
-package com.vgtu.reservation.carreservation;
+package com.vgtu.reservation.carreservation.service;
 
 import com.vgtu.reservation.auth.service.authentication.AuthenticationService;
 import com.vgtu.reservation.car.entity.Car;
@@ -9,7 +9,6 @@ import com.vgtu.reservation.carreservation.dto.CarReservationResponseDto;
 import com.vgtu.reservation.carreservation.entity.CarReservation;
 import com.vgtu.reservation.carreservation.integrity.CarReservationDataIntegrity;
 import com.vgtu.reservation.carreservation.mapper.CarReservationMapper;
-import com.vgtu.reservation.carreservation.service.CarReservationService;
 import com.vgtu.reservation.common.exception.CarReservationBadRequestException;
 import com.vgtu.reservation.common.type.ReservationStatus;
 import com.vgtu.reservation.user.entity.User;
@@ -30,7 +29,7 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(value = MockitoExtension.class)
-class CarReservationServiceTest {
+class CarReservationServiceTests {
 
     @Mock
     private CarReservationMapper carReservationMapper;
@@ -42,6 +41,8 @@ class CarReservationServiceTest {
     private CarService carService;
     @Mock
     private CarReservationDataIntegrity carReservationDataIntegrity;
+    @Mock
+    private CarDataIntegrity carDataIntegrity;
 
     @InjectMocks
     private CarReservationService carReservationService;
@@ -205,6 +206,40 @@ class CarReservationServiceTest {
 
         assertEquals(2, result.size());
         assertEquals(ReservationStatus.PASIBAIGUSI, expired.getReservationStatus());
+    }
+
+    @Test
+    void findAllActiveUserReservations_shouldReturnDtos() {
+        when(authenticationService.getAuthenticatedUser()).thenReturn(testUser);
+        when(carReservationDao.findAllActiveUserReservations(testUser.getId()))
+                .thenReturn(List.of(testReservation));
+        when(carReservationMapper.toCarResponseDto(testReservation))
+                .thenReturn(CarReservationResponseDto.builder().id(testReservation.getId()).build());
+
+        var result = carReservationService.findAllActiveUserReservations();
+
+        assertEquals(1, result.size());
+        assertEquals(testReservation.getId(), result.get(0).getId());
+    }
+
+    @Test
+    void findReservationsEndingBetween_shouldReturnList() {
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusHours(2);
+        when(carReservationDao.findReservationsEndingBetween(start, end))
+                .thenReturn(List.of(testReservation));
+
+        var result = carReservationService.findReservationsEndingBetween(start, end);
+        assertEquals(1, result.size());
+    }
+
+    @Test
+    void getReservedTimeRangesForCar_shouldExcludeSpecifiedReservationId() {
+        when(carReservationDao.findByCarId(testCar.getId())).thenReturn(List.of(testReservation));
+
+        var result = carReservationService.getReservedTimeRangesForCar(testCar.getId(), testReservation.getId());
+
+        assertEquals(0, result.size());
     }
 
 }

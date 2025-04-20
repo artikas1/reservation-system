@@ -78,7 +78,7 @@ class CarServiceTest {
         when(carReservationRepository.findReservedCarIdsBetween(startTime, endTime))
                 .thenReturn(List.of());
 
-        when(carRepository.findAll())
+        when(carRepository.findByDeletedAtIsNull())
                 .thenReturn(List.of(sedanCar, minivanCar));
 
         List<Car> result = carService.getAvailableCars(startTime, endTime, BodyType.SEDANAS, Address.SAULETEKIO_AL_15);

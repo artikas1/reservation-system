@@ -80,7 +80,7 @@ public class RoomServiceTests {
         when(roomReservationRepository.findReservedRoomIdsBetween(startTime, endTime))
                 .thenReturn(List.of());
 
-        when(roomRepository.findAll())
+        when(roomRepository.findByDeletedAtIsNull())
                 .thenReturn(List.of(room1, room2));
 
         List<Room> result = roomService.getAvailableRooms(startTime, endTime, RoomType.DARBO, Address.SAULETEKIO_AL_15);
@@ -88,6 +88,47 @@ public class RoomServiceTests {
         assertEquals(1, result.size());
         assertEquals(RoomType.DARBO, result.get(0).getRoomType());
         assertEquals(Address.SAULETEKIO_AL_15, result.get(0).getAddress());
+    }
+
+    @Test
+    void getAvailableRooms_shouldReturnAllRooms_whenNoRoomTypeOrAddressFilter() {
+        Room room1 = Room.builder()
+                .id(UUID.randomUUID())
+                .name("Darbo kambarys")
+                .floor("2")
+                .seats("5")
+                .roomType(RoomType.DARBO)
+                .address(Address.SAULETEKIO_AL_15)
+                .build();
+
+        Room room2 = Room.builder()
+                .id(UUID.randomUUID())
+                .name("Susitikimu kambarys")
+                .floor("3")
+                .seats("8")
+                .roomType(RoomType.SUSITIKIMU)
+                .address(Address.SAULETEKIO_AL_15)
+                .build();
+
+        LocalDateTime startTime = LocalDateTime.now();
+        LocalDateTime endTime = startTime.plusHours(3);
+
+        when(roomReservationRepository.findReservedRoomIdsBetween(startTime, endTime)).thenReturn(List.of());
+        when(roomRepository.findByDeletedAtIsNull()).thenReturn(List.of(room1, room2));
+
+        List<Room> result = roomService.getAvailableRooms(startTime, endTime, null, null);
+
+        assertEquals(2, result.size());
+    }
+
+    @Test
+    void getRoom_shouldReturnEmptyList_whenNoRoomsExist() {
+        when(roomRepository.findAll()).thenReturn(List.of());
+
+        List<Room> rooms = roomService.getRoom();
+
+        assertNotNull(rooms);
+        assertEquals(0, rooms.size());
     }
 
 }

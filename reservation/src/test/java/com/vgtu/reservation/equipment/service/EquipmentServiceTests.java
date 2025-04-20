@@ -80,7 +80,7 @@ public class EquipmentServiceTests {
         when(equipmentReservationRepository.findReservedEquipmentIdsBetween(startTime, endTime))
                 .thenReturn(List.of());
 
-        when(equipmentRepository.findAll())
+        when(equipmentRepository.findByDeletedAtIsNull())
                 .thenReturn(List.of(equipment1, equipment2));
 
         List<Equipment> result = equipmentService.getAvailableEquipment(startTime, endTime, EquipmentType.PROJEKTORIUS, Address.SAULETEKIO_AL_15);
