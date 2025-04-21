@@ -36,6 +36,9 @@ public class CarService {
     private final CarMapper carMapper;
     private final AuthenticationService authenticationService;
 
+    private static final double GASOLINE_CO2_EMISSION_FACTOR = 2.31; // kg CO2 per liter
+    private static final double DIESEL_CO2_EMISSION_FACTOR = 2.68;   // kg CO2 per liter
+
     public CarResponseDto createCar(CarRequestDto carRequestDto) {
         carDataIntegrity.validateCarRequest(carRequestDto);
 
@@ -88,16 +91,25 @@ public class CarService {
     public List<CarResponseDto> getAvailableCarDtosWithEcoFlag(LocalDateTime startTime, LocalDateTime endTime, BodyType bodyType, Address address) {
         List<Car> availableCars = getAvailableCars(startTime, endTime, bodyType, address);
 
-        double minConsumption = getMinConsumption(availableCars);
-        return carMapper.toDto(availableCars, minConsumption);
-    }
-
-    private double getMinConsumption(List<Car> cars) {
-        return cars.stream()
-                .filter(car -> car.getAverageFuelConsumption() != null)
-                .mapToDouble(Car::getAverageFuelConsumption)
+        double minEcoImpact = availableCars.stream()
+                .mapToDouble(this::getAdjustedEcoImpact)
                 .min()
                 .orElse(Double.MAX_VALUE);
+
+        return carMapper.toDtoWithEcoFlag(availableCars, minEcoImpact, this::getAdjustedEcoImpact);
+    }
+
+
+    private double getAdjustedEcoImpact(Car car) {
+        if (car.getAverageFuelConsumption() == null || car.getFuel() == null) {
+            return Double.MAX_VALUE;
+        }
+
+        return switch (car.getFuel().toUpperCase()) {
+            case "GASOLINE" -> car.getAverageFuelConsumption() * GASOLINE_CO2_EMISSION_FACTOR;
+            case "DIESEL" -> car.getAverageFuelConsumption() * DIESEL_CO2_EMISSION_FACTOR;
+            default -> Double.MAX_VALUE;
+        };
     }
 
     public CarResponseDto updateCarById(UUID id, CarRequestDto carRequestDto) {

@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.function.Function;
 
 @Component
 public class CarMapper {
@@ -74,12 +75,11 @@ public class CarMapper {
                 .build();
     }
 
-    public List<CarResponseDto> toDto(List<Car> cars, double minEcoValue) {
+    public List<CarResponseDto> toDtoWithEcoFlag(List<Car> cars, double minEcoImpact, Function<Car, Double> ecoImpactFunction) {
         return cars.stream()
                 .map(car -> toResponseDto(
                         car,
-                        car.getAverageFuelConsumption() != null &&
-                                car.getAverageFuelConsumption().equals(minEcoValue)
+                        ecoImpactFunction.apply(car).equals(minEcoImpact)
                 ))
                 .toList();
     }
