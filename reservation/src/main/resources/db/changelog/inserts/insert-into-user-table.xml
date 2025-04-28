@@ -46,9 +46,16 @@
             <!--admin-->
         </insert>
 
+        <insert tableName="user">
+            <column name="id" value="f2db7620-15f9-4c83-ae10-822ca9002a11"/>
+            <column name="first_name" value="Artiom"/>
+            <column name="last_name" value="Plesko"/>
+            <column name="email" value="artiom.plesko@gmail.com"/>
+            <column name="password" value="$2a$10$.R1J/wYoA.J78VzsgaG.J.1lnbc4Y/yF6jd9OHLs8dy0uU39Jgg26"/>
+            <column name="is_admin" valueBoolean="false"/>
+            <!--artiom-->
+        </insert>
 
     </changeSet>
-
-
 
 </databaseChangeLog>

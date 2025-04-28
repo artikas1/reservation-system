@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
 
+/**
+ * Used to define endpoints of the user.
+ */
 @RestController
 @RequestMapping("/user")
 @AllArgsConstructor

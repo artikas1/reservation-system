@@ -14,7 +14,8 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Provides the interface to interact with the database for EquipmentReservation entity
+ * Repository interface for managing EquipmentReservation entity.
+ * Provides standard CRUD operations as well as custom queries.
  */
 @Repository
 public interface EquipmentReservationRepository extends JpaRepository<EquipmentReservation, UUID> {

@@ -27,10 +27,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class CarReservationDaoTests {
 
-    @Mock private UserDataIntegrity userDataIntegrity;
-    @Mock private CarReservationRepository carReservationRepository;
-    @Mock private CarReservationDataIntegrity carReservationDataIntegrity;
-    @Mock private CarDataIntegrity carDataIntegrity;
+    @Mock
+    private UserDataIntegrity userDataIntegrity;
+    @Mock
+    private CarReservationRepository carReservationRepository;
+    @Mock
+    private CarReservationDataIntegrity carReservationDataIntegrity;
+    @Mock
+    private CarDataIntegrity carDataIntegrity;
 
     @InjectMocks
     private CarReservationDao carReservationDao;

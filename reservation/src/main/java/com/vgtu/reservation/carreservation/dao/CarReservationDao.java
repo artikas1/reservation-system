@@ -15,7 +15,9 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * Interacts with the database to fetch data related to a car reservations
+ * Data Access Object (DAO) for the CarReservation entity.
+ * <p>
+ * Provides validated database operations to create, retrieve, update, and delete car reservations.
  */
 @Service
 @AllArgsConstructor

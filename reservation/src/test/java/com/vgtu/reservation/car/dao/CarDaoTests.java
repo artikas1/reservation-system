@@ -41,7 +41,7 @@ public class CarDaoTests {
                 .manufacturerDate("2017-01-01")
                 .engineCapacity("1798")
                 .numberPlate("CCC111")
-                .createdAt(LocalDateTime.of(2017, 6, 1,0,0,0))
+                .createdAt(LocalDateTime.of(2017, 6, 1, 0, 0, 0))
                 .updatedAt(null)
                 .deletedAt(null)
                 .bodyType(BodyType.SEDANAS)

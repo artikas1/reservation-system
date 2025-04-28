@@ -7,6 +7,12 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Spring Data JPA repository for Car entities.
+ * <p>
+ * Provides built-in CRUD operations and custom query methods
+ * for accessing Car records in the database.
+ */
 @Repository
 public interface CarRepository extends JpaRepository<Car, UUID> {
     List<Car> findByIdNotIn(List<UUID> reservedCarIds);

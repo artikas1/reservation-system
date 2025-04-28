@@ -20,7 +20,6 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    //private int typeId;
     private String manufacturer;
     private String model;
     private String vin;
@@ -28,7 +27,6 @@ public class Car {
     private String manufacturerDate;
     private String engineCapacity;
     private String numberPlate;
-    //private int areaId;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     private LocalDateTime deletedAt;

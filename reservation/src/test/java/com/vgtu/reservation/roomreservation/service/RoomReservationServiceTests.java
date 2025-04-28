@@ -27,12 +27,18 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class RoomReservationServiceTests {
 
-    @Mock private RoomDataIntegrity roomDataIntegrity;
-    @Mock private RoomReservationMapper roomReservationMapper;
-    @Mock private AuthenticationService authenticationService;
-    @Mock private RoomReservationDao roomReservationDao;
-    @Mock private RoomService roomService;
-    @Mock private RoomReservationDataIntegrity roomReservationDataIntegrity;
+    @Mock
+    private RoomDataIntegrity roomDataIntegrity;
+    @Mock
+    private RoomReservationMapper roomReservationMapper;
+    @Mock
+    private AuthenticationService authenticationService;
+    @Mock
+    private RoomReservationDao roomReservationDao;
+    @Mock
+    private RoomService roomService;
+    @Mock
+    private RoomReservationDataIntegrity roomReservationDataIntegrity;
 
     @InjectMocks
     private RoomReservationService roomReservationService;
@@ -77,10 +83,10 @@ class RoomReservationServiceTests {
     }
 
     @Test
-    void updateRoomReservation_shouldUpdateSuccessfully() {
+    void updateRoomReservation_shouldUpdateTimesAndReturnDto() {
         UUID id = testReservation.getId();
         LocalDateTime newFrom = LocalDateTime.now().plusDays(3);
-        LocalDateTime newTo = newFrom.plusHours(2);
+        LocalDateTime newTo = newFrom.plusHours(4);
 
         when(roomReservationDao.findReservationByRoomReservationId(id)).thenReturn(testReservation);
         when(authenticationService.getAuthenticatedUser()).thenReturn(testUser);
@@ -125,6 +131,20 @@ class RoomReservationServiceTests {
         assertEquals(ReservationStatus.ATŠAUKTA, testReservation.getReservationStatus());
         assertNotNull(testReservation.getDeletedAt());
         verify(roomReservationDao).save(testReservation);
+    }
+
+    @Test
+    void findAllUserReservations_withStatusFilter_shouldReturnFilteredList() {
+        when(authenticationService.getAuthenticatedUser()).thenReturn(testUser);
+        when(roomReservationDao.findUserReservationsByFilters(eq(testUser.getId()), eq(ReservationStatus.PASIBAIGUSI), any(), any()))
+                .thenReturn(List.of(testReservation));
+
+        when(roomReservationMapper.toRoomResponseDto(any()))
+                .thenReturn(RoomReservationResponseDto.builder().id(testReservation.getId()).build());
+
+        var result = roomReservationService.findAllUserReservations(ReservationStatus.PASIBAIGUSI, null, null);
+
+        assertEquals(1, result.size());
     }
 
     @Test

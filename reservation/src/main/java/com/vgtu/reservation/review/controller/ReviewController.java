@@ -14,6 +14,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Used to define endpoints of the reviews.
+ */
 @RequestMapping("/review")
 @RestController
 @AllArgsConstructor

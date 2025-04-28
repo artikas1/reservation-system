@@ -44,89 +44,73 @@ class CarReservationDataIntegrityTests {
 
     @Test
     void validateId_shouldThrow_whenIdIsNull() {
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateId(null));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateId(null));
     }
 
     @Test
     void validateTimeRange_shouldThrow_whenStartTimeIsNull() {
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateTimeRange(null, future));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateTimeRange(null, future));
     }
 
     @Test
     void validateTimeRange_shouldThrow_whenEndTimeIsNull() {
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateTimeRange(now, null));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateTimeRange(now, null));
     }
 
     @Test
     void validateTimeRange_shouldThrow_whenStartIsAfterEnd() {
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateTimeRange(future, now));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateTimeRange(future, now));
     }
 
     @Test
     void validateTimeRange_shouldThrow_whenStartIsInThePast() {
         LocalDateTime past = LocalDateTime.now().minusHours(1);
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateTimeRange(past, future));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateTimeRange(past, future));
     }
 
     @Test
     void validateTimeRange_shouldPass_whenValidTimeRangeProvided() {
-        assertDoesNotThrow(() ->
-                carReservationDataIntegrity.validateTimeRange(now, future));
+        assertDoesNotThrow(() -> carReservationDataIntegrity.validateTimeRange(now, future));
     }
 
     @Test
     void checkForConflictingReservations_shouldThrow_whenConflictsExist() {
-        when(carReservationRepository.findConflictingReservations(car.getId(), now, future))
-                .thenReturn(List.of(new CarReservation()));
+        when(carReservationRepository.findConflictingReservations(car.getId(), now, future)).thenReturn(List.of(new CarReservation()));
 
-        assertThrows(CarConflictException.class, () ->
-                carReservationDataIntegrity.checkForConflictingReservations(car, now, future));
+        assertThrows(CarConflictException.class, () -> carReservationDataIntegrity.checkForConflictingReservations(car, now, future));
     }
 
     @Test
     void checkForConflictingReservations_shouldPass_whenNoConflictsExist() {
-        when(carReservationRepository.findConflictingReservations(car.getId(), now, future))
-                .thenReturn(Collections.emptyList());
+        when(carReservationRepository.findConflictingReservations(car.getId(), now, future)).thenReturn(Collections.emptyList());
 
-        assertDoesNotThrow(() ->
-                carReservationDataIntegrity.checkForConflictingReservations(car, now, future));
+        assertDoesNotThrow(() -> carReservationDataIntegrity.checkForConflictingReservations(car, now, future));
     }
 
     @Test
     void checkForConflictingReservationsExceptSelf_shouldThrow_whenConflictsExist() {
         UUID reservationId = UUID.randomUUID();
-        when(carReservationRepository.findConflictingReservationsExceptSelf(car.getId(), now, future, reservationId))
-                .thenReturn(List.of(new CarReservation()));
+        when(carReservationRepository.findConflictingReservationsExceptSelf(car.getId(), now, future, reservationId)).thenReturn(List.of(new CarReservation()));
 
-        assertThrows(CarConflictException.class, () ->
-                carReservationDataIntegrity.checkForConflictingReservationsExceptSelf(car, now, future, reservationId));
+        assertThrows(CarConflictException.class, () -> carReservationDataIntegrity.checkForConflictingReservationsExceptSelf(car, now, future, reservationId));
     }
 
     @Test
     void checkForConflictingReservationsExceptSelf_shouldPass_whenNoConflictsExist() {
         UUID reservationId = UUID.randomUUID();
-        when(carReservationRepository.findConflictingReservationsExceptSelf(car.getId(), now, future, reservationId))
-                .thenReturn(Collections.emptyList());
+        when(carReservationRepository.findConflictingReservationsExceptSelf(car.getId(), now, future, reservationId)).thenReturn(Collections.emptyList());
 
-        assertDoesNotThrow(() ->
-                carReservationDataIntegrity.checkForConflictingReservationsExceptSelf(car, now, future, reservationId));
+        assertDoesNotThrow(() -> carReservationDataIntegrity.checkForConflictingReservationsExceptSelf(car, now, future, reservationId));
     }
 
     @Test
     void validateCarReservation_shouldThrow_whenReservationIsNull() {
-        assertThrows(CarReservationBadRequestException.class, () ->
-                carReservationDataIntegrity.validateCarReservation(null));
+        assertThrows(CarReservationBadRequestException.class, () -> carReservationDataIntegrity.validateCarReservation(null));
     }
 
     @Test
     void validateCarReservation_shouldPass_whenReservationIsValid() {
         CarReservation reservation = CarReservation.builder().id(UUID.randomUUID()).build();
-        assertDoesNotThrow(() ->
-                carReservationDataIntegrity.validateCarReservation(reservation));
+        assertDoesNotThrow(() -> carReservationDataIntegrity.validateCarReservation(reservation));
     }
 }

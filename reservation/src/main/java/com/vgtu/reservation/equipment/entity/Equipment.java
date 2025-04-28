@@ -20,8 +20,6 @@ public class Equipment {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    //private int typeId;
-    //private int areaId;
     private String name;
     private String manufacturer;
     private String model;

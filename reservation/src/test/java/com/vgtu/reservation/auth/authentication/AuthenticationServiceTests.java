@@ -34,11 +34,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class AuthenticationServiceTests {
 
-    @Mock private UserDao userDao;
-    @Mock private AuthenticationMapper authenticationMapper;
+    @Mock
+    private UserDao userDao;
+    @Mock
+    private AuthenticationMapper authenticationMapper;
     @Mock
     private AuthenticationManager authenticationManager;
-    @Mock private JwtService jwtService;
+    @Mock
+    private JwtService jwtService;
 
     @InjectMocks
     private AuthenticationService authenticationService;

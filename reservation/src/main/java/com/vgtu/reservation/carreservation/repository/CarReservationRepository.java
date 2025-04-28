@@ -14,7 +14,8 @@ import java.util.UUID;
 import java.util.List;
 
 /**
- * Provides the interface to interact with the database for CarReservation entity
+ * Repository interface for managing CarReservation entity.
+ * Provides standard CRUD operations as well as custom queries.
  */
 @Repository
 public interface CarReservationRepository extends JpaRepository<CarReservation, UUID> {

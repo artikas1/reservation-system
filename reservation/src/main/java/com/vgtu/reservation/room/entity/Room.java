@@ -20,8 +20,6 @@ public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-    //typeId
-    //areaId
     private String name;
     private String floor;
     private String roomNumber;

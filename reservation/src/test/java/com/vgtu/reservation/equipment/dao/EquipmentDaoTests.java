@@ -39,7 +39,7 @@ public class EquipmentDaoTests {
                 .model("Legion")
                 .code("LL54321")
                 .description("Super fast laptop")
-                .createdAt(LocalDateTime.of(2020, 6, 1,0,0,0))
+                .createdAt(LocalDateTime.of(2020, 6, 1, 0, 0, 0))
                 .updatedAt(null)
                 .deletedAt(null)
                 .equipmentType(EquipmentType.NESIOJAMAS_KOMPIUTERIS)
@@ -60,7 +60,7 @@ public class EquipmentDaoTests {
         assertEquals("Legion", foundEquipment.getModel());
         assertEquals("LL54321", foundEquipment.getCode());
         assertEquals("Super fast laptop", foundEquipment.getDescription());
-        assertEquals(LocalDateTime.of(2020, 6, 1,0,0,0), foundEquipment.getCreatedAt());
+        assertEquals(LocalDateTime.of(2020, 6, 1, 0, 0, 0), foundEquipment.getCreatedAt());
         assertEquals(EquipmentType.NESIOJAMAS_KOMPIUTERIS, foundEquipment.getEquipmentType());
         assertEquals(Address.NERIES_G_3, foundEquipment.getAddress());
 

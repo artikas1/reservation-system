@@ -28,14 +28,21 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 class EquipmentReservationServiceTests {
 
-    @Mock private EquipmentDataIntegrity equipmentDataIntegrity;
-    @Mock private EquipmentReservationMapper equipmentReservationMapper;
-    @Mock private AuthenticationService authenticationService;
-    @Mock private EquipmentReservationDao equipmentReservationDao;
-    @Mock private EquipmentReservationDataIntegrity equipmentReservationDataIntegrity;
-    @Mock private EquipmentService equipmentService;
+    @Mock
+    private EquipmentDataIntegrity equipmentDataIntegrity;
+    @Mock
+    private EquipmentReservationMapper equipmentReservationMapper;
+    @Mock
+    private AuthenticationService authenticationService;
+    @Mock
+    private EquipmentReservationDao equipmentReservationDao;
+    @Mock
+    private EquipmentReservationDataIntegrity equipmentReservationDataIntegrity;
+    @Mock
+    private EquipmentService equipmentService;
 
-    @InjectMocks private EquipmentReservationService equipmentReservationService;
+    @InjectMocks
+    private EquipmentReservationService equipmentReservationService;
 
     private User testUser;
     private Equipment testEquipment;
@@ -93,10 +100,10 @@ class EquipmentReservationServiceTests {
     }
 
     @Test
-    void updateReservation_shouldUpdateTimesCorrectly() {
-        LocalDateTime newStart = LocalDateTime.now().plusDays(3);
-        LocalDateTime newEnd = newStart.plusHours(3);
+    void updateEquipmentReservation_shouldUpdateTimesAndReturnDto() {
         UUID reservationId = testReservation.getId();
+        LocalDateTime newStart = LocalDateTime.now().plusDays(3);
+        LocalDateTime newEnd = newStart.plusHours(4);
 
         when(authenticationService.getAuthenticatedUser()).thenReturn(testUser);
         when(equipmentReservationDao.findReservationByEquipmentReservationId(reservationId)).thenReturn(testReservation);
@@ -191,7 +198,6 @@ class EquipmentReservationServiceTests {
 
         assertEquals(0, result.size());
     }
-
 
 
 }

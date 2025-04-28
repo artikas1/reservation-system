@@ -26,7 +26,8 @@ public class EquipmentServiceTests {
     @Mock
     private EquipmentRepository equipmentRepository;
 
-    @Mock private EquipmentReservationRepository equipmentReservationRepository;
+    @Mock
+    private EquipmentReservationRepository equipmentReservationRepository;
 
     @InjectMocks
     private EquipmentService equipmentService;

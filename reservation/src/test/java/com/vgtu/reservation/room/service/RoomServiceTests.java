@@ -26,7 +26,8 @@ public class RoomServiceTests {
     @Mock
     private RoomRepository roomRepository;
 
-    @Mock private RoomReservationRepository roomReservationRepository;
+    @Mock
+    private RoomReservationRepository roomReservationRepository;
 
     @InjectMocks
     private RoomService roomService;
