@@ -121,4 +121,8 @@ public class EquipmentService {
 
         return equipmentMapper.toResponseDto(equipmentDao.createEquipment(equipment));
     }
+
+    public long countAllEquipment() {
+        return equipmentRepository.count();
+    }
 }

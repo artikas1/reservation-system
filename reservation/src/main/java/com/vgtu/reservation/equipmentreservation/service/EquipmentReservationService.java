@@ -122,4 +122,8 @@ public class EquipmentReservationService {
                 .map(equipmentReservationMapper::toTimeRangeDto)
                 .collect(Collectors.toList());
     }
+
+    public long countAllReservations() {
+        return equipmentReservationDao.countAll();
+    }
 }

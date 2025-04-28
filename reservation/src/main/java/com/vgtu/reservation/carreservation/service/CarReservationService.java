@@ -128,4 +128,8 @@ public class CarReservationService {
                 .collect(Collectors.toList());
     }
 
+    public long countAllReservations() {
+        return carReservationDao.countAll();
+    }
+
 }

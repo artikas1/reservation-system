@@ -152,4 +152,7 @@ public class CarService {
         carDao.save(car);
     }
 
+    public long countAllCars() {
+        return carRepository.count();
+    }
 }

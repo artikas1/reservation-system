@@ -70,4 +70,8 @@ public class EquipmentReservationDao {
 
         return equipmentReservationRepository.findByEquipmentIdAndDeletedAtIsNull(equipmentId);
     }
+
+    public long countAll() {
+        return equipmentReservationRepository.count();
+    }
 }

@@ -123,4 +123,9 @@ public class RoomReservationService {
                 .map(roomReservationMapper::toTimeRangeDto)
                 .collect(Collectors.toList());
     }
+
+    public long countAllReservations() {
+        return roomReservationDao.countAll();
+    }
+
 }

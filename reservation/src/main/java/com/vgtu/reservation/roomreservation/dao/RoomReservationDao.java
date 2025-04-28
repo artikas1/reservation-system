@@ -71,4 +71,8 @@ public class RoomReservationDao {
 
         return roomReservationRepository.findByRoomIdAndDeletedAtIsNull(roomId);
     }
+
+    public long countAll() {
+        return roomReservationRepository.count();
+    }
 }

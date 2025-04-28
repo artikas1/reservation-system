@@ -122,4 +122,8 @@ public class RoomService {
         roomDao.save(room);
     }
 
+    public long countAllRooms() {
+        return roomRepository.count();
+    }
+
 }

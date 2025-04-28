@@ -77,4 +77,9 @@ public class CarReservationDao {
 
         return carReservationRepository.findByCarIdAndDeletedAtIsNull(carId);
     }
+
+    public long countAll() {
+        return carReservationRepository.count();
+    }
+
 }
