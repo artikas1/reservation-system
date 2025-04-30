@@ -14,6 +14,7 @@ import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -132,4 +133,22 @@ public class CarReservationService {
         return carReservationDao.countAll();
     }
 
+    public Long calculateReservationHoursForResource(UUID resourceId, int year, int month) {
+
+        LocalDateTime startOfMonth = LocalDateTime.of(year, month, 1, 0, 0);
+        LocalDateTime endOfMonth = startOfMonth.plusMonths(1).minusSeconds(1);
+
+        List<CarReservation> reservations = carReservationDao
+                .findByCarIdAndTimeRange(resourceId, startOfMonth, endOfMonth);
+
+        long totalMinutes = 0;
+        for (CarReservation reservation : reservations) {
+            long minutes = Duration.between(reservation.getReservedFrom(), reservation.getReservedTo()).toMinutes();
+            totalMinutes += minutes;
+        }
+
+        totalMinutes/= 60;
+
+        return totalMinutes;
+    }
 }

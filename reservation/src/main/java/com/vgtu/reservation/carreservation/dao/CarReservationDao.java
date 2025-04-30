@@ -82,4 +82,7 @@ public class CarReservationDao {
         return carReservationRepository.count();
     }
 
+    public List<CarReservation> findByCarIdAndTimeRange(UUID carId, LocalDateTime startOfMonth, LocalDateTime endOfMonth) {
+        return carReservationRepository.findByCarIdAndTimeRange(carId, startOfMonth, endOfMonth);
+    }
 }

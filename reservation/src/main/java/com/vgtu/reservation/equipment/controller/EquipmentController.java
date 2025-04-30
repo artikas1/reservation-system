@@ -98,4 +98,15 @@ public class EquipmentController {
 
         return ResponseEntity.ok(result);
     }
+
+    @Operation(summary = "Get equipment by ID", description = "Returns a single equipment from the database by its ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<EquipmentResponseDto> getEquipmentById(
+            @Parameter(description = "ID of the equipment to retrieve") @PathVariable UUID id) {
+
+        var equipment = equipmentService.getEquipmentById(id);
+        var response = equipmentMapper.toResponseDto(equipment);
+
+        return ResponseEntity.ok(response);
+    }
 }

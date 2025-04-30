@@ -10,7 +10,7 @@
             <column name="equipment_id" value="eee38ce8-aa22-45e0-94e1-d0804500da13"/>
             <column name="user_id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
             <column name="reserved_from" value="2025-08-01"/>
-            <column name="reserved_to" value="2025-8-02"/>
+            <column name="reserved_to" value="2025-8-03"/>
             <column name="created_at" value="2025-01-01"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>

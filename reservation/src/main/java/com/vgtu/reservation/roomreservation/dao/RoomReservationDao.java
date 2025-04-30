@@ -75,4 +75,8 @@ public class RoomReservationDao {
     public long countAll() {
         return roomReservationRepository.count();
     }
+
+    public List<RoomReservation> findByRoomIdAndTimeRange(UUID roomId, LocalDateTime startOfMonth, LocalDateTime endOfMonth) {
+        return roomReservationRepository.findByRoomIdAndTimeRange(roomId, startOfMonth, endOfMonth);
+    }
 }

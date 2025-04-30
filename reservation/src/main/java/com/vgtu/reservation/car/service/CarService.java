@@ -155,4 +155,8 @@ public class CarService {
     public long countAllCars() {
         return carRepository.count();
     }
+
+    public boolean existsById(UUID id) {
+        return carRepository.existsById(id);
+    }
 }

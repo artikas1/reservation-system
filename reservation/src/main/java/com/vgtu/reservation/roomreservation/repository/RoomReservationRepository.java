@@ -91,4 +91,16 @@ public interface RoomReservationRepository extends JpaRepository<RoomReservation
             @Param("start") LocalDateTime start,
             @Param("end") LocalDateTime end
     );
+
+    @Query("""
+                SELECT r FROM RoomReservation r
+                WHERE r.room.id = :roomId
+                  AND r.reservedFrom >= :start
+                  AND r.reservedTo <= :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<RoomReservation> findByRoomIdAndTimeRange(@Param("roomId") UUID roomId,
+                                                   @Param("start") LocalDateTime start,
+                                                   @Param("end") LocalDateTime end);
+
 }

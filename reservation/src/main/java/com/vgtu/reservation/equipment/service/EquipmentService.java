@@ -125,4 +125,8 @@ public class EquipmentService {
     public long countAllEquipment() {
         return equipmentRepository.count();
     }
+
+    public boolean existsById(UUID id) {
+        return equipmentRepository.existsById(id);
+    }
 }

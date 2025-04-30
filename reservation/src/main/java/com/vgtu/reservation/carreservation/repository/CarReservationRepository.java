@@ -105,4 +105,17 @@ public interface CarReservationRepository extends JpaRepository<CarReservation, 
             @Param("end") LocalDateTime end
     );
 
+    @Query("""
+                SELECT r FROM CarReservation r
+                WHERE r.car.id = :carId
+                  AND r.reservedFrom >= :start
+                  AND r.reservedTo <= :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<CarReservation> findByCarIdAndTimeRange(
+            @Param("carId") UUID carId,
+            @Param("start") LocalDateTime start,
+            @Param("end") LocalDateTime end
+    );
+
 }

@@ -93,4 +93,15 @@ public interface EquipmentReservationRepository extends JpaRepository<EquipmentR
             @Param("reservationId") UUID reservationId
     );
 
+    @Query("""
+                SELECT r FROM EquipmentReservation r
+                WHERE r.equipment.id = :equipmentId
+                  AND r.reservedFrom >= :start
+                  AND r.reservedTo <= :end
+                  AND r.deletedAt IS NULL
+            """)
+    List<EquipmentReservation> findByEquipmentIdAndTimeRange(@Param("equipmentId") UUID equipmentId,
+                                                             @Param("start") LocalDateTime start,
+                                                             @Param("end") LocalDateTime end);
+
 }

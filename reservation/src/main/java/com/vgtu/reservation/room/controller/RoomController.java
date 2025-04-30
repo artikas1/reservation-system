@@ -99,4 +99,16 @@ public class RoomController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Get room by ID", description = "Returns a single room from the database by its ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<RoomResponseDto> getRoomById(
+            @Parameter(description = "ID of the room to retrieve") @PathVariable UUID id) {
+
+        var room = roomService.getRoomById(id);
+        var response = roomMapper.toResponseDto(room);
+
+        return ResponseEntity.ok(response);
+    }
+
+
 }

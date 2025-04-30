@@ -126,4 +126,7 @@ public class RoomService {
         return roomRepository.count();
     }
 
+    public boolean existsById(UUID id) {
+        return roomRepository.existsById(id);
+    }
 }

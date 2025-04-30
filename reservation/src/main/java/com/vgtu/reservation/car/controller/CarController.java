@@ -117,4 +117,15 @@ public class CarController {
         return ResponseEntity.ok(result);
     }
 
+    @Operation(summary = "Get car by ID", description = "Returns a single car from the database by its ID")
+    @GetMapping("/{id}")
+    public ResponseEntity<CarResponseDto> getCarById(
+            @Parameter(description = "ID of the car to retrieve") @PathVariable UUID id) {
+
+        var car = carService.getCarById(id);
+        var response = carMapper.toResponseDto(car);
+
+        return ResponseEntity.ok(response);
+    }
+
 }

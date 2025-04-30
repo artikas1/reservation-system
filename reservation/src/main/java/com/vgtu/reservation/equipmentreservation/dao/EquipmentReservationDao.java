@@ -74,4 +74,8 @@ public class EquipmentReservationDao {
     public long countAll() {
         return equipmentReservationRepository.count();
     }
+
+    public List<EquipmentReservation> findByEquipmentIdAndTimeRange(UUID equipmentId, LocalDateTime startOfMonth, LocalDateTime endOfMonth) {
+        return equipmentReservationRepository.findByEquipmentIdAndTimeRange(equipmentId, startOfMonth, endOfMonth);
+    }
 }
