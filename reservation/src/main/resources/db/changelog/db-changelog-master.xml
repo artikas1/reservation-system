@@ -14,6 +14,7 @@
     <include file ="changes/create-room-reservation-table.xml" relativeToChangelogFile="true"/>
 
     <include file ="changes/create-review-table.xml" relativeToChangelogFile="true"/>
+    <include file ="changes/create-report-table.xml" relativeToChangelogFile="true"/>
 
     <include file ="inserts/insert-into-user-table.xml" relativeToChangelogFile="true"/>
     <include file ="inserts/insert-into-car-table.xml" relativeToChangelogFile="true"/>
@@ -25,5 +26,6 @@
     <include file="inserts/insert-into-room-reservation-table.xml" relativeToChangelogFile="true"/>
 
     <include file="inserts/insert-into-review-table.xml" relativeToChangelogFile="true"/>
+    <include file="inserts/insert-into-report-table.xml" relativeToChangelogFile="true"/>
 
 </databaseChangeLog>

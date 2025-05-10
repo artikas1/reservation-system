@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+
+    <changeSet id="9" author="Artiom">
+        <insert tableName="report">
+            <column name="id" value="112e338e-749f-42da-81ea-f4deace8c9bc"/>
+            <column name="content" value="Room lock is broken"/>
+            <column name="reported_entity_id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
+            <column name="entity_type" value="ROOM"/>
+            <column name="report_status" value="PENDING"/>
+            <column name="created_at" value="2025-02-15T11:30:00"/>
+            <column name="user_id" value="f2db7620-15f9-4c83-ae10-822ca9002a11"/>
+        </insert>
+    </changeSet>
+
+
+</databaseChangeLog>
