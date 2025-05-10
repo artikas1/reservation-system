@@ -8,10 +8,22 @@
         <insert tableName="room_reservation">
             <column name="id" value="32f6af82-dbe7-49fb-93aa-9e60ca948450"/>
             <column name="room_id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
-            <column name="user_id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
+            <column name="user_id" value="f2db7620-15f9-4c83-ae10-822ca9002a11"/>
             <column name="reserved_from" value="2025-07-06"/>
             <column name="reserved_to" value="2025-07-07"/>
-            <column name="created_at" value="2025-01-01"/>
+            <column name="created_at" value="2025-02-01"/>
+            <column name="updated_at" valueComputed="NULL"/>
+            <column name="deleted_at" valueComputed="NULL"/>
+            <column name="reservation_status" value="AKTYVI"/>
+        </insert>
+
+        <insert tableName="room_reservation">
+            <column name="id" value="e7e68f61-219e-4f5b-8f60-4fd3b6ab2aea"/>
+            <column name="room_id" value="ebf5594f-c918-4e7a-a775-68fedfa42536"/>
+            <column name="user_id" value="f2db7620-15f9-4c83-ae10-822ca9002a11"/>
+            <column name="reserved_from" value="2025-04-05"/>
+            <column name="reserved_to" value="2025-04-06"/>
+            <column name="created_at" value="2025-01-03"/>
             <column name="updated_at" valueComputed="NULL"/>
             <column name="deleted_at" valueComputed="NULL"/>
             <column name="reservation_status" value="AKTYVI"/>

@@ -8,7 +8,7 @@
         <insert tableName="car_reservation">
             <column name="id" value="ec496304-da03-4b00-8229-f22e2834feda"/>
             <column name="car_id" value="5f6356d5-67d1-439a-9b20-0d3dd3cc8fa7"/>
-            <column name="user_id" value="35b7d33b-7e29-4709-b2ce-e58073fb4cbb"/>
+            <column name="user_id" value="f2db7620-15f9-4c83-ae10-822ca9002a11"/>
             <column name="reserved_from" value="2025-09-01"/>
             <column name="reserved_to" value="2025-09-04"/>
             <column name="created_at" value="2025-01-01"/>

@@ -38,12 +38,12 @@
 
         <insert tableName="user">
             <column name="id" value="cd77fe03-bbe8-4867-9b2b-5662d20f8797"/>
-            <column name="first_name" value="admin1"/>
-            <column name="last_name" value="admin2"/>
+            <column name="first_name" value="Adminas"/>
+            <column name="last_name" value="Adminauskas"/>
             <column name="email" value="admin@gmail.com"/>
-            <column name="password" value="$2a$10$JSxbKWDs4tb6ly2MQs7ReuCl0sMjCaTCiKU/oNS.O6UwxKqz9t07K"/>
+            <column name="password" value="$2a$10$diUW4B/nyYmnCAilpAWP1e.UDxj9EJ.RhrwGdlryyB2l31.rwGD7O"/>
             <column name="is_admin" valueBoolean="true"/>
-            <!--admin-->
+            <!--admin123?-->
         </insert>
 
         <insert tableName="user">
