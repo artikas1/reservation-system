@@ -64,6 +64,7 @@ public class CarService {
     }
 
     public List<Car> getAvailableCars(LocalDateTime startTime, LocalDateTime endTime, BodyType bodyType, Address address) {
+        carDataIntegrity.validateTimeRange(startTime, endTime);
         List<UUID> reservedCarIds = carReservationRepository.findReservedCarIdsBetween(startTime, endTime);
         List<Car> cars;
 

@@ -5,6 +5,7 @@ import com.vgtu.reservation.car.entity.Car;
 import com.vgtu.reservation.common.exception.CarBadRequestException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Service
@@ -65,6 +66,15 @@ public class CarDataIntegrity {
     public void validateCar(Car car) {
         if (car == null) {
             throw new CarBadRequestException(CAR_CANNOT_BE_NULL);
+        }
+    }
+
+    public void validateTimeRange(LocalDateTime startTime, LocalDateTime endTime) {
+        if (startTime == null || endTime == null) {
+            throw new CarBadRequestException("Start time and end time cannot be null");
+        }
+        if (startTime.isAfter(endTime)) {
+            throw new CarBadRequestException("Start time must be before end time");
         }
     }
 }
