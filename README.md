@@ -1,6 +1,11 @@
 # Work Tools Booking System – Backend
 
-This is a simple reservation platform for booking work equipment, cars and rooms.
+This is the backend part of the reservation system for booking work equipment, cars and rooms.
+
+## Frontend
+
+The frontend client for this project is available here:
+https://github.com/artikas1/reservation-system-fe
 
 ## Features
 
@@ -22,4 +27,4 @@ This is a simple reservation platform for booking work equipment, cars and rooms
 - Spring Mail
 - PostgreSQL
 - Liquibase
-- Swagger (OpenAPI)
+- Swagger
